@@ -26,9 +26,13 @@ Cost of living is going up and it makes it harder to travel. Most of the time, p
     User Profile
 
 # WIRE FRAME 
+<<<<<<< HEAD
 ![LOGO1](./public/images/wire_frame.png)
 ![LOGO2](./public/images/wire_frame2.png)
 
+=======
+![WIREFRAME](./public/images/wire_frame.png)
+>>>>>>> 496dfb43e2af789dda507960cf2de51c276d9740
 
 ## Future Developments 
 1. Implenment the upsplash API to show others vacation pitures 
