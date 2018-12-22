@@ -1,5 +1,5 @@
 # Safe Travels 
-###An application that helps you budget for your next trip.
+### An application that helps you budget for your next trip.
 
 ## INSERT SCREEN SHOT
 
