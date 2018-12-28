@@ -1,7 +1,7 @@
 # Safe Travels 
 ### An application that helps you budget for your next trip.
 
-![LOGO](./client/public/images/safe_travels_logo.png)
+![LOGO](./client/public/safe_travels_logo.png)
 
 ## App value 
 In a world where rent is higher than ever and gas prices are on a steady uptick, it can be hard to imagine going on a trip, much less a trip with extra funds to explore and take it all in. With Safe Travels you can see the average cost of travel to different countries across the globe and decide if the destination is right for you. You then, can create a budget/plan to save enough money to make you adventure dreams, a reality.
@@ -26,8 +26,8 @@ Cost of living is going up and it makes it harder to travel. Most of the time, p
     User Profile
 
 # WIRE FRAME 
-![WIREFRAME](./client/public/images/wire_frame.png)
-![WIREFRAME2](./client/public/images/wire_frame2.png)
+![WIREFRAME](./client/public/wire_frame.png)
+![WIREFRAME2](./client/public/wire_frame2.png)
 
 ## Future Developments 
 1. Implenment the upsplash API to show others vacation pitures 
