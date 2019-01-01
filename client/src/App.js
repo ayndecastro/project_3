@@ -3,9 +3,10 @@ import logo from "./logo.svg";
 import Map from "./components/Map/Map";
 import NavBar from "./components/NavBar/NavBar";
 import "./App.css";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+import { MuiThemeProvider, createMuiTheme, Drawer } from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { hidden } from "ansi-colors";
 
 const theme = createMuiTheme({
   palette: {
@@ -21,12 +22,13 @@ const theme = createMuiTheme({
       dark: "#c8a600",
       contrastText: "#000000"
     },
+    type: 'dark',
     root: {
       flexGrow: 1
     },
     paper: {
       height: 140,
-      width: 100
+      width: 99,
     }
   }
 });
@@ -34,7 +36,7 @@ const theme = createMuiTheme({
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme} className='mainContainer'>
         <div className="App">
           <Grid container spacing={24}>
             <Grid item xs={12}>
@@ -44,7 +46,8 @@ class App extends Component {
             </Grid>
             <Grid item xs={12}>
               <Paper className={theme.paper}>
-                <Map justify="center" />
+                <Map justify="center" theme={theme} />
+                <Drawer />
               </Paper>
             </Grid>
           </Grid>
