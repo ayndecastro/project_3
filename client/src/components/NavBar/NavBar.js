@@ -1,108 +1,73 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import { withStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
 import MenuIcon from '@material-ui/icons/Menu';
+import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import { hidden } from 'ansi-colors';
+import './Navbar.css'
 
 const styles = theme => ({
-  root: {
-    width: '100%',
+  paper: {
+    paddingBottom: 50,
   },
-  grow: {
-    flexGrow: 1,
+  list: {
+    marginBottom: theme.spacing.unit * 2,
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
+  subHeader: {
+    backgroundColor: theme.palette.background.paper,
   },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+  appBar: {
+    top: 'auto',
+    bottom: 0,
   },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit,
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    width: theme.spacing.unit * 9,
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
+  toolbar: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
-  inputRoot: {
-    color: 'inherit',
-    width: '100%',
-  },
-  inputInput: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: 120,
-      '&:focus': {
-        width: 200,
-      },
-    },
+  fabButton: {
+    position: 'absolute',
+    zIndex: 1,
+    top: -30,
+    left: 0,
+    right: 0,
+    margin: '0 auto',
   },
 });
 
-function SearchAppBar(props) {
+function BottomAppBar(props) {
   const { classes } = props;
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+    <React.Fragment className='mainContainer    '>
+      <AppBar position="fixed" color="primary" className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
+          <IconButton color="inherit" aria-label="Open drawer">
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-            SafeTravels
-          </Typography>
-          <div className={classes.grow} />
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
+          <Fab color="secondary" aria-label="Add" className={classes.fabButton}>
+            <AddIcon />
+          </Fab>
+          <div>
+            <IconButton color="inherit">
               <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
+            </IconButton>
+            <IconButton color="inherit">
+              <MoreIcon />
+            </IconButton>
           </div>
         </Toolbar>
       </AppBar>
-    </div>
+    </React.Fragment>
   );
 }
 
-SearchAppBar.propTypes = {
+BottomAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SearchAppBar);
+export default withStyles(styles)(BottomAppBar);

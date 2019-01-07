@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { VectorMap } from "react-jvectormap"
+import { VectorMap } from "react-jvectormap";
+import './Map.css'
 
 class Map extends Component {
 
@@ -17,13 +18,13 @@ class Map extends Component {
     zoomOnScroll={false}
     containerStyle={{
       width: "100%",
-      height: "80vh"
+      height: "85vh"
     }}
     onRegionClick={this.handleClick}
     containerClassName="map"
       regionStyle={{
         initial: {
-          fill: "#ffd740",
+          fill: "#FBC02D",
           "fill-opacity": 1,
           stroke: "none",
           "stroke-width": 1,
