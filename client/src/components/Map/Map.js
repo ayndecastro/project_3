@@ -1,24 +1,35 @@
 import React, { Component } from 'react';
 import { VectorMap } from "react-jvectormap";
 import './Map.css'
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  
+}
 
 class Map extends Component {
 
+    constructor(props) {
+      super(props)
+      
+      
+    }
     handleClick(e, code) {
         alert(code)
 
     }
+    
 
     render () {
   return (
-    <div className="map">
+    <div style={styles} onClick={this.props.mapClicked}>
     <VectorMap
     map={"world_mill"}
     backgroundColor="#232F34"
     zoomOnScroll={false}
     containerStyle={{
       width: "100%",
-      height: "85vh"
+      height: "100vh"
     }}
     onRegionClick={this.handleClick}
     containerClassName="map"
@@ -57,4 +68,4 @@ class Map extends Component {
     }
 }
 
-export default Map;
+export default withStyles(styles)(Map);
