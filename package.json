@@ -1,0 +1,24 @@
+{
+  "name": "mern",
+  "version": "1.0.0",
+  "description": "SaveTravels",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "cd client && yarn install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "nodemon server",
+    "client": "cd client && yarn start",
+    "dev": "concurrently \"yarn server\" \"yarn client\""
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "auth0-js": "^9.8.2",
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.3",
+    "nodemon": "^1.18.9",
+    "request": "^2.88.0"
+  }
+}
