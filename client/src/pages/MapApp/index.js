@@ -6,24 +6,26 @@ import { MuiThemeProvider, createMuiTheme, Drawer } from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { hidden } from "ansi-colors";
+import Survey from "../../components/Survey/Survey"
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: "#718792",
-      main: "#1c313a",
-      dark: "#455a64",
+      light: "#4f5b62",
+      main: "#263238",
+      dark: "#000a12",
       contrastText: "#ffffff"
     },
     secondary: {
-      light: "#ffff74",
-      main: "#ffd740",
-      dark: "#c8a600",
+      light: "#f05545",
+      main: "#b71c1c",
+      dark: "#7f0000",
       contrastText: "#000000"
     },
     type: 'dark',
     root: {
-      flexGrow: 1
+      flexGrow: 1,
+      backgroundColor: "#62727b"
     },
     paper: {
       height: 140,
@@ -34,7 +36,9 @@ const theme = createMuiTheme({
 
 class MapApp extends Component {
   state = {
-    mapClicked: false
+    mapClicked: false,
+    goClicked: false,
+    costGrid: 12
   };
 
   handleClick = () => {
@@ -44,17 +48,24 @@ class MapApp extends Component {
     })
   }
 
+  handleGo = () => {
+      this.setState({
+          goClicked: true,
+          costGrid: 6
+      })
+  }
+
   render() {
     return (
 
-     <MuiThemeProvider theme={theme} className='mainContainer'>
-        <div className="MapApp">
+     <MuiThemeProvider theme={theme} >
+        <div className="MapApp" className={theme.root}>
           <Grid container spacing={24}>
           <Grid item xs={12}>
               <Paper className={theme.paper}>
               </Paper>
           </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} justify="center">
               <Paper className={theme.paper}>
                 <Map justify="center" theme={theme} mapClicked={this.handleClick}
     />
@@ -63,12 +74,20 @@ class MapApp extends Component {
             </Grid>
           </Grid>
           {this.state.mapClicked && 
-            <Grid container spacing={24}>
-              <Grid item xs={12}>
+            <Grid container spacing={24} justify="flex-start">
+              <Grid item xs={this.state.costGrid}>
                 <Paper className={theme.paper}>
-                <Cost />
+                <Cost handleGo={this.handleGo} />
                 </Paper>
               </Grid>
+
+              {this.state.goClicked &&
+                <Grid item xs={6} className={theme.survey}>
+                <Paper className={theme.paper}>
+                <Survey handleGo={this.handleGo} />
+                </Paper>
+              </Grid>
+              }
             </Grid>
           }
         </div>

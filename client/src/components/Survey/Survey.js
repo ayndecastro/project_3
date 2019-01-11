@@ -13,11 +13,13 @@ import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import CostTable from '../CostTable'
+import CostTable from '../CostTable';
+// import DatePicker from '../DatePicker/DatePicker';
 
 const styles = theme => ({
   root: {
-    backgroundColor: "#62727b"
+    backgroundColor: "#62727b",
+    minHeight: '100vh'
   },
   appBar: {
     position: 'relative',
@@ -50,33 +52,33 @@ const styles = theme => ({
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 
-function Cost(props) {
+function Survey(props) {
+
   const { classes } = props;
 
   return (
     <React.Fragment className={classes.root}>
       <CssBaseline />
-      <AppBar position="static" className={classes.appBar}>
-          <Typography component="h2" variant="h3" align="center" color="textPrimary"  >
-              United States
-            </Typography>
-      </AppBar>
-      <main color="secondary">
-      <div className={classes.tableContainer} align="center" >
-          <CostTable />
-          <Button color="inherit" onClick={props.handleGo} className={classes.button} justify="space-between">
+      <Typography component="h2" variant="h3" align="center" color="textPrimary" gutterBottom>
+        What are your travel dates?
+      </Typography>
         
-          Go
-          </Button>
-          </div>
+      <main color="secondary">
+        <div className={classes.tableContainer} align="center" >
+            {
+
+            }
+        </div>
+
+
        
       </main>
     </React.Fragment>
   );
 }
 
-Cost.propTypes = {
+Survey.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Cost);
+export default withStyles(styles)(Survey);
