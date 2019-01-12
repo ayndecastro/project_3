@@ -5,36 +5,37 @@ import './Map.css'
 class Map extends Component {
 
     constructor(props) {
-      super(props)
+      super(props);
+      this.handleClick = this.handleClick.bind(this)
     }
     handleClick(e, code) {
-        alert(code)
-
+        alert(code);
+      this.props.mapClicked();
     }
 
     render () {
   return (
-    <div className="map" onClick={this.props.mapClicked}>
     <VectorMap
     map={"world_mill"}
-    backgroundColor="#263238"
+    backgroundColor="#1b1b1b"
     zoomOnScroll={false}
     containerStyle={{
       width: "100%",
-      height: "85vh"
+      height: "100vh",
+      marginBottom: "20px"
     }}
     onRegionClick={this.handleClick}
     containerClassName="map"
       regionStyle={{
         initial: {
-          fill: "#FBC02D",
+          fill: "#eeeeee",
           "fill-opacity": 1,
           stroke: "none",
           "stroke-width": 1,
           "stroke-opacity": 1
         },
         hover: {
-            "fill": "#ffff74",
+            "fill": "#6d6d6d",
           "fill-opacity": 1,
           cursor: 'pointer'
         },
@@ -55,7 +56,6 @@ class Map extends Component {
         ]
       }}
   />
-    </div>
   );
     }
 }

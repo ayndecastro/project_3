@@ -1,25 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import CostTable from '../CostTable'
 
 const styles = theme => ({
   root: {
-    backgroundColor: "#62727b"
+    backgroundColor: "#ffffff ",
+    borderradius: 16,
+    display: 'block', 
+    minHeight: '30vh',
   },
   appBar: {
+    backgroundColor: "#eeeeee",
     position: 'relative',
     padding: '5px'
   },
@@ -39,39 +32,37 @@ const styles = theme => ({
   tableContainer: {
     margin: theme.spacing.unit * 5,
     flexGrow: 1,
+    color: "#000000"
   },
   button: {
     backgroundColor: theme.palette.background.paper,
     margin: theme.spacing.unit * 5,
     flexGrow: 1,
   }, 
+  text: {
+    color: "#000000"
+  },
+  title: {
+    color: "#000000",
+    paddingTop: '20px'
+  }
 });
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 
 function Cost(props) {
   const { classes } = props;
 
   return (
-    <React.Fragment className={classes.root}>
-      <CssBaseline />
-      <AppBar position="static" className={classes.appBar}>
-          <Typography component="h2" variant="h3" align="center" color="textPrimary"  >
-              United States
+    <div  className={classes.root} >
+            <Typography component="h2" variant="h3" align="center" color="textPrimary" className={classes.title}>
+              Country: United States
             </Typography>
-      </AppBar>
-      <main color="secondary">
-      <div className={classes.tableContainer} align="center" >
+      <main className={classes.text}>
+        <div className={classes.tableContainer} align="center" >
           <CostTable />
-          <Button color="inherit" onClick={props.handleGo} className={classes.button} justify="space-between">
-        
-          Go
-          </Button>
-          </div>
-       
+        </div>   
       </main>
-    </React.Fragment>
+    </div>
   );
 }
 
