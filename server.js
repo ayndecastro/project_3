@@ -54,7 +54,7 @@ if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
     res.json({ message: "Hello from an admin endpoint! You need to be authenticated and have a scope of write:messages to see this." });
   });
 
-const PORT = 5000;
+const PORT = 3001;
 
 app.listen(PORT, ()=>  console.log(
     "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
