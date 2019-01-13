@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { VectorMap } from "react-jvectormap";
-import './Map.css'
 
 class Map extends Component {
 

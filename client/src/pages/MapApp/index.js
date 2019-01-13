@@ -13,7 +13,8 @@ import moment from 'moment';
 
 const theme = createMuiTheme({
   root: {
-    backgroundColor: "#bcbcbc"
+    backgroundColor: "#0074D9",
+    marginBot: "100px",
   },
   palette: {
     primary: {
@@ -120,7 +121,7 @@ class MapApp extends Component {
 
   render() {
     return (
-
+    
      <MuiThemeProvider theme={theme} >
      <CssBaseline />
         <div className={theme.root}>
@@ -171,6 +172,9 @@ class MapApp extends Component {
               }
             </Grid>
         </div>
+        <br></br>
+        <br></br>
+        <br></br>
       </MuiThemeProvider>
     );
   }

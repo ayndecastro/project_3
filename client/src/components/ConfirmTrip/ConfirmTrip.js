@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
+import NavigationIcon from '@material-ui/icons/Navigation';
+import Fab from '@material-ui/core/Fab';
 
 const styles = theme => ({
   root: {
@@ -45,13 +46,18 @@ const styles = theme => ({
   info: {
       padding: theme.spacing.unit * 2,
       marginTop: theme.spacing.unit,
-      transition: '.02s'
+      transition: '.02s',
+      color: "#7FDBFF"
   },
   infoHead: {
     paddingRight: theme.spacing.unit,
     marginTop: theme.spacing.unit,
     backgroundColor: theme.palette.primary.main,
-    color: "#ffffff"
+    color: "#7FDBFF"
+  },
+  fab: {
+    margin: theme.spacing.unit,
+    backgroundColor: "#c3fdff"
   }
 });
 
@@ -78,14 +84,14 @@ class Confirm extends Component {
       >
       <CssBaseline />
       <Paper className={this.props.classes.paper}>
-      <Typography component="h5" variant="h5" >
+      <Typography variant="h4" className={this.props.classes.infoHead}>
       Confirm your trip
       </Typography>
       <div >
 
       <Paper className={this.props.classes.infoHead}>
-      <Typography variant="body1" className={this.props.classes.info}>
-      Starting {this.props.startDate}, ${this.props.dailyIncrement} will be contributed towards your trip to United States, for {this.props.difference} days.
+      <Typography variant="body2" className={this.props.classes.info}>
+      Starting {this.props.startDate}, ${this.props.dailyIncrement} will be contributed towards your trip, for {this.props.difference} days.
       </Typography>
      
       <Divider variant="middle" />
@@ -105,18 +111,21 @@ class Confirm extends Component {
       <Typography variant="body1" className={this.props.classes.info}>
       Daily contribution: ${this.props.dailyIncrement}
       </Typography>
-      </Paper>
-      </div>
-      
+
       <Grid container>
       <Grid item xs={9}></Grid>
       <Grid item xs={2} align="left">
-          <button onClick={this.handleConfirm} className={this.props.classes.button}>
+        <Fab variant="extended" aria-label="Delete" className={this.props.classes.fab}>
             Confirm
-          </button>
+        </Fab>
       </Grid>
       <Grid item xs={1}></Grid>
       </Grid>
+
+      </Paper>
+      </div>
+      
+      
       
       </Paper>
       </div>

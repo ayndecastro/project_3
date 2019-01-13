@@ -80,14 +80,14 @@ function SimpleTable(props) {
                 <TableCell component="th" scope="row" className={classes.dailyCost}>
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.AverageCost}</TableCell>
+                <TableCell align="right" className={classes.dailyCost}>{row.AverageCost}</TableCell>
               </TableRow>
             );
           })}
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell>
+            <TableCell className={classes.dailyCost}>
             Daily Average Cost
             </TableCell>
             <TableCell align="right">
