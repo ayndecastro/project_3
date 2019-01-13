@@ -30,6 +30,62 @@ module.exports = function(app) {
     })
   })
 
+  //search data about locations even with partial search
+  app.get("/search/location/:name", function(req,res){
+    console.log("/search/location/" +req.params.name)
+    request.get({
+      url: "https://www.budgetyourtrip.com/api/v3/search/location/" + req.params.name,
+      headers: {"x-api-key": "vincentayndecastro"}
+    }, function(error,response,body){
+
+      res.json(JSON.parse(body))
+    })
+  })
+
+    //search specific location data
+    app.get("/search/locationdata/:name", function(req,res){
+      console.log("/search/locationdata/" +req.params.name)
+      request.get({
+        url: "https://www.budgetyourtrip.com/api/v3/search/locationdata/" + req.params.name,
+        headers: {"x-api-key": "vincentayndecastro"}
+      }, function(error,response,body){
+  
+        res.json(JSON.parse(body))
+
+        // request.get({
+        //   url: "https://www.budgetyourtrip.com/api/v3/search/locationdata/" + body.data.latitude + "/" + body.data.longitude,
+        //   headers: {"x-api-key": "vincentayndecastro"}
+        // }, function(error,response,body2){
+        //   res.json(JSON.parse(body2));
+        // })
+
+        
+      })
+    })
+
+    // Retrieves a list of accommodation options near the specified coordinates using lat and long
+    app.get("/search/locationdata/:latitude/:longitue", function(req,res){
+      console.log("/search/locationdata/" + req.params.latitude + "/" + req.params.longitude)
+      request.get({
+          url: "https://www.budgetyourtrip.com/api/v3/search/locationdata/" + req.params.latitude + "/" + req.params.longitude,
+          headers: {"x-api-key": "vincentayndecastro"}
+        }, function(error,response,body){
+          res.json(JSON.parse(body));
+        })
+    })
+
+    // Retrieves a list of accommodation options near the specified searched location
+    app.get("/accommodation/search/:name", function(req,res){
+      console.log("/search/locationdata/" + req.params.name)
+      request.get({
+          url: "https://www.budgetyourtrip.com/api/v3/accommodation/search/" + req.params.name,
+          headers: {"x-api-key": "vincentayndecastro"}
+        }, function(error,response,body){
+          res.json(JSON.parse(body));
+        })
+    })
+
+
   
   
   //get travel cost categories
@@ -57,6 +113,17 @@ module.exports = function(app) {
 
       res.json(JSON.parse(body))
     })
+  })
+
+  //currency converter
+  app.get("/currencies/convert/:from/:to/:amount", function(req,res){
+    console.log("/currencies/convert/" + req.params.from + "/" + req.params.to + "/" + req.params.amount)
+    request.get({
+        url: "https://www.budgetyourtrip.com/api/v3/currencies/convert/" + req.params.from + "/" + req.params.to + "/" + req.params.amount,
+        headers: {"x-api-key": "vincentayndecastro"}
+      }, function(error,response,body){
+        res.json(JSON.parse(body));
+      })
   })
 
 

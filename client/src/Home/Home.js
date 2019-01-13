@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 
 class Home extends Component {
-  login() {
-    this.props.auth.login();
-  }
   render() {
-    const { isAuthenticated } = this.props.auth;
+    const { isAuthenticated, login } = this.props.auth;
     return (
       <div className="container">
         {
@@ -19,9 +16,8 @@ class Home extends Component {
           !isAuthenticated() && (
               <h4>
                 You are not logged in! Please{' '}
-                <a
-                  style={{ cursor: 'pointer' }}
-                  onClick={this.login.bind(this)}
+                <a style={{cursor:'pointer'}}
+                  onClick={login.bind(this)}
                 >
                   Log In
                 </a>
