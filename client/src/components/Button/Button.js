@@ -40,6 +40,7 @@ function FloatingActionButtons(props) {
           Bank
         </Fab>
       </Link>
+
       
     </div>
   );

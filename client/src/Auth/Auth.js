@@ -8,7 +8,7 @@ export default class Auth {
   expiresAt;
   userProfile;
   scopes;
-  requestedScopes = 'openid profile read:messages write:messages read:user_idp_tokens read:users';
+  requestedScopes = 'openid profile read:messages write:messages';
 
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
