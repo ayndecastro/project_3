@@ -14,15 +14,19 @@ const styles = theme => ({
     heigth: '100%',
     marginTop: theme.spacing.unit * 2,
     overflowX: 'auto',
-    backgroundColor: "#303030"
+    backgroundColor: theme.palette.background.default,
+    color: "#000000"
   },
   table: {
     maxWidth: '100%',
+    minWidth: '40px',
+    height: 'auto',
+    color: "#000000"
 
     
   },
   dailyCost: {
-      textColor: "#FBC02D"
+      color: "#000000"
   }
 });
 
@@ -69,21 +73,21 @@ function SimpleTable(props) {
     <Paper className={classes.root}>
       <Table className={classes.table}>
         
-        <TableBody>
+        <TableBody className={classes.dailyCost}>
           {rows.map(row => {
             return (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
+              <TableRow key={row.id} className={classes.dailyCost}>
+                <TableCell component="th" scope="row" className={classes.dailyCost}>
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.AverageCost}</TableCell>
+                <TableCell align="right" className={classes.dailyCost}>{row.AverageCost}</TableCell>
               </TableRow>
             );
           })}
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell>
+            <TableCell className={classes.dailyCost}>
             Daily Average Cost
             </TableCell>
             <TableCell align="right">
