@@ -9,7 +9,6 @@ import ConfirmTrip from "../../components/ConfirmTrip/ConfirmTrip";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Sticky from 'react-sticky-el';
 import Hidden from '@material-ui/core/Hidden';
-import moment from 'moment';
 
 const theme = createMuiTheme({
   root: {
@@ -51,7 +50,8 @@ const theme = createMuiTheme({
 });
 
 const object = 
-{0: "103.41421408533",
+{
+0: "103.41421408533",
 1: "146.93497122964",
 2: "36.364286572241",
 3: "41.838287869865",

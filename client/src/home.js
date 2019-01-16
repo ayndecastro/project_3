@@ -6,9 +6,9 @@ import BottomBar from "./components/NavBar/NavBar";
 import Auth from "./Auth/Auth";
 
 class Home extends Component {
-  login() {
-    this.props.auth.login();
-  }
+  // login() {
+  //   this.props.auth.login();
+  // }
   render() {
     const { isAuthenticated } = this.props.auth;
     console.log(this.props.auth)
@@ -22,7 +22,7 @@ class Home extends Component {
             <BottomBar />
               <Switch>
                 <Route exact path="/home" component={MapApp} />
-                <Route exact path="/bank" component={Bank} />
+                <Route exact path='/categories' component={Bank}/>
               </Switch>
             </div>
           </Router>
