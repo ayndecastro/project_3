@@ -68,8 +68,7 @@ class Confirm extends Component {
   }
   
   handleConfirm = () => {
-    console.log(this.props)
-    this.props.handleDateConfirm();
+    this.props.handleDateConfirm(this.props.totalCost, this.props.countryName);
   }
 
   handleChange = () => {
@@ -90,32 +89,38 @@ class Confirm extends Component {
       <div >
 
       <Paper className={this.props.classes.infoHead}>
-      <Typography variant="body2" className={this.props.classes.info}>
+      <Typography variant="h5" className={this.props.classes.info}>
       Starting {this.props.startDate}, ${this.props.dailyIncrement} will be contributed towards your trip, for {this.props.difference} days.
       </Typography>
      
       <Divider variant="middle" />
  
-      <Typography variant="body1" className={this.props.classes.info}>
+      <Typography variant="h6" className={this.props.classes.info}>
       Total cost: ${this.props.totalCost}
       </Typography>
 
       <Divider variant="middle" />
  
-      <Typography variant="body1" className={this.props.classes.info}>
+      <Typography variant="h6" className={this.props.classes.info}>
       Departure: {this.props.endDate}
       </Typography>
 
       <Divider variant="middle" />
  
-      <Typography variant="body1" className={this.props.classes.info}>
+      <Typography variant="h6" className={this.props.classes.info}>
       Daily contribution: ${this.props.dailyIncrement}
+      </Typography>
+
+      <Divider variant="middle" />
+ 
+      <Typography variant="h6" className={this.props.classes.info}>
+      Country: {this.props.countryName}
       </Typography>
 
       <Grid container>
       <Grid item xs={9}></Grid>
       <Grid item xs={2} align="left">
-        <Fab variant="extended" aria-label="Delete" className={this.props.classes.fab}>
+        <Fab variant="extended" aria-label="Delete" className={this.props.classes.fab} onClick={this.handleConfirm}>
             Confirm
         </Fab>
       </Grid>

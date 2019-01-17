@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { Navbar, Button } from 'react-bootstrap';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import MapApp from "./pages/MapApp";
-import Bank from "./pages/Bank/Bank"
-// import BottomBar from "./components/NavBar/NavBar";
-import User from './components/user/user';
-import Auth from './Auth/Auth';
-// import Buttons from './components/Button/Button';
-// import { withStyles } from '@material-ui/core/styles';
-// import Fab from '@material-ui/core/Fab';
-// import FaceIcon from '@material-ui/icons/Face';
+// import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+// import MapApp from "./pages/MapApp";
+// import Bank from "./pages/Bank/Bank"
+//  import BottomBar from "./components/NavBar/NavBar";
+// import User from './components/user/user';
+ import Auth from './Auth/Auth';
+//  import Buttons from './components/Button/Button';
+ import {Navbar, Button} from 'react-bootstrap'
 
 const auth = new Auth();
 
