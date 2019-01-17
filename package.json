@@ -33,7 +33,7 @@
     "if-env": "^1.0.4",
     "jwks-rsa": "^1.1.1",
     "moment": "^2.23.0",
-    "mongoose": "^5.4.3",
+    "mongoose": "^5.4.4",
     "morgan": "^1.8.2",
     "nconf": "^0.10.0",
     "nodemon": "^1.18.9",
