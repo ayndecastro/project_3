@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
+// import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+// import MapApp from "./pages/MapApp";
+// import Bank from "./pages/Bank/Bank"
+//  import BottomBar from "./components/NavBar/NavBar";
+// import User from './components/user/user';
+ import Auth from './Auth/Auth';
+//  import Buttons from './components/Button/Button';
+ import {Navbar, Button} from 'react-bootstrap'
+
+const auth = new Auth();
 
 class App extends Component {
   goTo(route) {
@@ -26,39 +36,9 @@ class App extends Component {
     const { isAuthenticated } = this.props.auth;
 
     return (
-      <div>
-
-        { !isAuthenticated() && (
-          <div>
-            <button  id="qsLoginBtn"
-                    bsStyle="primary"
-                    className="btn-margin"
-                    onClick={this.login.bind(this)}>login</button>
-              
-          </div>
-        )}
-        {
-        //   isAuthenticated() && (
-        //   <div>
-        //           <Button
-        //             id="qsLogoutBtn"
-        //             bsStyle="primary"
-        //             className="btn-margin"
-        //             onClick={this.logout.bind(this)}
-        //           >
-        //             Log Out
-        //           </Button>
-        // </div>
-        
-        // )
-        }
-
-
-        {/* <Navbar fluid>
+    <div>
+        <Navbar fluid>
           <Navbar.Header>
-            <Navbar.Brand>
-              <a href="#">Auth0 - React</a>
-            </Navbar.Brand>
             <Button
               bsStyle="primary"
               className="btn-margin"
@@ -81,6 +61,18 @@ class App extends Component {
             {
               isAuthenticated() && (
                   <Button
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.goTo.bind(this, 'user')}
+                  >
+                    Profile
+                  </Button>
+                )
+            }
+           
+            {
+              isAuthenticated() && (
+                  <Button
                     id="qsLogoutBtn"
                     bsStyle="primary"
                     className="btn-margin"
@@ -91,8 +83,13 @@ class App extends Component {
                 )
             }
           </Navbar.Header>
-        </Navbar> */}
+        </Navbar>
+       
+      
       </div>
+
+
+      
     );
   }
 }

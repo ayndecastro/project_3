@@ -1,39 +1,39 @@
 import React, { Component } from 'react';
+import { Panel, ControlLabel, Glyphicon } from 'react-bootstrap';
 import './user.css';
 
 class User extends Component {
-    constructor(){
-        super();
-        this.state = {
-            users: []
+    componentWillMount() {
+        this.setState({ profile: {} });
+        const { userProfile, getProfile } = this.props.auth;
+        if (!userProfile) {
+          getProfile((err, profile) => {
+            this.setState({ profile });
+          });
+        } else {
+          this.setState({ profile: userProfile });
         }
-    }
-
-
-    componentDidMount(){
-        fetch('/api/users')
-        .then(res=> res.json())
-        .then(users => this.setState({ users }, 
-            ()=> console.log("users: ", users)))
-    }
-
-  render() {
-      console.log(this.state.users, "render")
-    return (
-      <div className="userContainer">
-        <h1>Users</h1>
-        <ul>
-            {this.state.users.map(user =>
-            <li key={user.id}>
-            Email:{user.Email}<br />
-            first-name:{user.firstName}<br />
-            last-name:{user.lastName}<br />
-            </li>
-            )}
-        </ul>
-      </div>
-    );
-  }
+    console.log(this.props)
+      }
+      render() {
+        const { profile } = this.state;
+        
+        return (
+          <div className="container">
+            <div className="profile-area">
+              <h1>{profile.name}</h1>
+              <Panel header="Profile">
+                <img src={profile.picture} alt="profile" />
+                <div>
+                  <ControlLabel><Glyphicon glyph="user" /> Nickname</ControlLabel>
+                  <h3>{profile.nickname}</h3>
+                </div>
+                <pre>{JSON.stringify(profile, null, 2)}</pre>
+              </Panel>
+            </div>
+          </div>
+        );
+      }
 }
 
 export default User;
