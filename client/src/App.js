@@ -34,6 +34,7 @@ class App extends Component {
                     bsStyle="primary"
                     className="btn-margin"
                     onClick={this.login.bind(this)}>login</button>
+              
           </div>
         )}
         {

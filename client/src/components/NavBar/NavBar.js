@@ -52,11 +52,6 @@ function BottomAppBar(props) {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
 
-          {/*
-            <IconButton aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
-          */}
           <Buttons />
 
         </Toolbar>

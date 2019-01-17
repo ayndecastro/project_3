@@ -6,35 +6,26 @@ import BottomBar from "./components/NavBar/NavBar";
 import Auth from "./Auth/Auth";
 
 class Home extends Component {
-  // login() {
-  //   this.props.auth.login();
-  // }
+  login() {
+    this.props.auth.login();
+  }
   render() {
     const { isAuthenticated } = this.props.auth;
     console.log(this.props.auth)
     return (
       <div>
-        {
-          isAuthenticated() && (
             <Router>
     
             <div>
             <BottomBar />
               <Switch>
                 <Route exact path="/home" component={MapApp} />
-                <Route exact path='/categories' component={Bank}/>
+                <Route exact path="/bank" component={Bank} />
               </Switch>
             </div>
           </Router>
             )
-        }
-        {
-          !isAuthenticated() && (
-              <h4>
-                Login page here
-              </h4>
-            )
-        }
+        
       </div>
     );
   }

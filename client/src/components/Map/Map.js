@@ -9,8 +9,7 @@ class Map extends Component {
       this.handleClick = this.handleClick.bind(this)
     }
     handleClick(e, code) {
-        alert(code);
-      this.props.mapClicked();
+      this.props.mapClicked(code);
     }
 
     render () {

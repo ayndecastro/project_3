@@ -30,7 +30,7 @@ function FloatingActionButtons(props) {
       </Fab>
 
       <Fab aria-label="Map" className={classes.fab}>
-        <Link to="/">
+        <Link to="/home">
           <FaceIcon />
         </Link>
       </Fab>
