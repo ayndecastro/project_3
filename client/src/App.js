@@ -28,7 +28,6 @@ class App extends Component {
     return (
       <div>
 
-        { !isAuthenticated() && (
           <div>
             <button  id="qsLoginBtn"
                     bsStyle="primary"
@@ -36,7 +35,7 @@ class App extends Component {
                     onClick={this.login.bind(this)}>login</button>
               
           </div>
-        )}
+        
         {
         //   isAuthenticated() && (
         //   <div>
