@@ -118,12 +118,14 @@ class MapApp extends Component {
     }
   };
 
-  handleConfirm = (totalCost, countryName, dailyIncrement) => {
+  handleConfirm = (totalCost, countryName, dailyIncrement, startDate, endDate) => {
     
     // ADD THESE TO BACK END 
     console.log("totalCost: ", totalCost)
     console.log("countryName: ", countryName)
     console.log("dailyIncrement: ", dailyIncrement)
+    console.log("startDate: ", startDate)
+    console.log("endDate: ", endDate)
   };
 
   render() {
