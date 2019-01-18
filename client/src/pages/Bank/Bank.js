@@ -10,12 +10,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Sticky from "react-sticky-el";
 import Hidden from "@material-ui/core/Hidden";
 import API from "../../components/utils/API";
-import Image from "./Background.png";
 
 const theme = createMuiTheme({
   root: {
     backgroundColor: "#424242",
-    backgroundImage: `url(${Image})`,
+  },
+  container: {
+    paddingTop: "50px",
+    backgroundColor: "#ffffff"
   },
   palette: {
     primary: {
@@ -42,12 +44,6 @@ const theme = createMuiTheme({
     },
     textPrimary: "#1b1b1b"
   },
-  pageTwo: {
-    marginTop: "50px"
-  },
-  divider: {
-    color: "#bcbcbc "
-  }
 });
 
 const object = {
@@ -67,144 +63,26 @@ const object = {
 };
 
 class MapApp extends Component {
-  state = {
-    mapClicked: false,
-    goClicked: false,
-    costGrid: 12,
-    dateChosen: false
-  };
-
-  componentDidMount() {
-    API.getCategories().then(res => {
-      let categories = [];
-      res.data.data.forEach(data => {
-        let dataItem = [data.name, data.description];
-        categories.push(dataItem);
-      });
-      this.setState({
-        categories: categories
-      });
-    });
-  }
-
-  handleClick = e => {
-    console.log(e);
-    API.getCountry(e).then(res =>
-      this.setState(
-        {
-          country: res.data,
-          mapClicked: true
-        },
-        this.createCosts
-      )
-    );
-  };
-
-  createCosts() {
-    console.log(this.state.country.data);
-    let costs = [];
-    this.state.country.data.costs.forEach(cost => {
-      costs.push(parseInt(cost.value_midrange));
-    });
-    this.setState({ costs });
-  }
-
-  handleGo = () => {
-    this.setState({
-      goClicked: true,
-      costGrid: 6
-    });
-  };
-
-  handleDate = date => {
-    console.log("start", date.startDate.format("MM/DD/YYYY"));
-    console.log("end", date.endDate.format("MM/DD/YYYY"));
-
-    let startDate = date.startDate.format("MM/DD/YYYY");
-    let endDate = date.endDate.format("MM/DD/YYYY");
-    let difference = date.endDate.diff(date.startDate, "days");
-    let totalCost = Math.round(difference * this.state.costs[12]);
-    let dailyIncrement = Math.round(
-      (difference * this.state.costs[12]) / difference
-    );
-    console.log("difference", difference);
-    console.log("cost", totalCost);
-    if (startDate != endDate) {
-      this.setState({
-        dateChosen: true,
-        startDate: startDate,
-        endDate: endDate,
-        difference: difference,
-        totalCost: totalCost,
-        dailyIncrement: dailyIncrement
-      });
-    }
-  };
-
-  handleConfirm = () => {
-    this.setState({
-      goClicked: false
-    });
-  };
 
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme} >
         <CssBaseline />
+        <div className="background">
         <div className={theme.root}>
-          <Map justify="center" mapClicked={this.handleClick} />
-
-          <Grid container spacing={24} justify="flex-start">
-            <Grid item xs={1} />
-            <Grid item xs={11} md={6} lg={6}>
-              {this.state.costs && (
-                <Paper square={false}>
-                  <Cost
-                    costs={this.state.costs}
-                    className={theme.fixedConfirm}
-                    countryName={this.state.country.data.info.name}
-                    categories={this.state.categories}
-                  />
-
-                  <hr />
-
-                  <Survey
-                    className={theme.survey}
-                    handleGo={this.handleGo}
-                    handleSelect={this.handleDate}
-                  />
-                </Paper>
-              )}
+          <Grid container spacing={24} className={theme.container}>
+            <Grid item xs={2}>
             </Grid>
-
-            <Hidden only={["md", "lg"]}>
-              <Grid item xs={1} sm={1} />
-            </Hidden>
-            {this.state.dateChosen && (
-              <Grid item xs={11} md={5} lg={5}>
-                <Sticky>
-                  <div>
-                    <br />
-                    <ConfirmTrip
-                      className={theme.confirmTrip}
-                      handleDateConfirm={this.handleConfirm}
-                      startDate={this.state.startDate}
-                      endDate={this.state.endDate}
-                      difference={this.state.difference}
-                      totalCost={this.state.totalCost}
-                      dailyIncrement={this.state.dailyIncrement}
-                      countryName={this.state.country.data.info.name}
-                    />
-                    <br />
-                  </div>
-                </Sticky>
-              </Grid>
-            )}
+            <Grid item xs={8}>
+              <Paper>
+              I AM WORKING
+              </Paper>
+            </Grid>
+            <Grid item xs={2}>
+            </Grid>
           </Grid>
         </div>
-        <br />
-        <br />
-        <br />
+        </div>
       </MuiThemeProvider>
     );
   }
