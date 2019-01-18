@@ -23,24 +23,9 @@ function FloatingActionButtons(props) {
   const { classes } = props;
   return (
     <div>
-      <Fab aria-label="User" className={classes.fab}>
-        <Link to="/user">
-          <FaceIcon />
-        </Link>
+      <Fab aria-label={props.label} className={classes.fab}>
+        {props.content}  
       </Fab>
-
-      <Fab aria-label="Map" className={classes.fab}>
-        <Link to="/home">
-          <FaceIcon />
-        </Link>
-      </Fab>
-
-      <Link to="/bank">
-        <Fab variant="extended" aria-label="Bank" className={classes.fab}>
-          Bank
-        </Fab>
-      </Link>
-
       
     </div>
   );
