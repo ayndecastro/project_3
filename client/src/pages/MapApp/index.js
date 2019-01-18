@@ -118,11 +118,12 @@ class MapApp extends Component {
     }
   };
 
-  handleConfirm = (totalCost, countryName) => {
+  handleConfirm = (totalCost, countryName, dailyIncrement) => {
     
     // ADD THESE TO BACK END 
     console.log("totalCost: ", totalCost)
     console.log("countryName: ", countryName)
+    console.log("dailyIncrement: ", dailyIncrement)
   };
 
   render() {
@@ -142,6 +143,7 @@ class MapApp extends Component {
                     className={theme.fixedConfirm}
                     countryName={this.state.country.data.info.name}
                     categories={this.state.categories}
+                    dailyIncrement={this.state.dailyIncrement}
                   />
 
                   <hr />

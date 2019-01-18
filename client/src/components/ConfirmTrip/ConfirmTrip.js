@@ -68,7 +68,7 @@ class Confirm extends Component {
   }
   
   handleConfirm = () => {
-    this.props.handleDateConfirm(this.props.totalCost, this.props.countryName);
+    this.props.handleDateConfirm(this.props.totalCost, this.props.countryName, this.props.dailyIncrement);
   }
 
   handleChange = () => {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MapApp from './pages/MapApp';
+import Bank from './pages/Bank/Bank';
 class Home extends Component {
   
   render() {
@@ -18,6 +19,11 @@ class Home extends Component {
       {
         isAuthenticated() && (
           <MapApp />
+        )
+      }
+      {
+        isAuthenticated() && (
+          <Bank />
         )
       }
        
