@@ -1,23 +1,31 @@
 import React, { Component } from "react";
+import "./Bank.css"
 import Map from "../../components/Map/Map";
 import Cost from "../../components/Cost/Cost";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Survey from "../../components/Survey/Survey";
-import ConfirmTrip from "../../components/ConfirmTrip/ConfirmTrip";
+import Progress from "./../../components/Progress/Progress"
+import BankButtons from "../../components/BankButtons/BankButtons"
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Sticky from "react-sticky-el";
-import Hidden from "@material-ui/core/Hidden";
-import API from "../../components/utils/API";
+import { withStyles } from '@material-ui/core/styles';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-const theme = createMuiTheme({
+
+const styles = theme => ({
   root: {
     backgroundColor: "#424242",
   },
   container: {
-    paddingTop: "50px",
+    marginTop: "25px",
     backgroundColor: "#ffffff"
+  },
+  mainContainer: {
+    minHeight: "70vh"
   },
   palette: {
     primary: {
@@ -44,48 +52,128 @@ const theme = createMuiTheme({
     },
     textPrimary: "#1b1b1b"
   },
+  progress: {
+    width: "100%"
+  },
+  progressBar: {
+    width: "100%"
+  }
 });
 
-const object = {
-  0: "103.41421408533",
-  1: "146.93497122964",
-  2: "36.364286572241",
-  3: "41.838287869865",
-  4: "13.928843427636",
-  5: "49.327713952322",
-  6: "42.288622625595",
-  7: "62.368047579868",
-  8: "99.444544413987",
-  9: "93.854914261402",
-  10: "19.278459402759",
-  11: "12.095286741121",
-  12: "207.08620503053"
-};
+let data = [{
+  budget: 100,
+  totalCost: 10000,
+  countryName: "United States",
+  dailyIncrement: 100,
+  startDate:  "01/20/2019",
+  endDate:  "01/26/2019"
+},
+{
+  budget: 0,
+  totalCost: 978,
+  countryName: "Canada",
+  dailyIncrement: 163,
+  startDate: "01/20/2019",
+  endDate: "01/26/2019"
+}
+]
 
-class MapApp extends Component {
+class Bank extends Component {
+
+  constructor(props) {
+    super(props)
+    this.handleUpdate.bind(this)
+  }
+  
+  state = {
+  }
+
+  componentDidMount() {
+    this.setState({
+      data: data
+    })
+  }
+
+  handleGoButton() {
+    //NEED POST
+    console.log("go from bank")
+  }
+
+  handleUpdate = (amount, countryName, index, method) => {
+    //NEED UPDATE
+    console.log("countryName: ", countryName)
+    console.log("update from bank: ", amount)
+    console.log("index: ", index);
+    console.log("method: ", method)
+    //UPDATE COUNTRY WALLET TO + OR - AMOUNT
+    let data = Object.assign({}, this.state);
+    data.data[index].budget = data.data[index].budget + parseInt(amount);
+    this.setState(data);
+  }
 
   render() {
     return (
-      <MuiThemeProvider theme={theme} >
-        <CssBaseline />
-        <div className="background">
-        <div className={theme.root}>
-          <Grid container spacing={24} className={theme.container}>
-            <Grid item xs={2}>
+        
+        <div>
+          <CssBaseline />
+          <div className={this.props.classes.root}>
+
+            <Grid container spacing={24} className={this.props.classes.container}>
+
+              <Grid item xs={0} lg={1}>
+              </Grid>
+                  
+              <Grid item xs={12} lg={10}>
+                <Paper className={this.props.classes.mainContainer}>
+                  {this.state.data && 
+                    this.state.data.map((country, index)=>{
+                      console.log(this.state)
+                      return(
+
+                        <ExpansionPanel className={this.props.classes.progress}>
+                          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                            <Typography variant="h4" className={this.props.classes.progressTitle} >{country.countryName}</Typography>
+                          </ExpansionPanelSummary>
+                          <ExpansionPanelDetails>
+                            <div className={this.props.classes.progressBar}>
+
+                              <Progress
+                                countryName= {country.countryName}
+                                totalCost= {country.totalCost}
+                                budget= {country.budget}
+                                startDate= {country.startDate}
+                                endDate= {country.endDate}
+                                dailyIncrement= {country.dailyIncrement}
+                                percent={(country.budget/country.totalCost)*100}
+                              />
+
+                              <BankButtons
+                                budget = {country.budget}
+                                totalCost = {country.totalCost}
+                                handleGo = {this.handleGoButton}
+                                handleUpdate = {this.handleUpdate}
+                                countryName = {country.countryName}
+                                index={index}
+                              />
+
+                            </div>  
+                          </ExpansionPanelDetails>
+                        </ExpansionPanel>
+                      
+                      )
+                      })
+                  }
+                </Paper>
+              </Grid>
+                
+              <Grid item xs={0} lg={1}>
+              </Grid>
+
             </Grid>
-            <Grid item xs={8}>
-              <Paper>
-              I AM WORKING
-              </Paper>
-            </Grid>
-            <Grid item xs={2}>
-            </Grid>
-          </Grid>
+          </div>
         </div>
-        </div>
-      </MuiThemeProvider>
     );
   }
 }
 
-export default MapApp;
+export default withStyles(styles)(Bank);
