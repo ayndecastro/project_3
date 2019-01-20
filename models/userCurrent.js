@@ -8,6 +8,7 @@ const userCurrentSchema = new Schema({
   date_leave: { type: Date, required: true },
   date_back: { type: Date, required: true },
   budget: {type: Number, required: true, ref: 'Trip'},
+  budgetToUpdate: {type: Number, required: true, ref: 'Trip'},
   spending: { type: Number},
   updated_at: { type: Date, default: Date.now },
   current: {type: Boolean, default: true},

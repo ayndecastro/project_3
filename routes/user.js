@@ -57,25 +57,41 @@ module.exports = function (app) {
   //create a current trip
   app.post('/api/createTrip/current', checkJwt, checkScopeCreateTrip, (req,res) => {
     const current = new db.UserCurrent({
-      
+      country: req.body.country,
+      user_id: req.header.user.split('|')[1],
+      date_leave: req.body.date_leave,
+      date_back: req.body.date_back,
+      budget: req.body.budget,
+      budgetToUpdate: req.body.budgetToUpdate,
+      spending: req.body.spending,
+      current: true,
+      trip_photo: req.body.trip_photo
+
     })
 
-    current.save().then(currentTrip=> res.json(current));
+    current.save().then(currentTrip=> res.json(currentTrip));
   })
 
   //update current budget
-  app.post('/api/updateBudget/:budget', checkJwt, checkScopeUpdateBudget, (req,res)=>{
-    db.UserCurrent.findOneAndUpdate()
+  app.put('/api/updateBudget/:id', checkJwt, checkScopeUpdateBudget, (req,res)=>{
+    db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.budgetToUpdate)
+      .then(UserCurrent=> res.json(UserCurrent))
+      .catch(err=>res.status(422).json(err));
+              
   })
 
   //add to spending
-  app.post('/api/updateBudget/:spending', checkJwt, checkScopeUpdateBudget, (req,res)=>{
-    db.UserCurrent.findOneAndUpdate()
+  app.put('/api/updateSpending/:id', checkJwt, checkScopeUpdateBudget, (req,res)=>{
+    db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.spending)
+    .then(UserCurrent=> res.json(UserCurrent))
+    .catch(err=>res.status(422).json(err));
   })
 
   //add photos to current
-  app.post('/api/addPhoto/:photo', checkJwt, checkScopeAddPhoto, (req,res)=>{
-    db.UserCurrent.findOneAndUpdate()
+  app.put('/api/addPhoto/:id', checkJwt, checkScopeAddPhoto, (req,res)=>{
+    db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.trip_photo)
+    .then(UserCurrent=> res.json(UserCurrent))
+    .catch(err=>res.status(422).json(err));
   })
 
   //delete a trip
