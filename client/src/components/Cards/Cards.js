@@ -10,7 +10,7 @@ const styles = {
   card: {
     minWidth: 200,
     margin: 10,
-    backgroundColor: "#FFDC00",
+    backgroundColor: "#1b1b1b",
   },
   bullet: {
     display: 'inline-block',
@@ -24,9 +24,12 @@ const styles = {
     marginBottom: 12,
   },
   cardTitle: {
-    color: "#1b1b1b"},
+    color: "#ffffff"},
   cardBody: {
-    color: "#001f3f"
+    color: "#ffffff"
+  },
+  cardDescription: {
+    color: "#ffffff"
   }
 
 };
@@ -46,11 +49,11 @@ function SimpleCard(props) {
         <Divider
         style={{
             color: "#001f3f",
-            backgroundColor: "#001f3f",
+            backgroundColor: "#DDDDDD",
             height: 1
         }}
     />
-        <Typography variant="subtitle2" align="left" >
+        <Typography variant="subtitle2" align="left" className={classes.cardDescription}>
           {props.description} 
         </Typography>
       </CardContent>

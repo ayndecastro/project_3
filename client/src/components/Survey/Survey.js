@@ -39,7 +39,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit,
   }, 
   text: {
-    color: "#ffffff",
+    color: "#000000",
     marginTop: theme.spacing.unit * 2
   },
   dialog: {

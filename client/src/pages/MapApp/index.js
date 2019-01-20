@@ -12,40 +12,48 @@ import Hidden from "@material-ui/core/Hidden";
 import API from "../../components/utils/API";
 
 const theme = createMuiTheme({
+  
+  Paper: {backgroundColor: "#009a9b",},
   root: {
-    backgroundColor: "#424242",
+    backgroundColor: "#009a9b",
     backgroundImage: `url(${Image})`,
   },
   palette: {
     primary: {
       light: "#373737",
-      main: "#1b1b1b",
+      main: "#39CCCC",
       dark: "#000000",
-      contrastText: "#ffffff"
+      contrastText: "#000000"
     },
     secondary: {
       light: "#c3fdff",
-      main: "#7FDBFF",
+      main: "#39CCCC",
       dark: "#001f3f",
       contrastText: "#000000"
     },
     type: "dark",
     root: {
       flexGrow: 1,
-      backgroundColor: "#62727b"
+      backgroundColor: "#009a9b"
     },
     paper: {},
     background: {
-      default: "#373737",
-      paper: "#1b1b1b"
+      default: "#009a9b",
+      paper: "#39CCCC"
     },
-    textPrimary: "#1b1b1b"
+    textPrimary: "#39CCCC"
   },
   pageTwo: {
     marginTop: "50px"
   },
   divider: {
     color: "#bcbcbc "
+  },
+  firstContainer: {
+    marginLeft: "20px",
+  },
+  costContainer: {
+    marginLeft: "20px",
   }
 });
 
@@ -71,6 +79,7 @@ class MapApp extends Component {
   }
 
   handleClick = e => {
+    console.log(e)
     API.getCountry(e).then(res =>
       this.setState(
         {
@@ -133,13 +142,17 @@ class MapApp extends Component {
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <div className={theme.root}>
-          <Map justify="center" mapClicked={this.handleClick} />
 
-          <Grid container spacing={24} justify="flex-start">
-            <Grid item xs={1} />
-            <Grid item xs={11} md={6} lg={6}>
+        <Paper mx={2}>
+          <Map justify="center" mapClicked={this.handleClick}/>
+        </Paper>
+
+        <div className={theme.Paper}>
+          <Grid container spacing={24} justify="flex-start" className={theme.firstContainer}>
+            <Grid item xs={.5}></Grid>
+            <Grid item xs={11} md={6} lg={6} >
               {this.state.costs && (
-                <Paper square={false}>
+                <Paper square={false} className={theme.costContainer}>
                   <Cost
                     costs={this.state.costs}
                     className={theme.fixedConfirm}
@@ -147,8 +160,6 @@ class MapApp extends Component {
                     categories={this.state.categories}
                     dailyIncrement={this.state.dailyIncrement}
                   />
-
-                  <hr />
 
                   <Survey
                     className={theme.survey}
@@ -158,10 +169,7 @@ class MapApp extends Component {
                 </Paper>
               )}
             </Grid>
-
-            <Hidden only={["md", "lg"]}>
-              <Grid item xs={1} sm={1} />
-            </Hidden>
+            
             {this.state.dateChosen && (
               <Grid item xs={11} md={5} lg={5}>
                 <Sticky>
@@ -183,6 +191,7 @@ class MapApp extends Component {
               </Grid>
             )}
           </Grid>
+        </div>
         </div>
         <br />
         <br />

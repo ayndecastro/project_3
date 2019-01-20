@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Router, Redirect } from 'react-router-dom';
+import { Route, Router, Redirect, Switch } from 'react-router-dom';
 import App from './App';
 import Home from './home';
 import Callback from './Callback/Callback';
@@ -19,6 +19,7 @@ export const makeMainRoutes = () => {
   return (
       <Router history={history}>
         <div>
+          
           <Route path="/" render={(props) => <App auth={auth} {...props} />} />
           <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route path="/bank" render={(props) => <Home auth={auth} {...props} />} />

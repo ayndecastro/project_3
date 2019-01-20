@@ -6,10 +6,11 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   root: {
-    backgroundColor: "#1b1b1b",
+    backgroundColor: "#39CCCC",
     borderradius: 16,
     display: "block",
-    minHeight: "30vh"
+    minHeight: "30vh",
+    margin: theme.spacing.unit * 2
   },
   appBar: {
     backgroundColor: "#eeeeee",
@@ -18,7 +19,8 @@ const styles = theme => ({
   },
   title: {
     paddingTop: '10px',
-    paddingLeft: '20px'
+    paddingLeft: '20px',
+    color: "#111111"
   },
   tableContainer: {
     margin: theme.spacing.unit * 2,
@@ -34,7 +36,7 @@ const styles = theme => ({
     margin: '2px'
   },
   cards: {
-    color: "#1b1b1b",
+    color: "#111111",
     zIndex: "1000"
   }
 });
@@ -55,15 +57,18 @@ class Cost extends Component {
   render() {
   return (
     <div className={this.props.classes.root}>
+
+    {this.props.countryName &&
       <Typography
         variant="h6"
         align="left"
-        color="textPrimary"
         className={this.props.classes.title}
       >
         Country Info: 
       
       </Typography>
+    }
+      {this.props.countryName &&
       <Typography
         variant="h2"
         align="center"
@@ -72,6 +77,8 @@ class Cost extends Component {
         {this.props.countryName}
         
       </Typography>
+
+    }
       <main className={this.props.classes.cardContainer}>
         <div className={this.props.classes.tableContainer}>
         <Grid container spacing={24}>

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import MapApp from './pages/MapApp';
-import Bank from './pages/Bank/Bank';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import MapApp from "./pages/MapApp";
+import Bank from "./pages/Bank/Bank"
+import BottomBar from "./components/NavBar/NavBar";
+import Auth from "./Auth/Auth";
+import User from './pages/User/User';
+
 class Home extends Component {
   
   render() {
