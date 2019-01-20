@@ -8,7 +8,10 @@ import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit * 2,
+  },
+  TextField: {
+    marginTop:  theme.spacing.unit 
   },
   input: {
     display: 'none',
@@ -37,16 +40,21 @@ class BankButtons extends React.Component {
 
     handleAdd = () => {
         if(this.state.updateClicked) {
-            
+
+          
             this.props.handleUpdate(this.state.amount, this.state.countryName, this.props.index, "add");
-            this.setState({updateClicked: false})
+            this.setState({
+              updateClicked: false,
+              amount: ''
+            })
             }
     }
 
     handleMinus = () => {
 
         this.setState({
-            amount: 0 - this.state.amount
+            amount: 0 - this.state.amount,
+            amount: ''
         });
 
         if(this.state.updateClicked) {
@@ -86,6 +94,7 @@ class BankButtons extends React.Component {
         id="outlined-adornment-amount"
         variant="outlined"
         label="Amount"
+        className={this.props.classes.TextField}
         value={this.state.amount}
         onChange={this.handleChange('amount')}
         InputProps={{

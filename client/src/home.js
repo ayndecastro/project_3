@@ -4,6 +4,7 @@ import MapApp from "./pages/MapApp";
 import Bank from "./pages/Bank/Bank"
 import BottomBar from "./components/NavBar/NavBar";
 import Auth from "./Auth/Auth";
+import User from './pages/User/User';
 
 class Home extends Component {
   login() {
@@ -21,10 +22,11 @@ class Home extends Component {
               <Switch>
                 <Route exact path="/home" component={MapApp} />
                 <Route exact path="/bank" component={Bank} />
+                <Route exact path="/user" component={User} />
               </Switch>
             </div>
           </Router>
-            )
+            
         
       </div>
     );

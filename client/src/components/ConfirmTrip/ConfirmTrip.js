@@ -10,7 +10,8 @@ import Fab from '@material-ui/core/Fab';
 
 const styles = theme => ({
   root: {
-    backgroundColor: "#62727b"
+    backgroundColor: "#1b1b1b",
+    marginRight: theme.spacing.unit * 1,
   },
   appBar: {
     position: 'relative',
@@ -41,19 +42,19 @@ const styles = theme => ({
   paper: {
     width: 'auto',
     padding: theme.spacing.unit * 2,
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: "#1b1b1b"
   },
   info: {
       padding: theme.spacing.unit * 2,
       marginTop: theme.spacing.unit,
       transition: '.02s',
-      color: "#7FDBFF"
+      color: "#ffffff"
   },
   infoHead: {
     paddingRight: theme.spacing.unit,
     marginTop: theme.spacing.unit,
-    backgroundColor: theme.palette.primary.main,
-    color: "#7FDBFF"
+    backgroundColor: "#1b1b1b",
+    color: "#ffffff"
   },
   fab: {
     margin: theme.spacing.unit,

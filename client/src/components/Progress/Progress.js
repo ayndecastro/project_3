@@ -9,22 +9,30 @@ import Divider from '@material-ui/core/Divider'
 
 const styles = theme => ({
     root: {
-      backgroundColor: "#424242",
-      width: "80%"
+      backgroundColor: "#39CCCC",
+      width: "100%",
+      color: "#424242"
     },
     container: {
       marginTop: "25px",
-      backgroundColor: "#ffffff"
+      backgroundColor: "#39CCCC"
     },
     info: {
-      margin: "10px"
+      margin: "10px",
+      backgroundColor: "#39CCCC",
+      color: "#424242"
     },
     infoHead: {
       padding: '10px',
-      margin: '5px'
+      margin: '5px',
+      backgroundColor: "#39CCCC",
     },
     progress: {
-      padding: "2px"
+      padding: "2px",
+      width: "100%",
+      color: "#424242",
+      backgroundColor: "#424242",
+      outlineColor: 'orange'
     }
   });
 
@@ -32,9 +40,8 @@ const styles = theme => ({
 
     render() {
       return (
-          <div>
-        
-              <Paper className={this.props.classes.infoHead}>
+          <div className={this.props.classes.root}>
+          
               <Typography variant="h5" className={this.props.classes.info}>
               Currently Saved: {this.props.budget} out of {this.props.totalCost}
               </Typography>
@@ -56,14 +63,37 @@ const styles = theme => ({
               <Typography variant="h6" className={this.props.classes.info}>
               Country: {this.props.countryName}
               </Typography>
-              </Paper>
-
-              
-              <Paper>
                 
               {console.log("percent ", this.props.percent)}
-              <Progress percent={this.props.percent} className={this.props.Progress} />
-            </Paper>
+              <Progress
+               percent={this.props.percent}
+                className={this.props.progress}
+                theme={
+                  {
+                    error: {
+                      symbol: this.props.percent + '%',
+                      trailColor: "#424242",
+                      color: 'red'
+                    },
+                    default: {
+                      symbol: this.props.percent + '%',
+                      trailColor: "#424242",
+                      color: 'blue'
+                    },
+                    active: {
+                      symbol: this.props.percent + '%',
+                      trailColor: "#424242",
+                      color: 'orange'
+                    },
+                    success: {
+                      symbol: this.props.percent + '%',
+                      trailColor: "#424242",
+                      color: 'green'
+                    }
+                  }
+                }
+                 />
+
           </div>
       );
     }
