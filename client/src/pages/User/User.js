@@ -89,19 +89,21 @@ let avatar = {
 
 class User extends Component {
 
-  constructor(props) {
-    super(props)
-  }
-  
-  state = {
-      title: "Spending Tracker"
-  }
-
-  componentDidMount() {
-    this.setState({
+  componentWillMount() {
+    this.setState({ profile: {},
       data: data,
-      avatar: avatar
-    })
+      title: "Saved Trips"
+     });
+    const { userProfile, getProfile } = this.props.auth;
+    if (!userProfile) {
+      getProfile((err, profile) => {
+        this.setState({
+          profile });
+      });
+    } else {
+      this.setState({ 
+        profile: userProfile});
+    }
   }
 
   handleAddClick = (details, cost) => {
@@ -120,6 +122,10 @@ class User extends Component {
   }
 
   render() {
+    
+    const {profile} = this.state;
+    console.log(profile)
+
     return (
         
         <div className={this.props.classes.root}>
@@ -129,12 +135,12 @@ class User extends Component {
             <Grid container spacing={24} className={this.props.classes.container}> 
             <Grid item xs={0}  lg={1}></Grid>
 
-            {this.state.avatar && 
+            {this.state.profile && 
               
               <Grid item xs={12} lg={10}>
                 <Avatar 
-                name = {this.state.avatar.name}
-                picture = {this.state.avatar.picture}
+                name = {profile.name}
+                picture = {profile.picture}
                 title = {this.state.title}
                 />
               </Grid>

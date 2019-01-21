@@ -12,6 +12,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { borders } from '@material-ui/system';
+import Axios from "axios";
+import {API_URL} from '../../constants'
 
 const styles = theme => ({
   root: {
@@ -79,16 +81,16 @@ let data = [{
 }
 ]
 
-let avatar = {
-  "given_name" : "Ayn",
-  "family_name": "Decastro",
-  "nickname": "ayndecastro",
-  "name": "Ayn Decastro",
-  "picture": "https://i.pinimg.com/originals/08/a9/0a/08a90a48a9386c314f97a07ba1f0db56.jpg",
-  "gender": "male",
-  "locale": "en",
-  "update_at": "2019-01-19"
-}
+// let avatar = {
+//   "given_name" : "Ayn",
+//   "family_name": "Decastro",
+//   "nickname": "ayndecastro",
+//   "name": "Ayn Decastro",
+//   "picture": "https://i.pinimg.com/originals/08/a9/0a/08a90a48a9386c314f97a07ba1f0db56.jpg",
+//   "gender": "male",
+//   "locale": "en",
+//   "update_at": "2019-01-19"
+// }
 
 class Bank extends Component {
 
@@ -96,16 +98,33 @@ class Bank extends Component {
     super(props)
     this.handleUpdate.bind(this)
   }
-  
-  state = {
-  }
 
-  componentDidMount() {
-    this.setState({
+  
+  
+  componentWillMount() {
+    this.setState({ profile: {},
       data: data,
-      avatar: avatar,
       title: "Saved Trips"
-    })
+     });
+
+    const { userProfile, getProfile } = this.props.auth;
+    if (!userProfile) {
+      getProfile((err, profile) => {
+        this.setState({
+          profile });
+      });
+    } else {
+      this.setState({ 
+        profile: userProfile});
+    }
+
+  }
+  getdata(){
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: this.state.profile.sub}
+    Axios.get(`${API_URL}/viewTrip`, { headers })
+      .then(response => this.setState({header: response}) )
+      .catch(error => this.setState({ message: error.message }));
   }
 
   handleGoButton() {
@@ -151,6 +170,11 @@ class Bank extends Component {
   }
 
   render() {
+
+    const {profile} = this.state;
+    console.log(profile.sub);
+    console.log(this.state);
+
     return (
         
         <div className={this.props.classes.root}>
@@ -160,12 +184,12 @@ class Bank extends Component {
             <Grid container spacing={24} className={this.props.classes.container}> 
             <Grid item lg={1}></Grid>
 
-            {this.state.avatar && 
+            {profile && 
               
               <Grid item xs={12} lg={10}>
                 <Avatar 
-                name = {this.state.avatar.name}
-                picture = {this.state.avatar.picture}
+                name = {profile.name}
+                picture = {profile.picture}
                 title = {this.state.title}
                 />
               </Grid>

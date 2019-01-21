@@ -26,11 +26,11 @@ class Home extends Component {
           <MapApp />
         )
       }
-      {
+      {/* {
         isAuthenticated() && (
           <Bank />
         )
-      }
+      } */}
        
       </div>
     );

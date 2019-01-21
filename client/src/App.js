@@ -8,10 +8,15 @@ import './App.css';
  import Auth from './Auth/Auth';
 //  import Buttons from './components/Button/Button';
  import {Navbar, Button} from 'react-bootstrap'
+import Axios from 'axios';
+import {API_URL} from './constants'
 
 const auth = new Auth();
 
 class App extends Component {
+  state={
+    message: ''
+  }
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
@@ -25,6 +30,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    
     const { renewSession } = this.props.auth;
 
     if (localStorage.getItem('isLoggedIn') === 'true') {
@@ -32,9 +38,20 @@ class App extends Component {
     }
   }
 
+  posting(){
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    Axios.post(`${API_URL}/admin`, {}, { headers })
+      .then(response => this.setState({ message: response.data.message }))
+      .catch(error => this.setState({ message: error.message }));
+      
+  }
+
   render() {
     const { isAuthenticated } = this.props.auth;
-
+    
+    const { message } = this.state;
+    console.log(message)
     return (
     <div>
         <Navbar fluid>
@@ -43,6 +60,7 @@ class App extends Component {
               bsStyle="primary"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'home')}
+              onClick={this.posting.bind(this)}
             >
               Home
             </Button>
@@ -66,6 +84,16 @@ class App extends Component {
                     onClick={this.goTo.bind(this, 'user')}
                   >
                     Profile
+                  </Button>
+                )
+            } {
+              isAuthenticated() && (
+                  <Button
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.goTo.bind(this, 'bank')}
+                  >
+                    Bank
                   </Button>
                 )
             }

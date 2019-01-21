@@ -33,11 +33,23 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
 
     
 module.exports = function (app) {
+
+  //testing post route
+  app.post('/api/admin', checkJwt, checkScopesAdmin, function(req, res) {
+    const newTrip = new db.Trips({
+      country: "United States of America",
+      date_leave: "01/20/2019",
+      date_back: "01/26/2019",
+      budget: 5000,
+      user_id: 108926452875239055842
+    });
+    newTrip.save().then(trip => res.json(trip));
+  });
    
 
 //get all trips user saved
   app.get('/api/viewTrip',checkJwt, checkScopeViewTrip, (req,res)=>{
-    db.Trips.findAll()
+    db.Trips.find()
         .sort({date: -1})
         .then(trip=>res.json(trip))
   });
