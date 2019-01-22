@@ -24,7 +24,6 @@ export const makeMainRoutes = () => {
           
           <Route path="/" render={(props) => <App auth={auth} {...props} />} />
           <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
-          <Route path="/home" render={(props) => <Bank auth={auth} {...props} />} />
           <Route path="/bank" render={(props) => <Bank auth={auth} {...props} />} />
           <Route path="/user" render={(props) => <User auth={auth} {...props} />} />
           <Route path="/" render={(props) => <Navbar auth={auth} {...props} />} />

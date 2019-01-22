@@ -89,6 +89,15 @@ let avatar = {
 
 class User extends Component {
 
+  getCurrent(){
+    event.preventDefault();
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: this.state.profile.sub}
+    Axios.get(`${API_URL}/currentTrip`, { headers })
+      .then(response => this.setState(/* DATA WE WANT HERE */) )
+      .catch(error => this.setState({ data: error.data }));
+  }
+
   componentWillMount() {
     this.setState({ profile: {},
       data: data,
