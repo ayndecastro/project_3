@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import { Progress } from 'react-sweet-progress';
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
 import "react-sweet-progress/lib/style.css";
-import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider'
 
 const styles = theme => ({

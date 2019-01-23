@@ -8,7 +8,6 @@ import Survey from "../../components/Survey/Survey";
 import ConfirmTrip from "../../components/ConfirmTrip/ConfirmTrip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Sticky from "react-sticky-el";
-import Hidden from "@material-ui/core/Hidden";
 import API from "../../components/utils/API";
 
 const theme = createMuiTheme({
@@ -57,28 +56,13 @@ const theme = createMuiTheme({
   }
 });
 
-const object = {
-  0: "103.41421408533",
-  1: "146.93497122964",
-  2: "36.364286572241",
-  3: "41.838287869865",
-  4: "13.928843427636",
-  5: "49.327713952322",
-  6: "42.288622625595",
-  7: "62.368047579868",
-  8: "99.444544413987",
-  9: "93.854914261402",
-  10: "19.278459402759",
-  11: "12.095286741121",
-  12: "207.08620503053"
-};
-
 class MapApp extends Component {
   state = {
     mapClicked: false,
     goClicked: false,
     costGrid: 12,
-    dateChosen: false
+    dateChosen: false,
+    country: '',
   };
 
   componentDidMount() {
@@ -108,11 +92,12 @@ class MapApp extends Component {
   };
 
   createCosts() {
+    console.log(this.state.country)
     let costs = [];
     this.state.country.data.costs.forEach(cost => {
       costs.push(parseInt(cost.value_midrange));
     });
-    this.setState({ costs });
+    this.setState({ costs: costs });
   }
 
   handleGo = () => {
@@ -151,6 +136,10 @@ class MapApp extends Component {
     console.log("dailyIncrement: ", dailyIncrement)
     console.log("startDate: ", startDate)
     console.log("endDate: ", endDate)
+
+    this.setState({
+      dateChosen: false
+    })
   };
 
   render() {

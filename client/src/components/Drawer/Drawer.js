@@ -12,6 +12,8 @@ import { Divider } from "@material-ui/core";
 import API from "../utils/API"
 import Cost from "../../components/Cost/Cost";
 import TextField from "../../components/TextField/TextField"
+import Cards from "../Cards/Cards"
+import Snackbar from "../SnackBar/SnackBar"
 
 function TabContainer({ children, dir }) {
   return (
@@ -53,6 +55,8 @@ const styles = theme => ({
   },
   Divider: {
       backgroundColor: "#DDDDDD"
+  },
+  snackBar: {
   }
 });
 
@@ -96,6 +100,7 @@ class FullWidthTabs extends React.Component {
     this.state.country.data.costs.forEach(cost => {
       costs.push(parseInt(cost.value_midrange));
     });
+    this.setState({ costs });
   }
 
   handleAddClick = (item, cost) => {
@@ -153,39 +158,64 @@ class FullWidthTabs extends React.Component {
 
                 <Grid container spacing={24}>
                 {this.state.costs && this.state.categories &&
+
                     <Cost
                     costs={this.state.costs}
-                    className={this.props.classes.fixedConfirm}
+                    className={classes.fixedConfirm}
+                    countryName={this.state.country.data.info.name}
                     categories={this.state.categories}
                   />
+
                 }
                 </Grid>
           </TabContainer>
 
           <TabContainer dir={theme.direction}>
-            <Paper>
-                <TextField 
-                    addClick={this.handleAddClick}
-                />
-            </Paper>
+            <Grid container spacing={0 }>
+            <Grid item xs={6}>
+                    <Cards
+                        cost={"20000"} 
+                        name={"Wallet"}
+                        description={"Remaining budget"}
+                    />
+            </Grid>
 
-            {this.props.spending && 
-                    
-                this.props.spending.map(item => {
-                    return(
-                        <div key={item.Details}>
-                        <Grid container spacing={24}>
-                            <Grid item xs>
-                                Details: {item.Details}
-                            </Grid>
-                            <Grid item xs>
-                                Cost: {item.Cost}
-                            </Grid>
-                        </Grid>
-                        </div>
-                    )
-                })
-            }
+            <Grid item xs={6}>
+                <Cards 
+                    cost={"200"}
+                    name={"Today"}
+                    description={"Remaining budget"}
+                />
+            </Grid>
+
+            </Grid>
+                <Paper>
+                <Grid container>
+                <Grid item xs={12}>
+                    <TextField 
+                        addClick={this.handleAddClick}
+                    />
+                </Grid>
+            
+                    {this.props.spending && 
+                        
+                        this.props.spending.map(item => {
+                            return(
+                                    <Grid item xs={12} className={classes.snackBar}>
+                                    <Snackbar 
+                                        className={classes.snackBar}
+                                        details={item.Details}
+                                        cost={item.Cost}
+                                    />
+                                    </Grid>
+                                )
+                            })
+                        }
+
+                        <br></br>
+                    </Grid>
+                    </Paper>
+
 
           </TabContainer>
         </SwipeableViews>

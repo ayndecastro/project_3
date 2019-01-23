@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import FaceIcon from '@material-ui/icons/Face';
-import Icon from '@material-ui/core/Icon';
-import Money from '@material-ui/icons/Money';
-import Public from '@material-ui/icons/Public';
 import { Link } from 'react-router-dom';
 
 const styles = theme => ({
