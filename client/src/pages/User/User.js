@@ -13,7 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { borders } from '@material-ui/system';
 import { Divider } from "@material-ui/core";
-import Drawer from "../../components/Drawer/Drawer"
+import Drawer from "../../components/Drawer/Drawer";
+import {API_URL} from '../../constants';
+import axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -90,10 +92,10 @@ let avatar = {
 class User extends Component {
 
   getCurrent(){
-    event.preventDefault();
+    // event.preventDefault();
     const { getAccessToken } = this.props.auth;
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: this.state.profile.sub}
-    Axios.get(`${API_URL}/currentTrip`, { headers })
+    axios.get(`${API_URL}/currentTrip`, { headers })
       .then(response => this.setState(/* DATA WE WANT HERE */) )
       .catch(error => this.setState({ data: error.data }));
   }

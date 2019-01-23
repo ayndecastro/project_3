@@ -70,7 +70,7 @@ module.exports = function (app) {
       date_leave: req.body.date_leave,
       date_back: req.body.date_back,
       budget: req.body.budget,
-      user_id: req.header.user.split('|')[1]
+      user_id: req.header.user.split('|')[1],
     });
     newTrip.save().then(trip => res.json(trip));
   });
@@ -83,7 +83,7 @@ module.exports = function (app) {
       date_leave: req.body.date_leave,
       date_back: req.body.date_back,
       budget: req.body.budget,
-      budgetToUpdate: req.body.budgetToUpdate,
+      spendings: req.body.spendings,
       current: true,
       trip_photo: req.body.trip_photo
 
@@ -119,9 +119,16 @@ spending.save(function(err){
   })
 
 
-  //edit
+  //edit current
   app.patch('/api/updateCurrent/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
     db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.body)
+    .then(UserCurrent=> res.json(UserCurrent))
+    .catch(err=>res.status(422).json(err));
+  })
+
+  //edit Trips
+  app.patch('/api/editTrip/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+    db.Trip.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })

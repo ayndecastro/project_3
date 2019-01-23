@@ -122,7 +122,7 @@ class Bank extends Component {
 
   //get all trips in progress
   getdata(){
-    event.preventDefault();
+    // event.preventDefault();
     const { getAccessToken } = this.props.auth;
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: this.state.profile.sub}
     Axios.get(`${API_URL}/viewTrip`, { headers })
@@ -130,20 +130,20 @@ class Bank extends Component {
       .catch(error => this.setState({ message: error.message }));
   }
 
-  updateProgress(){
-    event.preventDefault();
+  updateProgress(id){
+    // event.preventDefault();
     const { getAccessToken } = this.props.auth;
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    axios.post(`${API_URL}/updateProgress` + id, {}, { headers })
+    Axios.post(`${API_URL}/updateProgress` + id, {}, { headers })
     // code here
   }
 
   //save current trip
   saveCurrent(){
-    event.preventDefault();
+    // event.preventDefault();
     const { getAccessToken } = this.props.auth;
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    axios.post(`${API_URL}/createTrip`, {}, { headers })
+    Axios.post(`${API_URL}/createTrip`, {}, { headers })
     // code here
   }
 
