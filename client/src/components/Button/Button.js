@@ -4,6 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import FaceIcon from '@material-ui/icons/Face';
 import { Link } from 'react-router-dom';
+import Auth from "../../Auth/Auth"
+
+const auth = new Auth();
 
 const styles = theme => ({
   fab: {
