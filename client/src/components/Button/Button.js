@@ -19,8 +19,10 @@ const styles = theme => ({
   },
 });
 
-function FloatingActionButtons(props) {
-  const { classes } = props;
+class FloatingActionButtons extends React.Component {
+
+  render(){
+  const { classes } = this.props;
   return (
     <div>
       <Fab aria-label="User" className={classes.fab}>
@@ -49,6 +51,7 @@ function FloatingActionButtons(props) {
       
     </div>
   );
+  }
 }
 
 FloatingActionButtons.propTypes = {
