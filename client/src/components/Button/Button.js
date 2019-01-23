@@ -37,6 +37,11 @@ function FloatingActionButtons(props) {
           Bank
         </Fab>
       </Link>
+      <Link to="/login">
+        <Fab variant="extended" aria-label="Bank" className={classes.fab}>
+          login
+        </Fab>
+      </Link>
 
       
     </div>

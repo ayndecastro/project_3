@@ -163,6 +163,7 @@ class MapApp extends Component {
                     className={theme.fixedConfirm}
                     countryName={this.state.country.data.info.name}
                     categories={this.state.categories}
+                    dailyIncrement={this.state.dailyIncrement}
                   />
 
                   <Survey

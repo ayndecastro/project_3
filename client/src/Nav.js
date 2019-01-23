@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Buttons from '../Button/Button'
+import Buttons from './Buttons'
 
 const styles = theme => ({
   text: {
@@ -41,21 +41,19 @@ const styles = theme => ({
   },
 });
 
-function BottomAppBar(props) {
+function bottomApp(props) {
   const { classes } = props;
   return (
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-
           <Buttons />
-
         </Toolbar>
       </AppBar>
   );
 }
 
-BottomAppBar.propTypes = {
+bottomApp.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(BottomAppBar);
+export default withStyles(styles)(bottomApp);

@@ -91,20 +91,30 @@ let avatar = {
 
 class Bank extends Component {
 
-  constructor(props) {
-    super(props)
-    this.handleUpdate.bind(this)
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.handleUpdate.bind(this)
+  // }
   
-  state = {
-  }
+  // state = {
+  // }
 
   componentDidMount() {
-    this.setState({
-      data: data,
-      avatar: avatar,
-      title: "Saved Trips"
-    })
+    
+    const { userProfile, getProfile } = this.props.auth;
+    if (!userProfile) {
+      getProfile((err, profile) => {
+        this.setState({
+          profile, 
+          data: data,
+          title: "Saved Trips" });
+      });
+    } else {
+      this.setState({ 
+        profile: userProfile, 
+        data: data,
+        title: "Saved Trips" });
+    }
   }
 
   handleGoButton() {
@@ -150,6 +160,8 @@ class Bank extends Component {
   }
 
   render() {
+    const {profile} = this.state;
+    console.log(profile)
     return (
         
         <div className={this.props.classes.root}>
@@ -163,8 +175,8 @@ class Bank extends Component {
               
               <Grid item xs={12} lg={10}>
                 <Avatar 
-                name = {this.state.avatar.name}
-                picture = {this.state.avatar.picture}
+                name = {profile.name}
+                picture = {profile.picture}
                 title = {this.state.title}
                 />
               </Grid>

@@ -78,16 +78,16 @@ let data = [{
 }
 ]
 
-let avatar = {
-  "given_name" : "Ayn",
-  "family_name": "Decastro",
-  "nickname": "ayndecastro",
-  "name": "Ayn Decastro",
-  "picture": "https://i.pinimg.com/originals/08/a9/0a/08a90a48a9386c314f97a07ba1f0db56.jpg",
-  "gender": "male",
-  "locale": "en",
-  "update_at": "2019-01-19"
-}
+// let avatar = {
+//   "given_name" : "Ayn",
+//   "family_name": "Decastro",
+//   "nickname": "ayndecastro",
+//   "name": "Ayn Decastro",
+//   "picture": "https://i.pinimg.com/originals/08/a9/0a/08a90a48a9386c314f97a07ba1f0db56.jpg",
+//   "gender": "male",
+//   "locale": "en",
+//   "update_at": "2019-01-19"
+// }
 
 class Bank extends Component {
 
@@ -95,16 +95,53 @@ class Bank extends Component {
     super(props)
     this.handleUpdate.bind(this)
   }
+
   
-  state = {
+  
+  componentWillMount() {
+    this.setState({ profile: {},
+      data: data,
+      title: "Saved Trips"
+     });
+
+    const { userProfile, getProfile } = this.props.auth;
+    if (!userProfile) {
+      getProfile((err, profile) => {
+        this.setState({
+          profile });
+      });
+    } else {
+      this.setState({ 
+        profile: userProfile});
+    }
+
   }
 
-  componentDidMount() {
-    this.setState({
-      data: data,
-      avatar: avatar,
-      title: "Saved Trips"
-    })
+  //get all trips in progress
+  getdata(){
+    event.preventDefault();
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: this.state.profile.sub}
+    Axios.get(`${API_URL}/viewTrip`, { headers })
+      .then(response => this.setState({header: response}) )
+      .catch(error => this.setState({ message: error.message }));
+  }
+
+  updateProgress(){
+    event.preventDefault();
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    axios.post(`${API_URL}/updateProgress` + id, {}, { headers })
+    // code here
+  }
+
+  //save current trip
+  saveCurrent(){
+    event.preventDefault();
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    axios.post(`${API_URL}/createTrip`, {}, { headers })
+    // code here
   }
 
   handleGoButton() {
@@ -150,6 +187,11 @@ class Bank extends Component {
   }
 
   render() {
+
+    const {profile} = this.state;
+    console.log(profile.sub);
+    console.log(this.state);
+
     return (
         
         <div className={this.props.classes.root}>
@@ -159,12 +201,12 @@ class Bank extends Component {
             <Grid container spacing={24} className={this.props.classes.container}> 
             <Grid item lg={1}></Grid>
 
-            {this.state.avatar && 
+            {profile && 
               
               <Grid item xs={12} lg={10}>
                 <Avatar 
-                name = {this.state.avatar.name}
-                picture = {this.state.avatar.picture}
+                name = {profile.name}
+                picture = {profile.picture}
                 title = {this.state.title}
                 />
               </Grid>

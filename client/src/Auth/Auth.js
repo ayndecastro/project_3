@@ -8,7 +8,7 @@ export default class Auth {
   expiresAt;
   userProfile;
   scopes;
-  requestedScopes = 'openid profile read:messages write:messages';
+  requestedScopes = 'openid profile read:messages write:messages create:trip delete:trip update:trip update:budget view:trip add:photo ';
 
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
@@ -33,12 +33,14 @@ export default class Auth {
 
   login() {
     this.auth0.authorize();
+    localStorage.setItem(this.accessToken)
   }
 
   handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
+        localStorage.setItem("access_token", authResult.accessToken)
       } else if (err) {
         history.replace('/home');
         console.log(err);
@@ -117,6 +119,7 @@ export default class Auth {
     // access token's expiry time
     let expiresAt = this.expiresAt;
     return new Date().getTime() < expiresAt;
+    
   }
 
   userHasScopes(scopes) {

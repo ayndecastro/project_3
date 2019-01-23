@@ -85,7 +85,7 @@ class Cost extends Component {
 
                 {this.props.costs.map((Cost, index) => {
                   
-                  if(index != (this.props.costs.length -1)) {
+                  if(index !== (this.props.costs.length -1)) {
                   return (
                     <Grid item xs key={Cost} className={this.props.classes.cards}>
                         <Cards 
