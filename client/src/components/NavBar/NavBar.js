@@ -41,17 +41,20 @@ const styles = theme => ({
   },
 });
 
-function BottomAppBar(props) {
-  const { classes } = props;
+class BottomAppBar extends React.Component {
+  render() {
+    
+
+  const { classes } = this.props;
   return (
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-
-          <Buttons />
+        
 
         </Toolbar>
       </AppBar>
   );
+}
 }
 
 BottomAppBar.propTypes = {

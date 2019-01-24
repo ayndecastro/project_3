@@ -52,8 +52,10 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
    
 
 //get all trips user saved
-  router.get('/viewTrip',checkJwt, checkScopeViewTrip, (req,res)=>{
-    db.Trips.find(req.query)
+  router.get('/viewTrip/:user_id', (req,res)=>{
+    // const user_id = req.params.user_id;
+    // console.log(userId)
+    db.Trips.find({user_Id:req.query.user_id})
         .sort({date: -1})
         .then(trip=>res.json(trip))
         .catch(err => res.status(422).json(err));
@@ -68,7 +70,7 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
 
 
 //create a trip
-  router.post('/createTrips', (req,res)=>{
+  router.post('/createTrips', checkJwt, checkScopeCreateTrip, (req,res)=>{
     db.Trips.create(req.body)
     .then(trips => console.log(res.json(trips)))
     .catch(err => res.status(422).json(err));

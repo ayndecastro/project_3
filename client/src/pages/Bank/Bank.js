@@ -47,39 +47,39 @@ const styles = theme => ({
   }
 });
 
-let data = [{
-  budget: 100,
-  totalCost: 10000,
-  countryName: "United States",
-  dailyIncrement: 100,
-  startDate:  "01/20/2019",
-  endDate:  "01/26/2019"
-},
-{
-  budget: 0,
-  totalCost: 978,
-  countryName: "Canada",
-  dailyIncrement: 163,
-  startDate: "01/20/2019",
-  endDate: "01/26/2019"
-},
-{
-  budget: 0,
-  totalCost: 978,
-  countryName: "Canada",
-  dailyIncrement: 163,
-  startDate: "01/20/2019",
-  endDate: "01/26/2019"
-},
-{
-  budget: 0,
-  totalCost: 978,
-  countryName: "Canada",
-  dailyIncrement: 163,
-  startDate: "01/20/2019",
-  endDate: "01/26/2019"
-}
-]
+// let data = [{
+//   budget: 100,
+//   totalCost: 10000,
+//   countryName: "United States",
+//   dailyIncrement: 100,
+//   startDate:  "01/20/2019",
+//   endDate:  "01/26/2019"
+// },
+// {
+//   budget: 0,
+//   totalCost: 978,
+//   countryName: "Canada",
+//   dailyIncrement: 163,
+//   startDate: "01/20/2019",
+//   endDate: "01/26/2019"
+// },
+// {
+//   budget: 0,
+//   totalCost: 978,
+//   countryName: "Canada",
+//   dailyIncrement: 163,
+//   startDate: "01/20/2019",
+//   endDate: "01/26/2019"
+// },
+// {
+//   budget: 0,
+//   totalCost: 978,
+//   countryName: "Canada",
+//   dailyIncrement: 163,
+//   startDate: "01/20/2019",
+//   endDate: "01/26/2019"
+// }
+// ]
 
 // let avatar = {
 //   "given_name" : "Ayn",
@@ -98,15 +98,35 @@ class Bank extends Component {
     super(props)
     this.handleUpdate.bind(this)
   }
+  state = { 
+    profile: {},
+    data: {},
+    title: "Saved Trips"
+   };
+
+   //get all trips in progress
+   async getdata(){
+    // event.preventDefault();
+    const { getAccessToken } = this.props.auth;
+    const {userProfile} = this.props.auth;
+    const getId = userProfile.sub.split('|')[1];
+    const user_id = getId.toString();
+    console.log(user_id);
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    if(user_id.length > 0){
+    Axios.get(`${API_URL}/viewTrip/${user_id}`, { headers })
+      .then(response => 
+        // console.log(response)
+        this.setState({ data: response.data}) 
+        )
+      .catch(error => this.setState({ message: error.message }));
+      // console.log(headers)
+    }
+  }
 
   
   
-  componentWillMount() {
-    this.setState({ profile: {},
-      data: data,
-      title: "Saved Trips"
-     });
-
+  componentDidMount() {
     const { userProfile, getProfile } = this.props.auth;
     if (!userProfile) {
       getProfile((err, profile) => {
@@ -117,19 +137,11 @@ class Bank extends Component {
       this.setState({ 
         profile: userProfile});
     }
+    this.getdata()
 
   }
 
-  //get all trips in progress
-  getdata(sub){
-    // event.preventDefault();
-    const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: sub}
-    Axios.get(`${API_URL}/viewTrip`, { headers })
-      .then(response => this.setState({ data: response.data}) )
-      .catch(error => this.setState({ message: error.message }));
-      console.log(headers)
-  }
+ 
 
   updateProgress(id){
     // event.preventDefault();
@@ -199,9 +211,12 @@ class Bank extends Component {
   render() {
 
     const {profile} = this.state;
-    console.log(profile.sub);
-    console.log(this.state);
-    console.log(this.props.auth)
+    const {data} = this.state;
+    // console.log(profile.sub);
+    // console.log(this.state);
+    // console.log(this.props.auth);
+    // console.log(data)
+
 
     return (
         
@@ -230,34 +245,35 @@ class Bank extends Component {
                   
               <Grid item xs={12} lg={10} className={this.props.paper}>
                 <Paper className={this.props.classes.mainContainer}>
-                  {this.state.data && 
-                    this.state.data.map((country, index)=>{
-                      console.log(this.state)
+                  {data.length > 0 && 
+                  // console.log(data.length)
+                    data.map((country, index)=>{
+                      // console.log(country)
                       return(
 
                         <ExpansionPanel className={this.props.classes.progress}>
                           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant="h4" className={this.props.classes.progressTitle} >{country.countryName}</Typography>
+                            <Typography variant="h4" className={this.props.classes.progressTitle} >{country.country}</Typography>
                           </ExpansionPanelSummary>
                           <ExpansionPanelDetails>
                             <div className={this.props.classes.progressBar}>
 
                               <Progress
-                                countryName= {country.countryName}
+                                countryName= {country.country}
                                 totalCost= {country.totalCost}
-                                budget= {country.budget}
-                                startDate= {country.startDate}
-                                endDate= {country.endDate}
-                                dailyIncrement= {country.dailyIncrement}
-                                percent={(country.budget/country.totalCost)*100}
+                                // budget= {country.budget}
+                                startDate= {country.date_leave}
+                                endDate= {country.date_end}
+                                // dailyIncrement= {country.dailyIncrement}
+                                // percent={(country.budget/country.totalCost)*100}
                               />
 
                               <BankButtons
-                                budget = {country.budget}
+                                // budget = {country.budget}
                                 totalCost = {country.totalCost}
                                 handleGo = {this.handleGoButton}
                                 handleUpdate = {this.handleUpdate}
-                                countryName = {country.countryName}
+                                countryName = {country.country}
                                 index={index}
                               />
 

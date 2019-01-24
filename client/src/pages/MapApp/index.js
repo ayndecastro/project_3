@@ -171,7 +171,10 @@ class MapApp extends Component {
       user_id: this.state.profile.sub.split('|')[1]
     }
 
-    axios.post(`${API_URL}/createTrips`,data)
+    const { getAccessToken } = this.props.auth;
+    console.log(getAccessToken)
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    axios.post(`${API_URL}/createTrips`,data,{headers})
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
   }
