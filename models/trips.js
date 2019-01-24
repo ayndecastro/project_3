@@ -7,6 +7,7 @@ const tripsSchema = new Schema({
   date_leave: { type: Date },
   date_back: { type: Date },
   budget: {type: Number },
+  totalCost: {type: Number},
   updated_at: { type: Date, default: Date.now },
   current: {type: Boolean, default: false}
 });

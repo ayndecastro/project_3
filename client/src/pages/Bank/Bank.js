@@ -99,11 +99,12 @@ class Bank extends Component {
     this.handleUpdate.bind(this)
   }
 
-  
+  state= {
+
+  }
   
   componentWillMount() {
     this.setState({ profile: {},
-      data: data,
       title: "Saved Trips"
      });
 
@@ -112,21 +113,25 @@ class Bank extends Component {
       getProfile((err, profile) => {
         this.setState({
           profile });
+
+          this.getdata(profile.sub)
       });
+      
     } else {
       this.setState({ 
         profile: userProfile});
     }
 
+
   }
 
   //get all trips in progress
-  getdata(){
+  getdata(sub){
     // event.preventDefault();
     const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: this.state.profile.sub}
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: sub}
     Axios.get(`${API_URL}/viewTrip`, { headers })
-      .then(response => this.setState({header: response}) )
+      .then(response => this.setState({ data: response.data}) )
       .catch(error => this.setState({ message: error.message }));
   }
 
@@ -193,7 +198,7 @@ class Bank extends Component {
 
     const {profile} = this.state;
     console.log(profile.sub);
-    console.log(this.state);
+    console.log(this.state.profile.sub);
 
     return (
         
@@ -222,25 +227,27 @@ class Bank extends Component {
                   
               <Grid item xs={12} lg={10} className={this.props.paper}>
                 <Paper className={this.props.classes.mainContainer}>
+                {console.log(this.state.data)}
                   {this.state.data && 
                     this.state.data.map((country, index)=>{
-                      console.log(this.state)
+                      
                       return(
+
+                        
 
                         <ExpansionPanel className={this.props.classes.progress}>
                           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant="h4" className={this.props.classes.progressTitle} >{country.countryName}</Typography>
+                            <Typography variant="h4" className={this.props.classes.progressTitle} >{country.country}</Typography>
                           </ExpansionPanelSummary>
                           <ExpansionPanelDetails>
                             <div className={this.props.classes.progressBar}>
 
                               <Progress
-                                countryName= {country.countryName}
+                                countryName= {country.country}
                                 totalCost= {country.totalCost}
                                 budget= {country.budget}
-                                startDate= {country.startDate}
-                                endDate= {country.endDate}
-                                dailyIncrement= {country.dailyIncrement}
+                                startDate= {country.date_leave}
+                                endDate= {country.date_back}
                                 percent={(country.budget/country.totalCost)*100}
                               />
 
@@ -249,7 +256,7 @@ class Bank extends Component {
                                 totalCost = {country.totalCost}
                                 handleGo = {this.handleGoButton}
                                 handleUpdate = {this.handleUpdate}
-                                countryName = {country.countryName}
+                                countryName = {country.country}
                                 index={index}
                               />
 

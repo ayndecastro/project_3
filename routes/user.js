@@ -41,6 +41,7 @@ module.exports = function (app) {
       date_leave: "01/20/2019",
       date_back: "01/26/2019",
       budget: 3000, 
+      totalCost: 10000,
       user_id: 108926452875239055842
     });
     newTrip.save().then(trip => res.json(trip));
