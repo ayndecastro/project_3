@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import FaceIcon from '@material-ui/icons/Face';
-import Icon from '@material-ui/core/Icon';
-import Money from '@material-ui/icons/Money';
-import Public from '@material-ui/icons/Public';
 import { Link } from 'react-router-dom';
+import Auth from "../../Auth/Auth"
+
+const auth = new Auth();
 
 const styles = theme => ({
   fab: {
@@ -19,10 +19,37 @@ const styles = theme => ({
   },
 });
 
-function FloatingActionButtons(props) {
-  const { classes } = props;
+class FloatingActionButtons extends React.Component {
+  // goTo(route) {
+  //   this.props.history.replace(`/${route}`)
+  // }
+
+  // login() {
+  //   this.props.auth.login();
+  // }
+
+  // logout() {
+  //   this.props.auth.logout();
+  // }
+
+  // componentDidMount() {
+    
+  //   const { renewSession } = this.props.auth;
+
+  //   if (localStorage.getItem('isLoggedIn') === 'true') {
+  //     renewSession();
+  //   }
+  // }
+
+  render(){
+
+  const { classes } = this.props;
+  console.log(this.props.auth);
+  // const { isAuthenticated } = this.props.auth;
+
   return (
     <div>
+
       <Fab aria-label="User" className={classes.fab}>
         <Link to="/user">
           <FaceIcon />
@@ -49,6 +76,7 @@ function FloatingActionButtons(props) {
       
     </div>
   );
+  }
 }
 
 FloatingActionButtons.propTypes = {

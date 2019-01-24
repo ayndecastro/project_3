@@ -1,13 +1,22 @@
-import React, { Component } from 'react';
-import BottomBar from "./components/NavBar/NavBar";
- import Auth from './Auth/Auth';
-import Button from './components/Button/Button';
- import {Navbar} from 'react-bootstrap'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import FaceIcon from '@material-ui/icons/Face';
+import { Link } from 'react-router-dom';
 
-var divStyle = {
-  color: "#ffffff"};
+const styles = theme => ({
+  fab: {
+    margin: theme.spacing.unit,
+    backgroundColor: "#001f3f",
+    color: "#7FDBFF"
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
+});
 
-class Buttons extends Component {
+class FloatingActionButtons extends React.Component {
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
@@ -20,7 +29,8 @@ class Buttons extends Component {
     this.props.auth.logout();
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    
     const { renewSession } = this.props.auth;
 
     if (localStorage.getItem('isLoggedIn') === 'true') {
@@ -28,56 +38,46 @@ class Buttons extends Component {
     }
   }
 
-  render() {
-    const { isAuthenticated } = this.props.auth;
+  render(){
 
-    return (
+  const { classes } = this.props;
+  console.log(this.props.auth);
+  // const { isAuthenticated } = this.props.auth;
+
+  return (
     <div>
-            <Button
-              onClick={this.goTo.bind(this, 'home')}
-              label="Home"
-              style={divStyle}
-              content={"Home"}
-            />
-            {
-              !isAuthenticated() && (
-                  <Button
-                    id="qsLoginBtn"
-                    onClick={this.login.bind(this)}
-                    label="Log in"
-                    style={divStyle}
-                    content={"Log In"}
-                  />
-                )
-            }
-            {
-              isAuthenticated() && 
-                  <Button
-                    onClick={this.goTo.bind(this, 'user')}
-                    label="Profile"
-                    style={divStyle}
-                    content={"Profile"}
-                  />
-                
-            }
-           
-            {
-              isAuthenticated() && 
-                  <Button
-                    onClick={this.logout.bind(this)}
-                    label="Log Out"
-                    style={divStyle}
-                    content={"Log Out"}
-                  />
-                
-            }
-       
-      </div>
 
+      <Fab aria-label="User" className={classes.fab}>
+        <Link to="/user">
+          <FaceIcon />
+        </Link>
+      </Fab>
+
+      <Fab aria-label="Map" className={classes.fab}>
+        <Link to="/home">
+          <FaceIcon />
+        </Link>
+      </Fab>
+
+      <Link to="/bank">
+        <Fab variant="extended" aria-label="Bank" className={classes.fab}>
+          Bank
+        </Fab>
+      </Link>
+      <Link to="/login">
+        <Fab variant="extended" aria-label="Bank" className={classes.fab}>
+          login
+        </Fab>
+      </Link>
 
       
-    );
+    </div>
+  );
   }
 }
 
-export default Buttons;
+FloatingActionButtons.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(FloatingActionButtons);

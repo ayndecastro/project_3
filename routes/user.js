@@ -70,6 +70,7 @@ module.exports = function (app) {
       date_leave: req.body.date_leave,
       date_back: req.body.date_back,
       budget: req.body.budget,
+      totalCost: req.body.totalCost,
       user_id: req.header.user.split('|')[1],
     });
     newTrip.save().then(trip => res.json(trip));

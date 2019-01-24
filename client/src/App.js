@@ -11,12 +11,8 @@ import './App.css';
 import Axios from 'axios';
 import {API_URL} from './constants'
 
-const auth = new Auth();
 
 class App extends Component {
-  state={
-    message: ''
-  }
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
@@ -50,8 +46,6 @@ class App extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
     
-    const { message } = this.state;
-    console.log(message)
     return (
     <div>
         <Navbar fluid>

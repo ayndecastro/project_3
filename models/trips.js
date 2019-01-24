@@ -9,6 +9,7 @@ const tripsSchema = new Schema({
   budget: {type: Number },
   updated_at: { type: Date, default: Date.now },
   current: {type: Boolean, default: false},
+  totalCost: {type: Number, required: true}
 });
 
 const Trips = mongoose.model("Trips", tripsSchema);

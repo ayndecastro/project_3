@@ -128,6 +128,7 @@ class Bank extends Component {
     Axios.get(`${API_URL}/viewTrip`, { headers })
       .then(response => this.setState({header: response}) )
       .catch(error => this.setState({ message: error.message }));
+      console.log(headers)
   }
 
   updateProgress(id){
@@ -142,8 +143,14 @@ class Bank extends Component {
   saveCurrent(){
     // event.preventDefault();
     const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`,user: this.state.profile.sub}
     Axios.post(`${API_URL}/createTrip`, {}, { headers })
+    .then(data => this.state({
+      country: data.countryName,
+      budget: data.totalCost,
+      date_leave: data.startDate,
+      date_end: data.endDate,
+    }))
     // code here
   }
 
@@ -194,6 +201,7 @@ class Bank extends Component {
     const {profile} = this.state;
     console.log(profile.sub);
     console.log(this.state);
+    console.log(this.props.auth)
 
     return (
         

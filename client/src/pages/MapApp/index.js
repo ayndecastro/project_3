@@ -8,8 +8,9 @@ import Survey from "../../components/Survey/Survey";
 import ConfirmTrip from "../../components/ConfirmTrip/ConfirmTrip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Sticky from "react-sticky-el";
-import Hidden from "@material-ui/core/Hidden";
 import API from "../../components/utils/API";
+import axios from "axios";
+import {API_URL} from '../../constants'
 
 const theme = createMuiTheme({
   
@@ -58,14 +59,27 @@ const theme = createMuiTheme({
 });
 
 class MapApp extends Component {
+
   state = {
     mapClicked: false,
     goClicked: false,
     costGrid: 12,
-    dateChosen: false
+    dateChosen: false,
+    country: '',
   };
 
-  componentDidMount() {
+  
+  componentWillMount() {
+    this.setState({ profile: {} });
+    const { userProfile, getProfile } = this.props.auth;
+    if (!userProfile) {
+      getProfile((err, profile) => {
+        this.setState({ profile });
+      });
+    } else {
+      this.setState({ profile: userProfile });
+    }
+
     API.getCategories().then(res => {
       let categories = [];
       res.data.data.forEach(data => {
@@ -77,6 +91,7 @@ class MapApp extends Component {
       });
     });
   }
+
 
   handleClick = e => {
     console.log(e)
@@ -92,11 +107,12 @@ class MapApp extends Component {
   };
 
   createCosts() {
+    console.log(this.state.country)
     let costs = [];
     this.state.country.data.costs.forEach(cost => {
       costs.push(parseInt(cost.value_midrange));
     });
-    this.setState({ costs });
+    this.setState({ costs: costs });
   }
 
   handleGo = () => {
@@ -135,9 +151,39 @@ class MapApp extends Component {
     console.log("dailyIncrement: ", dailyIncrement)
     console.log("startDate: ", startDate)
     console.log("endDate: ", endDate)
+
+    this.setState({
+      dateChosen: false
+    })
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`,user: this.state.profile.sub}
+    axios.post(`${API_URL}/createTrip`, {
+      country: "Brazil",
+      budget: 275,
+      date_leave: 11/24/2019,
+      date_end: 12/31/2019,
+      totalCost: 1925
+    }, { headers })
+    .then(data => console.log(data))
+    .catch(err=>console.log(err))
+    
   };
+  // postTravel(){
+  //   const { getAccessToken } = this.props.auth;
+  //   const headers = { 'Authorization': `Bearer ${getAccessToken()}`,user: this.state.profile.sub}
+  //   axios.post(`${API_URL}/createTrip`, {
+  //     country: this.state.countryName,
+  //     budget: this.state.budget,
+  //     date_leave: this.state.startDate,
+  //     date_end: this.state.endDate,
+  //     totalCost: this.state.totalCost
+  //   }, { headers })
+  //   .then(data => console.log(data))
+  // }
 
   render() {
+    console.log(this.props.auth)
+    console.log(this.props.auth)
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
