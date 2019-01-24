@@ -121,12 +121,12 @@ class Bank extends Component {
   }
 
   //get all trips in progress
-  getdata(){
+  getdata(sub){
     // event.preventDefault();
     const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: this.state.profile.sub}
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: sub}
     Axios.get(`${API_URL}/viewTrip`, { headers })
-      .then(response => this.setState({header: response}) )
+      .then(response => this.setState({ data: response.data}) )
       .catch(error => this.setState({ message: error.message }));
       console.log(headers)
   }

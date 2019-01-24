@@ -153,37 +153,33 @@ class MapApp extends Component {
     console.log("endDate: ", endDate)
 
     this.setState({
-      dateChosen: false
+      dateChosen: false,
+        totalCost,
+        countryName,
+        startDate,
+        endDate
     })
-    const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`,user: this.state.profile.sub}
-    axios.post(`${API_URL}/createTrip`, {
-      country: "Brazil",
-      budget: 275,
-      date_leave: 11/24/2019,
-      date_end: 12/31/2019,
-      totalCost: 1925
-    }, { headers })
-    .then(data => console.log(data))
-    .catch(err=>console.log(err))
     
   };
-  // postTravel(){
-  //   const { getAccessToken } = this.props.auth;
-  //   const headers = { 'Authorization': `Bearer ${getAccessToken()}`,user: this.state.profile.sub}
-  //   axios.post(`${API_URL}/createTrip`, {
-  //     country: this.state.countryName,
-  //     budget: this.state.budget,
-  //     date_leave: this.state.startDate,
-  //     date_end: this.state.endDate,
-  //     totalCost: this.state.totalCost
-  //   }, { headers })
-  //   .then(data => console.log(data))
-  // }
+
+ async saveTrip(){
+    let data={
+      country: this.state.country.data.info.name,
+      date_leave: this.state.startDate,
+      date_back: this.state.endDate,
+      totalCost: this.state.totalCost,
+      user_id: this.state.profile.sub.split('|')[1]
+    }
+
+    axios.post(`${API_URL}/createTrips`,data)
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
+  }
+  
 
   render() {
     console.log(this.props.auth)
-    console.log(this.props.auth)
+    console.log(this.state)
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
@@ -230,6 +226,7 @@ class MapApp extends Component {
                       totalCost={this.state.totalCost}
                       dailyIncrement={this.state.dailyIncrement}
                       countryName={this.state.country.data.info.name}
+                      onClick={this.saveTrip()}
                     />
                     <br />
                   </div>

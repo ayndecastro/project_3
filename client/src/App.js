@@ -34,14 +34,14 @@ class App extends Component {
     }
   }
 
-  posting(){
-    const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    Axios.post(`${API_URL}/admin`, {}, { headers })
-      .then(response => this.setState({ message: response.data.message }))
-      .catch(error => this.setState({ message: error.message }));
+  // posting(){
+  //   const { getAccessToken } = this.props.auth;
+  //   const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+  //   Axios.post(`${API_URL}/admin`, {}, { headers })
+  //   .then(data => console.log(data))
+  //   .catch(err=>console.log(err))
       
-  }
+  // }
 
   render() {
     const { isAuthenticated } = this.props.auth;
@@ -54,7 +54,7 @@ class App extends Component {
               bsStyle="primary"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'home')}
-              onClick={this.posting.bind(this)}
+              // onClick={this.posting.bind(this)}
             >
               Home
             </Button>
