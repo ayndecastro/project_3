@@ -9,6 +9,8 @@ import ConfirmTrip from "../../components/ConfirmTrip/ConfirmTrip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Sticky from "react-sticky-el";
 import API from "../../components/utils/API";
+import axios from "axios";
+import {API_URL} from '../../constants'
 
 const theme = createMuiTheme({
   
@@ -57,6 +59,7 @@ const theme = createMuiTheme({
 });
 
 class MapApp extends Component {
+
   state = {
     mapClicked: false,
     goClicked: false,
@@ -65,7 +68,18 @@ class MapApp extends Component {
     country: '',
   };
 
-  componentDidMount() {
+  
+  componentWillMount() {
+    this.setState({ profile: {} });
+    const { userProfile, getProfile } = this.props.auth;
+    if (!userProfile) {
+      getProfile((err, profile) => {
+        this.setState({ profile });
+      });
+    } else {
+      this.setState({ profile: userProfile });
+    }
+
     API.getCategories().then(res => {
       let categories = [];
       res.data.data.forEach(data => {
@@ -77,6 +91,7 @@ class MapApp extends Component {
       });
     });
   }
+
 
   handleClick = e => {
     console.log(e)
@@ -138,11 +153,36 @@ class MapApp extends Component {
     console.log("endDate: ", endDate)
 
     this.setState({
-      dateChosen: false
+      dateChosen: false,
+        totalCost,
+        countryName,
+        startDate,
+        endDate
     })
+    
   };
 
+ async saveTrip(){
+    let data={
+      country: this.state.country.data.info.name,
+      date_leave: this.state.startDate,
+      date_back: this.state.endDate,
+      totalCost: this.state.totalCost,
+      user_id: this.state.profile.sub.split('|')[1]
+    }
+
+    const { getAccessToken } = this.props.auth;
+    console.log(getAccessToken)
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    axios.post(`${API_URL}/createTrips`,data,{headers})
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
+  }
+  
+
   render() {
+    console.log(this.props.auth)
+    console.log(this.state)
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
@@ -189,6 +229,7 @@ class MapApp extends Component {
                       totalCost={this.state.totalCost}
                       dailyIncrement={this.state.dailyIncrement}
                       countryName={this.state.country.data.info.name}
+                      onClick={this.saveTrip()}
                     />
                     <br />
                   </div>

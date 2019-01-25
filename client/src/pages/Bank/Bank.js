@@ -47,39 +47,39 @@ const styles = theme => ({
   }
 });
 
-let data = [{
-  budget: 100,
-  totalCost: 10000,
-  countryName: "United States",
-  dailyIncrement: 100,
-  startDate:  "01/20/2019",
-  endDate:  "01/26/2019"
-},
-{
-  budget: 0,
-  totalCost: 978,
-  countryName: "Canada",
-  dailyIncrement: 163,
-  startDate: "01/20/2019",
-  endDate: "01/26/2019"
-},
-{
-  budget: 0,
-  totalCost: 978,
-  countryName: "Canada",
-  dailyIncrement: 163,
-  startDate: "01/20/2019",
-  endDate: "01/26/2019"
-},
-{
-  budget: 0,
-  totalCost: 978,
-  countryName: "Canada",
-  dailyIncrement: 163,
-  startDate: "01/20/2019",
-  endDate: "01/26/2019"
-}
-]
+// let data = [{
+//   budget: 100,
+//   totalCost: 10000,
+//   countryName: "United States",
+//   dailyIncrement: 100,
+//   startDate:  "01/20/2019",
+//   endDate:  "01/26/2019"
+// },
+// {
+//   budget: 0,
+//   totalCost: 978,
+//   countryName: "Canada",
+//   dailyIncrement: 163,
+//   startDate: "01/20/2019",
+//   endDate: "01/26/2019"
+// },
+// {
+//   budget: 0,
+//   totalCost: 978,
+//   countryName: "Canada",
+//   dailyIncrement: 163,
+//   startDate: "01/20/2019",
+//   endDate: "01/26/2019"
+// },
+// {
+//   budget: 0,
+//   totalCost: 978,
+//   countryName: "Canada",
+//   dailyIncrement: 163,
+//   startDate: "01/20/2019",
+//   endDate: "01/26/2019"
+// }
+// ]
 
 // let avatar = {
 //   "given_name" : "Ayn",
@@ -98,16 +98,37 @@ class Bank extends Component {
     super(props)
     this.handleUpdate.bind(this)
   }
+  state = { 
+    profile: {},
+    data: {},
+    title: "Saved Trips"
+   };
+
+   //get all trips in progress
+   async getdata(){
+    // event.preventDefault();
+    const { getAccessToken } = this.props.auth;
+    const {userProfile} = this.props.auth;
+    const getId = userProfile.sub.split('|')[1];
+    const user_id = getId.toString();
+    console.log(user_id);
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    if(user_id.length > 0){
+    Axios.get(`${API_URL}/viewTrip/${user_id}`, { headers })
+      .then(response => 
+        // console.log(response)
+        this.setState({ data: response.data}) 
+        )
+      .catch(error => this.setState({ message: error.message }));
+      // console.log(headers)
+    }
+  }
 
   state= {
 
   }
   
-  componentWillMount() {
-    this.setState({ profile: {},
-      title: "Saved Trips"
-     });
-
+  componentDidMount() {
     const { userProfile, getProfile } = this.props.auth;
     if (!userProfile) {
       getProfile((err, profile) => {
@@ -122,19 +143,12 @@ class Bank extends Component {
       this.setState({ 
         profile: userProfile});
     }
+    this.getdata()
 
 
   }
 
-  //get all trips in progress
-  getdata(sub){
-    // event.preventDefault();
-    const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: sub}
-    Axios.get(`${API_URL}/viewTrip`, { headers })
-      .then(response => this.setState({ data: response.data}) )
-      .catch(error => this.setState({ message: error.message }));
-  }
+ 
 
   updateProgress(id){
     // event.preventDefault();
@@ -148,16 +162,14 @@ class Bank extends Component {
   saveCurrent(){
     // event.preventDefault();
     const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    Axios.post(`${API_URL}/createTrip`, {
-      country: "canada",
-      date_leave: "01/20/2019",
-      date_back: "01/26/2019",
-      budget: 3000, 
-      totalCost: 10000,
-      user_id: 108926452875239055842
-    }, { headers }).then(response => console.log("saveCurrent ", response))
-    .catch(error => this.setState({ message: error.message }));
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`,user: this.state.profile.sub}
+    Axios.post(`${API_URL}/createTrip`, {}, { headers })
+    .then(data => this.state({
+      country: data.countryName,
+      budget: data.totalCost,
+      date_leave: data.startDate,
+      date_end: data.endDate,
+    }))
     // code here
   }
 
@@ -206,8 +218,12 @@ class Bank extends Component {
   render() {
 
     const {profile} = this.state;
-    console.log(profile.sub);
-    console.log(this.state.profile.sub);
+    const {data} = this.state;
+    // console.log(profile.sub);
+    // console.log(this.state);
+    // console.log(this.props.auth);
+    // console.log(data)
+
 
     return (
         
@@ -261,7 +277,7 @@ class Bank extends Component {
                               />
 
                               <BankButtons
-                                budget = {country.budget}
+                                // budget = {country.budget}
                                 totalCost = {country.totalCost}
                                 handleGo = {this.handleGoButton}
                                 handleUpdate = {this.handleUpdate}

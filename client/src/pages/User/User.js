@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from "../../components/Drawer/Drawer"
-import Axios from "axios";
+import axios from "axios";
 import {API_URL} from '../../constants'
 
 const styles = theme => ({
@@ -85,7 +85,7 @@ class User extends Component {
     // event.preventDefault();
     const { getAccessToken } = this.props.auth;
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: this.state.profile.sub}
-    Axios.get(`${API_URL}/currentTrip`, { headers })
+    axios.get(`${API_URL}/currentTrip`, { headers })
       .then(response => this.setState(/* DATA WE WANT HERE */) )
       .catch(error => this.setState({ data: error.data }));
   }

@@ -7,7 +7,9 @@ import Auth from './Auth/Auth';
 import history from './history';
 import User from './pages/User/User';
 import Navbar from './components/NavBar/NavBar';
-import Bank from './pages/Bank/Bank'
+import Bank from './pages/Bank/Bank';
+import MapApp from './pages/MapApp/index';
+import FloatingActionButtons from './components/Button/Button';
 
 const auth = new Auth();
 
@@ -23,10 +25,28 @@ export const makeMainRoutes = () => {
         <div>
           
           <Route path="/" render={(props) => <App auth={auth} {...props} />} />
-          <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
-          <Route path="/bank" render={(props) => <Bank auth={auth} {...props} />} />
-          <Route path="/user" render={(props) => <User auth={auth} {...props} />} />
-          <Route path="/" render={(props) => <Navbar auth={auth} {...props} />} />
+          <Route path="/home" render={(props) => (
+            !auth.isAuthenticated() ? (
+              <Redirect to="/"/>
+            ) : (
+              <MapApp auth={auth} {...props} />
+            )
+          )} /> 
+          <Route path="/bank" render={(props) => (
+            !auth.isAuthenticated() ? (
+              <Redirect to="/"/>
+            ) : (
+              <Bank auth={auth} {...props} />
+            )
+          )} /> 
+          <Route path="/user" render={(props) => (
+            !auth.isAuthenticated() ? (
+              <Redirect to="/"/>
+            ) : (
+              <User auth={auth} {...props} />
+            )
+          )} /> 
+          <Route path='/' render={(props)=> <FloatingActionButtons auth={auth}{...props} /> }/>
 
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);

@@ -2,6 +2,9 @@ const jwt = require('express-jwt');
 const jwtAuthz = require('express-jwt-authz');
 const jwksRsa = require('jwks-rsa');
 const db = require('../models/index');
+const express = require ('express');
+const router = express.Router();
+
 
 require('dotenv').config();
 
@@ -32,17 +35,23 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
 
 
     
-module.exports = function (app) {
+
 
   //testing post route
-  app.post('/api/admin', checkJwt, checkScopesAdmin, function(req, res) {
+  router.post('/api/admin', checkJwt, checkScopesAdmin, (req, res)=> {
     const newTrip = new db.Trips({
       country: "canada",
       date_leave: "01/20/2019",
       date_back: "01/26/2019",
+<<<<<<< HEAD
       budget: 3000, 
       totalCost: 10000,
       user_id: 108926452875239055842
+=======
+      budget: 3000,
+      user_id: 108926452875239055842,
+      totalCost: 3000
+>>>>>>> 8a0d0e39c17fe9c6a284c8339c499bd1ff20456f
     });
     console.log(req, res)
     newTrip.save().then(trip => res.json(trip));
@@ -50,42 +59,39 @@ module.exports = function (app) {
    
 
 //get all trips user saved
-  app.get('/api/viewTrip',checkJwt, checkScopeViewTrip, (req,res)=>{
-    db.Trips.find(req.query)
+  router.get('/viewTrip/:user_id', (req,res)=>{
+    // const user_id = req.params.user_id;
+    // console.log(userId)
+    db.Trips.find({user_Id:req.query.user_id})
         .sort({date: -1})
         .then(trip=>res.json(trip))
         .catch(err => res.status(422).json(err));
   });
 
   //get current trip
-  app.get('/api/currentTrip',checkJwt, checkScopeViewTrip, (req,res)=>{
+  router.get('/api/currentTrip',checkJwt, checkScopeViewTrip, (req,res)=>{
     db.Trips.find(req.query)
-        .then(trip=>res.json(trip))
+        .then(trip=>res.json(trip.config))
         .catch(err => res.status(422).json(err));
   });
 
 
 //create a trip
-  app.post('/api/createTrip',checkJwt, checkScopeCreateTrip, (req,res)=>{
-    const newTrip = new db.Trips({
-      country: req.body.country,
-      date_leave: req.body.date_leave,
-      date_back: req.body.date_back,
-      budget: req.body.budget,
-      user_id: req.header.user.split('|')[1]
-    });
-    newTrip.save().then(trip => res.json(trip));
+  router.post('/createTrips', checkJwt, checkScopeCreateTrip, (req,res)=>{
+    db.Trips.create(req.body)
+    .then(trips => console.log(res.json(trips)))
+    .catch(err => res.status(422).json(err));
   });
 
   //create a current trip
-  app.post('/api/createTrip/current', checkJwt, checkScopeCreateTrip, (req,res) => {
+  router.post('/api/createTrip/current', checkJwt, checkScopeCreateTrip, (req,res) => {
     const current = new db.UserCurrent({
       country: req.body.country,
-      user_id: req.header.user.split('|')[1],
+      user_id: req.body.user_id,
       date_leave: req.body.date_leave,
       date_back: req.body.date_back,
       budget: req.body.budget,
-      budgetToUpdate: req.body.budgetToUpdate,
+      spendings: req.body.spendings,
       current: true,
       trip_photo: req.body.trip_photo
 
@@ -107,31 +113,39 @@ spending.save(function(err){
   })
 
   //add photos and spendings budget of current
-  app.put('/api/updateCurrent/:id', checkJwt, checkScopeAddPhoto, checkScopeUpdateTrip, (req,res)=>{
+  router.put('/api/updateCurrent/:id', checkJwt, checkScopeAddPhoto, checkScopeUpdateTrip, (req,res)=>{
     db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })
 
   //update progress
-  app.put('/api/tripProgress/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+  router.put('/api/tripProgress/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
     db.Trips.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })
 
 
-  //edit
-  app.patch('/api/updateCurrent/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+  //edit current
+  router.patch('/api/updateCurrent/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
     db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })
 
+  //edit Trips
+  router.patch('/api/editTrip/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+    db.Trip.findOneAndUpdate({_id: req.params.id},req.body)
+    .then(UserCurrent=> res.json(UserCurrent))
+    .catch(err=>res.status(422).json(err));
+  })
+
   //delete a trip
-  app.delete('/api/deleteTrip/:id', checkJwt, checkScopeDeleteTrip, (req,res)=> {
+  router.delete('/api/deleteTrip/:id', checkJwt, checkScopeDeleteTrip, (req,res)=> {
     db.Trips.findbyId(req.params.id)
         .then(trip => trip.remove().then(()=> res.json({success:true})))
         .catch(err=> res.status(404).json({success: false}))
-  })
-}
+  });
+
+  module.exports = router;
