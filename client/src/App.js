@@ -10,19 +10,27 @@ import './App.css';
  import {Navbar, Button} from 'react-bootstrap'
 import Axios from 'axios';
 import {API_URL} from './constants'
+import MapApp from "./pages/MapApp";
 
 
 class App extends Component {
  
-
   render() {
     const { isAuthenticated } = this.props.auth;
-    
+    console.log(this.props.auth)
     return (
-    <div>
-    
-      </div>
+      <div>
 
+{
+          !isAuthenticated() && (
+              <h4>
+                Login page here
+              </h4>
+            )
+        }
+    
+       
+      </div>
     );
   }
 }
