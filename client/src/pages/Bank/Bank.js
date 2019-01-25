@@ -12,7 +12,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { borders } from '@material-ui/system';
-import Axios from "axios";
+import axios from "axios";
 import {API_URL} from '../../constants'
 
 const styles = theme => ({
@@ -114,7 +114,7 @@ class Bank extends Component {
     console.log(user_id);
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
     if(user_id.length > 0){
-    Axios.get(`${API_URL}/viewTrip/${user_id}`, { headers })
+    axios.get(`${API_URL}/viewTrip/${user_id}`, { headers })
       .then(response => 
         // console.log(response)
         this.setState({ data: response.data}) 
@@ -154,23 +154,27 @@ class Bank extends Component {
     // event.preventDefault();
     const { getAccessToken } = this.props.auth;
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    Axios.post(`${API_URL}/updateProgress` + id, {}, { headers })
+    axios.post(`${API_URL}/updateProgress` + id, {}, { headers })
     // code here
   }
 
   //save current trip
-  saveCurrent(){
-    // event.preventDefault();
+  async saveCurrent(){
+    let data={
+      country: this.state.country.data.info.name,
+      date_leave: this.state.startDate,
+      date_back: this.state.endDate,
+      totalCost: this.state.totalCost,
+      user_id: this.state.profile.sub.split('|')[1]
+    }
+    console.log(data)
+
     const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`,user: this.state.profile.sub}
-    Axios.post(`${API_URL}/createTrip`, {}, { headers })
-    .then(data => this.state({
-      country: data.countryName,
-      budget: data.totalCost,
-      date_leave: data.startDate,
-      date_end: data.endDate,
-    }))
-    // code here
+    console.log(getAccessToken)
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    axios.post(`${API_URL}/createTrips`,data,{headers})
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
   }
 
   handleGoButton() {
