@@ -44,6 +44,7 @@ module.exports = function (app) {
       totalCost: 10000,
       user_id: 108926452875239055842
     });
+    console.log(req, res)
     newTrip.save().then(trip => res.json(trip));
   });
    

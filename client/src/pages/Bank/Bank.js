@@ -115,6 +115,7 @@ class Bank extends Component {
           profile });
 
           this.getdata(profile.sub)
+          this.saveCurrent();
       });
       
     } else {
@@ -148,7 +149,15 @@ class Bank extends Component {
     // event.preventDefault();
     const { getAccessToken } = this.props.auth;
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    Axios.post(`${API_URL}/createTrip`, {}, { headers })
+    Axios.post(`${API_URL}/createTrip`, {
+      country: "canada",
+      date_leave: "01/20/2019",
+      date_back: "01/26/2019",
+      budget: 3000, 
+      totalCost: 10000,
+      user_id: 108926452875239055842
+    }, { headers }).then(response => console.log("saveCurrent ", response))
+    .catch(error => this.setState({ message: error.message }));
     // code here
   }
 
