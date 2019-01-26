@@ -100,8 +100,8 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
   })
 
   //update progress
-  router.put('/tripProgress/:current', checkJwt, checkScopeUpdateTrip, (req,res)=>{
-    db.Trips.findOneAndUpdate({current: req.params.current},req.body)
+  router.put('/tripProgress/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+    db.Trips.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })
@@ -109,6 +109,12 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
 
   //edit current
   router.patch('/updateCurrent/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+    db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.body)
+    .then(UserCurrent=> res.json(UserCurrent))
+    .catch(err=>res.status(422).json(err));
+  })
+
+  router.patch('/updateTrip/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
     db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));

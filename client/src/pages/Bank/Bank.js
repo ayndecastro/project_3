@@ -98,6 +98,7 @@ class Bank extends Component {
     super(props)
     this.handleUpdate.bind(this)
   }
+
   state = { 
     profile: {},
     data: {},
@@ -186,15 +187,14 @@ class Bank extends Component {
 //   }
 
   handleGoButton(id) {
-    //NEED POST
     console.log(id)
 
-    // const { getAccessToken } = this.props.auth;
-    // console.log(getAccessToken)
-    // const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    // axios.patch(`${API_URL}/updateCurrent/${user.id}`,data,{headers})
-    // .then(res => this.redirect(res))
-    // .catch(err=>console.log(err))
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    axios.patch(`${API_URL}/updateCurrent/${id}`,
+    {$set: {current: true}},{headers})
+    .then(res => console.log(res))
+    .catch(err=>console.log(err))
   }
 
   handleUpdate = (amount, countryName, index, method) => {

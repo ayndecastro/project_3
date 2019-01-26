@@ -1,30 +1,25 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add axios-react
+  C:\Program Files\nodejs\node.exe C:\Users\vande\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js dev
 
 PATH: 
-  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\aynde\bin;C:\Users\aynde\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\aynde\bin;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin;C:\Users\aynde\AppData\Local\Microsoft\WindowsApps;C:\Users\aynde\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\aynde\AppData\Roaming\npm;C:\Users\aynde\AppData\Local\Yarn\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+  C:\Users\vande\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\vande\bin;C:\Python27;C:\Python27\Scripts;C:\ProgramData\Boxstarter;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0;C:\windows\System32\OpenSSH;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Users\vande\AppData\Local\Microsoft\WindowsApps;C:\Users\vande\AppData\Roaming\npm;C:\Users\vande\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\heroku\bin;C:\Program Files\MongoDB\Server\4.0\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
-  1.13.0
+  1.12.3
 
 Node version: 
-  10.15.0
+  10.12.0
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/axios-react: Not found
-      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65364:18)
-      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:129397:22)
-      at Request.emit (events.js:182:13)
-      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130369:10)
-      at Request.emit (events.js:182:13)
-      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130291:12)
-      at Object.onceWrapper (events.js:273:13)
-      at IncomingMessage.emit (events.js:187:15)
-      at endReadableNT (_stream_readable.js:1094:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  SyntaxError: C:\Users\vande\project_3\package.json: Unexpected token < in JSON at position 975
+      at JSON.parse (<anonymous>)
+      at C:\Users\vande\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1631:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\vande\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:304:30)
+      at C:\Users\vande\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:315:13
 
 npm manifest: 
   {
@@ -63,7 +58,7 @@ npm manifest:
       "if-env": "^1.0.4",
       "jwks-rsa": "^1.3.0",
       "moment": "^2.23.0",
-      "mongoose": "^5.4.4",
+      "mongoose": "^5.4.6",
       "morgan": "^1.8.2",
       "nconf": "^0.10.0",
       "nodemon": "^1.18.9",
@@ -911,6 +906,13 @@ Lockfile:
     dependencies:
       "@babel/helper-plugin-utils" "^7.0.0"
       "@babel/plugin-transform-typescript" "^7.1.0"
+  
+  "@babel/runtime@7.0.0":
+    version "7.0.0"
+    resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0.tgz#adeb78fedfc855aa05bc041640f3f6f98e85424c"
+    integrity sha512-7hGhzlcmg01CvH1EHdSPVXYX1aJ8KCEyz6I9xYIi/asDtzBPMyMhVibhM/K6g/5qnKBwjZtp10bNZIEFTRW1MA==
+    dependencies:
+      regenerator-runtime "^0.12.0"
   
   "@babel/runtime@7.1.2":
     version "7.1.2"
@@ -4302,7 +4304,7 @@ Lockfile:
     dependencies:
       bser "^2.0.0"
   
-  fbjs@^0.8.1:
+  fbjs@^0.8.1, fbjs@^0.8.4:
     version "0.8.17"
     resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
     integrity sha1-xNWY6taUkRJlPWWIsBpc3Nn5D90=
@@ -6237,6 +6239,16 @@ Lockfile:
       isemail "3.x.x"
       topo "2.x.x"
   
+  jquery-mousewheel@^3.1.13:
+    version "3.1.13"
+    resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
+    integrity sha1-BvAzXxbjU6aV5yBr9QUDy1I6buU=
+  
+  jquery@>=1.5, jquery@^3.2.1:
+    version "3.3.1"
+    resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+    integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
+  
   js-cookie@^2.2.0:
     version "2.2.0"
     resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
@@ -6494,6 +6506,13 @@ Lockfile:
     dependencies:
       array-includes "^3.0.3"
   
+  jvectormap-next@^3.0.0:
+    version "3.0.0"
+    resolved "https://registry.yarnpkg.com/jvectormap-next/-/jvectormap-next-3.0.0.tgz#87070dab31ec7e2702de8f52265d2fe0a8fea3f5"
+    integrity sha1-hwcNqzHsficC3o9SJl0v4Kj+o/U=
+    dependencies:
+      jquery ">=1.5"
+  
   jwa@^1.1.5:
     version "1.1.6"
     resolved "https://registry.yarnpkg.com/jwa/-/jwa-1.1.6.tgz#87240e76c9808dbde18783cf2264ef4929ee50e6"
@@ -6528,7 +6547,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/kareem/-/kareem-2.3.0.tgz#ef33c42e9024dce511eeaf440cd684f3af1fc769"
     integrity sha512-6hHxsp9e6zQU8nXsP+02HGWXwTkOEw6IROhF2ZA28cYbUk4eJ6QbtZvdqZOdD9YPKghG3apk5eOCvs+tLl3lRg==
   
-  keycode@^2.1.2, keycode@^2.1.9:
+  keycode@^2.1.2, keycode@^2.1.7, keycode@^2.1.9:
     version "2.2.0"
     resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.2.0.tgz#3d0af56dc7b8b8e5cba8d0a97f107204eec22b04"
     integrity sha1-PQr1bce4uOXLqNCpfxByBO7CKwQ=
@@ -7239,10 +7258,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
     integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
   
-  mongoose@^5.4.4:
-    version "5.4.4"
-    resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.4.4.tgz#923923cd39a03b970c269f828322990ea163f9a8"
-    integrity sha512-KoYUFtgrXQ9Sxuf5IEE0Y2LswWGhHiN27bxtObANxMgXbuNLTtLB3xaep8jITUDitG4kkI+FKElUJH4uY8G2Bw==
+  mongoose@^5.4.6:
+    version "5.4.6"
+    resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.4.6.tgz#5b2830a4a0cd1caf1ed91501b25e6874389c4ba5"
+    integrity sha512-b5LgAWUsT04LbFfwuwUa5hWyuPKQI8m3V+idAMriqU26P7d32Wu5RmtEBJyy2A5VlHIDtPseAqhLmJ1fGWHBGA==
     dependencies:
       async "2.6.1"
       bson "~1.1.0"
@@ -8873,7 +8892,7 @@ Lockfile:
       react-is "^16.3.2"
       warning "^3.0.0"
   
-  prop-types@>=15.5.10, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+  prop-types@>=15.5.10, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
     version "15.6.2"
     resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
     integrity sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==
@@ -9142,7 +9161,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.2.tgz#888957b884d4b25b083a82ad550f7aad96585394"
     integrity sha512-7kEBKwU9R8fKnZJBRa5RSIfay4KJwnYvKB6gODGicUmDSAhQJ7Tdnll5S0RLtYrzRfMVXlqYw61rzrSpP4ThLQ==
   
-  react-event-listener@^0.6.2:
+  react-event-listener@^0.6.0, react-event-listener@^0.6.2:
     version "0.6.5"
     resolved "https://registry.yarnpkg.com/react-event-listener/-/react-event-listener-0.6.5.tgz#d374dbe5da485c9f9d4702f0e76971afbe9b6b2e"
     integrity sha512-//lCxOM3DQ0+xmTa/u9mI9mm55zCPdIKp89d8MGjlNsOOnXQ5sFDD1eed+sMBzQXKiRBLBMtSg/2T9RJFtfovw==
@@ -9155,6 +9174,16 @@ Lockfile:
     version "16.7.0"
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.7.0.tgz#c1bd21c64f1f1364c6f70695ec02d69392f41bfa"
     integrity sha512-Z0VRQdF4NPDoI0tsXVMLkJLiwEBa+RP66g0xDHxgxysxSoCUccSten4RTF/UFvZF1dZvZ9Zu1sx+MDXwcOR34g==
+  
+  react-jvectormap@0.0.5:
+    version "0.0.5"
+    resolved "https://registry.yarnpkg.com/react-jvectormap/-/react-jvectormap-0.0.5.tgz#81e5e3d0bcffebe23a0fa62b22a33ff5a51777fb"
+    integrity sha512-0u4HGOfCTM59hl9dwWfm9MXUJxOzvF4T7uOXIUXSCkfxQMp+oEmUhSJW5FyHM75pN4oQcF6TfZFXZvRj4hEEIw==
+    dependencies:
+      jquery "^3.2.1"
+      jquery-mousewheel "^3.1.13"
+      jvectormap-next "^3.0.0"
+      prop-types "^15.6.0"
   
   react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
     version "3.0.4"
@@ -9271,6 +9300,45 @@ Lockfile:
     dependencies:
       prop-types "^15.5.8"
       raf "^3.3.0"
+  
+  react-sweet-progress@^1.1.2:
+    version "1.1.2"
+    resolved "https://registry.yarnpkg.com/react-sweet-progress/-/react-sweet-progress-1.1.2.tgz#b27c6baa7c08a12cf0896565431ba477af249892"
+    integrity sha512-FUfiKpox5LJ9YTeK/HsaLp/oOsuxWBJQir6oAYKLY5nsa2pb04PtxzddSy6Y1fn8osaILpXIcItJRQYnHp42CA==
+    dependencies:
+      classnames "^2.2.5"
+  
+  react-swipeable-views-core@^0.13.1:
+    version "0.13.1"
+    resolved "https://registry.yarnpkg.com/react-swipeable-views-core/-/react-swipeable-views-core-0.13.1.tgz#8829a922462a8bdd701709cd1b385393d38f1527"
+    integrity sha512-EP8sCvvD7VDiZLglPt9icMuMNu8qLRLk0ab/fB1HXv7lX8ClnwF3UMCM0ZrN3sguSY7CsX3LevducGGsT1VcDg==
+    dependencies:
+      "@babel/runtime" "7.0.0"
+      warning "^4.0.1"
+  
+  react-swipeable-views-utils@^0.13.1:
+    version "0.13.1"
+    resolved "https://registry.yarnpkg.com/react-swipeable-views-utils/-/react-swipeable-views-utils-0.13.1.tgz#8e604af7316d409f22d8c47f841859dc150df30b"
+    integrity sha512-r5eyPIIHnlvILvFHXGnASDXa3RwC6X2YevegA2II5fhzYqwQRpJ81+lnzknNg5hiIN6ucXc5vrkqRRjabAhMpA==
+    dependencies:
+      "@babel/runtime" "7.0.0"
+      fbjs "^0.8.4"
+      keycode "^2.1.7"
+      prop-types "^15.6.0"
+      react-event-listener "^0.6.0"
+      react-swipeable-views-core "^0.13.1"
+  
+  react-swipeable-views@^0.13.0:
+    version "0.13.1"
+    resolved "https://registry.yarnpkg.com/react-swipeable-views/-/react-swipeable-views-0.13.1.tgz#4f074280b09d2247d284a6e3831fd3763ee0ed39"
+    integrity sha512-zZIRBD+HFO0P5z3TCkDMsSG/Sc3LXGGtojO+dEAGxsPvZjc3ji4Z/oOcLjZ4ozl0xIlLQJZ89o1rR82H/MDBHw==
+    dependencies:
+      "@babel/runtime" "7.0.0"
+      dom-helpers "^3.2.1"
+      prop-types "^15.5.4"
+      react-swipeable-views-core "^0.13.1"
+      react-swipeable-views-utils "^0.13.1"
+      warning "^4.0.1"
   
   react-transition-group@^2.2.1:
     version "2.5.2"
