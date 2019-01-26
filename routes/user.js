@@ -62,10 +62,10 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
   });
 
   //get current trip
-  router.get('/viewCurrent/:_id',checkJwt,checkScopeViewTrip, (req,res)=>{
+  router.get('/viewCurrent/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
     // const user_id = req.params.user_id;
     // console.log(userId)
-    db.Trips.find({_Id:req.query._id})
+    db.Trips.find({user_Id:req.query.user_id})
         .sort({date: -1})
         .then(trip=>res.json(trip))
         .catch(err => res.status(422).json(err));
