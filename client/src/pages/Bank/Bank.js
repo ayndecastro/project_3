@@ -111,15 +111,14 @@ class Bank extends Component {
     const {userProfile} = this.props.auth;
     const getId = userProfile.sub.split('|')[1];
     const user_id = getId.toString();
-    console.log(user_id);
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
     if(user_id.length > 0){
     axios.get(`${API_URL}/viewTrip/${user_id}`, { headers })
       .then(response => 
         // console.log(response)
-        this.setState({ data: response.data}) 
+        this.setState({ data: response.data})
         )
-      .catch(error => this.setState({ message: error.message }));
+      .catch(error => this.setState({ data: error.message }));
       // console.log(headers)
     }
   }
@@ -144,42 +143,58 @@ class Bank extends Component {
         profile: userProfile});
     }
     this.getdata()
+    // this.saveCurrent();
 
 
   }
 
  
 
-  updateProgress(id){
-    // event.preventDefault();
-    const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    axios.post(`${API_URL}/updateProgress` + id, {}, { headers })
-    // code here
-  }
+  // updateProgress(){
+  //   let data = {
+  //           totalCost: 10000,
+  //           country: "Philippines",
+  //           date_leave:  "01/24/2019",
+  //           date_back:  "01/26/2019",
+  //         }
+  //   const { getAccessToken } = this.props.auth;
+  //   let id = "5c4961efaeca3c39a0c0d46b";
+  //   const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+  //   axios.put(`${API_URL}/tripProgress/${id}`, data, { headers })
+  //       .then(res=>console.log(res))
+  //       .catch(err=>console.log(err))
+  // }
 
   //save current trip
-  async saveCurrent(){
-    let data={
-      country: this.state.country.data.info.name,
-      date_leave: this.state.startDate,
-      date_back: this.state.endDate,
-      totalCost: this.state.totalCost,
-      user_id: this.state.profile.sub.split('|')[1]
-    }
-    console.log(data)
+// saveCurrent(){
+//     let data = {
+//       budget: 10000,
+//       budgetToUpdate: 10000,
+//       user_id: '108926452875239055842',
+//       country: "philippines",
+//       date_leave:  "01/20/2019",
+//       date_back:  "01/26/2019",
+//       trip_photo:["https://i.pinimg.com/originals/08/a9/0a/08a90a48a9386c314f97a07ba1f0db56.jpg"]
+//     }
 
-    const { getAccessToken } = this.props.auth;
-    console.log(getAccessToken)
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    axios.post(`${API_URL}/createTrips`,data,{headers})
-    .then(res=>console.log(res))
-    .catch(err=>console.log(err))
-  }
+//     const { getAccessToken } = this.props.auth;
+//     console.log(getAccessToken)
+//     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+//     axios.post(`${API_URL}/createTrip/current`,data,{headers})
+//     .then(res=>console.log(res))
+//     .catch(err=>console.log(err));
+//   }
 
-  handleGoButton() {
+  handleGoButton(id) {
     //NEED POST
-    console.log("go from bank")
+    console.log(id)
+
+    // const { getAccessToken } = this.props.auth;
+    // console.log(getAccessToken)
+    // const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    // axios.patch(`${API_URL}/updateCurrent/${user.id}`,data,{headers})
+    // .then(res => this.redirect(res))
+    // .catch(err=>console.log(err))
   }
 
   handleUpdate = (amount, countryName, index, method) => {
@@ -224,7 +239,7 @@ class Bank extends Component {
     const {profile} = this.state;
     const {data} = this.state;
     // console.log(profile.sub);
-    // console.log(this.state);
+    console.log(this.state);
     // console.log(this.props.auth);
     // console.log(data)
 
@@ -287,6 +302,7 @@ class Bank extends Component {
                                 handleUpdate = {this.handleUpdate}
                                 countryName = {country.country}
                                 index={index}
+                                id={country._id}
                               />
 
                             </div>  

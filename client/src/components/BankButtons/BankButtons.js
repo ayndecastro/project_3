@@ -78,7 +78,7 @@ class BankButtons extends React.Component {
     }
 
     handleGo = () => {
-        this.props.handleGo();
+        this.props.handleGo(this.props.id);
     }
 
     handleChange = prop => event => {

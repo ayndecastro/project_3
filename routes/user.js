@@ -53,7 +53,7 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
    
 
 //get all trips user saved
-  router.get('/viewTrip/:user_id', (req,res)=>{
+  router.get('/viewTrip/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
     // const user_id = req.params.user_id;
     // console.log(userId)
     db.Trips.find({user_Id:req.query.user_id})
@@ -63,9 +63,10 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
   });
 
   //get current trip
-  router.get('/api/currentTrip',checkJwt, checkScopeViewTrip, (req,res)=>{
-    db.Trips.find(req.query)
-        .then(trip=>res.json(trip.config))
+  router.get('/viewCurrent',checkJwt,checkScopeViewTrip, (req,res)=>{
+    db.Trips.find({current:true})
+        .sort({date: -1})
+        .then(trip=>res.json(trip))
         .catch(err => res.status(422).json(err));
   });
 
@@ -78,65 +79,50 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
   });
 
   //create a current trip
-  router.post('/api/createTrip/current', checkJwt, checkScopeCreateTrip, (req,res) => {
-    const current = new db.UserCurrent({
-      country: req.body.country,
-      user_id: req.body.user_id,
-      date_leave: req.body.date_leave,
-      date_back: req.body.date_back,
-      budget: req.body.budget,
-      spendings: req.body.spendings,
-      current: true,
-      trip_photo: req.body.trip_photo
+  router.post('/createTrip/current', checkJwt, checkScopeCreateTrip, (req,res) => {
+    db.UserCurrent.create(req.body)
+    .then(trips => console.log(res.json(trips)))
+    .catch(err => res.status(422).json(err));
+  })
 
-    })
-
-    current.save( function (err){
-if (err) return hndleError(err);
-
-let spending = new db.Spending({
-  spendingName: req.body.spendingName,
-  spending: req.body.spending,
-  spendingId: current._id
-});
-
-spending.save(function(err){ 
-  if (err) return hndleError(err);
-})
-    }).then(currentTrip=> res.json(currentTrip));
+  //save spending
+  router.post('/createSpending', checkJwt, checkScopeUpdateBudget, (req,res)=>{
+    db.Spending.create(req.body)
+    .then(trips => console.log(res.json(trips)))
+    .catch(err => res.status(422).json(err));
   })
 
   //add photos and spendings budget of current
-  router.put('/api/updateCurrent/:id', checkJwt, checkScopeAddPhoto, checkScopeUpdateTrip, (req,res)=>{
+  router.put('/updateCurrent/:id', checkJwt, checkScopeAddPhoto, checkScopeUpdateTrip, (req,res)=>{
     db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })
 
   //update progress
-  router.put('/api/tripProgress/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
-    db.Trips.findOneAndUpdate({_id: req.params.id},req.body)
+  router.put('/tripProgress/:current', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+    db.Trips.findOneAndUpdate({current: req.params.current},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })
 
 
   //edit current
-  router.patch('/api/updateCurrent/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+  router.patch('/updateCurrent/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
     db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })
 
   //edit Trips
-  router.patch('/api/editTrip/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+  router.patch('/editTrip/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
     db.Trip.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })
 
   //delete a trip
-  router.delete('/api/deleteTrip/:id', checkJwt, checkScopeDeleteTrip, (req,res)=> {
+  router.delete('/deleteTrip/:id', checkJwt, checkScopeDeleteTrip, (req,res)=> {
     db.Trips.findbyId(req.params.id)
         .then(trip => trip.remove().then(()=> res.json({success:true})))
         .catch(err=> res.status(404).json({success: false}))
