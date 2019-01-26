@@ -186,23 +186,46 @@ class Bank extends Component {
 //     .catch(err=>console.log(err));
 //   }
 
-  handleGoButton(id) {
-    console.log(id)
+  handleGoButton = (countryName, totalCost, date_leave, date_back) => {
+    console.log(countryName, totalCost, date_leave, date_back)
+
+    let data = {
+      country: countryName,
+      user_id: this.state.profile.sub.split('|')[1],
+      date_leave: date_leave,
+      date_back: date_back,
+      budget: totalCost,
+      budgetToUpdate: totalCost
+    }
 
     const { getAccessToken } = this.props.auth;
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    axios.patch(`${API_URL}/updateCurrent/${id}`,
-    {$set: {current: true}},{headers})
-    .then(res => console.log(res))
+    axios.post(`${API_URL}/createTrip/Current`,data
+    ,{headers})
+    .then(res => this.redirect(res))
     .catch(err=>console.log(err))
+
   }
 
-  handleUpdate = (amount, countryName, index, method) => {
+  redirect = (res) => {
+    if(res.status === 200) {
+    this.props.history.push(`/user`)
+    }
+    else {
+      console.log(res)
+    }
+  }
+
+  handleUpdate = (amount, countryName, index, method, id) => {
     //NEED UPDATE
     console.log("countryName: ", countryName)
     console.log("update from bank: ", amount)
     console.log("index: ", index);
     console.log("method: ", method)
+
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+
 
     //UPDATE COUNTRY WALLET TO + OR - AMOUNT
     if(method == 'add') {
@@ -210,10 +233,20 @@ class Bank extends Component {
       data.data[index].budget = data.data[index].budget + parseInt(amount);
       if(data.data[index].budget >= data.data[index].totalCost) {
         data.data[index].budget = data.data[index].totalCost
+
+        axios.patch(`${API_URL}/updateTrip/${id}`,
+        {$set: {budget: data.data[index].totalCost}},{headers})
+        .then(res => console.log(res))
+        .catch(err=>console.log(err))
         this.setState(data);
       }
       else {
         this.setState(data);
+
+        axios.patch(`${API_URL}/updateTrip/${id}`,
+        {$set: {budget: data.data[index].budget}},{headers})
+        .then(res => console.log(res))
+        .catch(err=>console.log(err))
       }
     }
 
@@ -225,10 +258,20 @@ class Bank extends Component {
       //if deducted more than current budget
       if(data.data[index].budget <= 0) {
         data.data[index].budget = 0
+        axios.patch(`${API_URL}/updateTrip/${id}`,
+        {$set: {budget: 0}},{headers})
+        .then(res => console.log(res))
+        .catch(err=>console.log(err))
+
           this.setState(data);
           }
       else
           {
+
+            axios.patch(`${API_URL}/updateTrip/${id}`,
+            {$set: {budget: data.data[index].budget}},{headers})
+            .then(res => console.log(res))
+            .catch(err=>console.log(err))
             this.setState(data);
           }
       }
@@ -292,7 +335,11 @@ class Bank extends Component {
                                 budget= {country.budget}
                                 startDate= {country.date_leave}
                                 endDate= {country.date_back}
-                                percent={(country.budget/country.totalCost)*100}
+                                percent={ 
+                                  (country.budget/country.totalCost)*100 + "%"
+                                }
+                              
+
                               />
 
                               <BankButtons
@@ -303,6 +350,8 @@ class Bank extends Component {
                                 countryName = {country.country}
                                 index={index}
                                 id={country._id}
+                                date_leave={country.date_leave}
+                                date_back={country.date_back}
                               />
 
                             </div>  

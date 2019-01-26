@@ -52,7 +52,7 @@ class BankButtons extends React.Component {
             
             console.log("eto ", this.state.budget)
           
-            this.props.handleUpdate(this.state.amount, this.state.countryName, this.props.index, "add");
+            this.props.handleUpdate(this.state.amount, this.state.countryName, this.props.index, "add", this.props.id);
             this.setState({
               updateClicked: false,
               amount: ''
@@ -71,14 +71,14 @@ class BankButtons extends React.Component {
 
         if(this.state.updateClicked) {
             
-            this.props.handleUpdate(this.state.amount, this.state.countryName, this.props.index, "minus");
+            this.props.handleUpdate(this.state.amount, this.state.countryName, this.props.index, "minus", this.props.id);
             this.setState({updateClicked: false,
               amount: ''})
             }
     }
 
     handleGo = () => {
-        this.props.handleGo(this.props.id);
+        this.props.handleGo(this.props.countryName, this.props.totalCost, this.props.date_leave, this.props.date_back);
     }
 
     handleChange = prop => event => {

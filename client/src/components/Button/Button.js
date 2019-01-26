@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import FaceIcon from '@material-ui/icons/Face';
+import MapIcon from '@material-ui/icons/Map';
+import MoneyIcon from '@material-ui/icons/AttachMoney'
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -85,10 +87,11 @@ class FloatingActionButtons extends React.Component {
       <div>
         <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
+        <div alignItems="alignLeft">
 
         <Fab aria-label="Map" className={classes.fab} onClick={this.goTo.bind(this, 'home')} >
           {/* <Link to="/home"> */}
-            <FaceIcon />
+            <MapIcon />
           {/* </Link> */}
         </Fab>
 
@@ -104,11 +107,13 @@ class FloatingActionButtons extends React.Component {
         { isAuthenticated() && (
           // <Link to="/bank">
             <Fab variant="extended" aria-label="Bank" className={classes.fab} onClick={this.goTo.bind(this, 'bank')}>
-              Bank
+              <MoneyIcon />
         </Fab>
           // </Link>
         )
         }
+
+        </div>
 
         { !isAuthenticated() && (
           // <Link to="/login">

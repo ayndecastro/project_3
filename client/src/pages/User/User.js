@@ -83,9 +83,9 @@ class User extends Component {
 
   componentWillMount() {
     this.setState({ profile: {},
-      data: data,
       title: "Saved Trips"
      });
+
     const { userProfile, getProfile } = this.props.auth;
     if (!userProfile) {
       getProfile((err, profile) => {
@@ -98,6 +98,7 @@ class User extends Component {
     }
 
     this.viewCurrent()
+
   }
 
   // spending(){
@@ -124,8 +125,7 @@ class User extends Component {
     if(user_id.length > 0){
     axios.get(`${API_URL}/viewCurrent/${user_id}`, { headers })
       .then(response => 
-        console.log("response", response)
-        // this.setState({ data: response.data})
+        this.setState({ data: response.data})
         )
         .catch(error => this.setState({ data: error.message }));
       // console.log(headers)
@@ -147,6 +147,10 @@ class User extends Component {
           this.setState(data);
   }
 
+  onClick = () => {
+    console.log(this.state.data[0])
+  }
+
   render() {
     
     const {profile} = this.state;
@@ -154,6 +158,7 @@ class User extends Component {
     return (
         
         <div className={this.props.classes.root}>
+        <button onClick={this.onClick}></button>
           <CssBaseline />
           <div>
 
@@ -192,12 +197,14 @@ class User extends Component {
                     {this.state.data &&
 
                         <Drawer 
+                        date_leave={this.state.data[0].date_leave}
+                        date_back={this.state.data[0].date_back}
                         className={this.props.classes.mainContainer}
-                        countryName={this.state.data.countryName}
-                        wallet= {this.state.data.wallet}
-                        totalCost= {this.state.data.totalCost}
+                        countryName={this.state.data[0].country}
+                        wallet= {this.state.data[0].budgetToUpdate}
+                        totalCost= {this.state.data[0].budget}
                         addClick = {this.handleAddClick}
-                        spending = {this.state.data.spending}
+                        spending = {this.state.data[0].spending}
                         />
                         
                     }

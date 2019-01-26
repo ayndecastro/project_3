@@ -74,14 +74,23 @@ class FullWidthTabs extends React.Component {
   };
 
   componentDidMount = () => {
-    API.getCountry("US").then(res =>
-      this.setState(
-        {
-          country: res.data
-        },
-        this.createCosts
-      )
-    );
+    //NEED API METHOD TO CONVERT COUNTRY NAME TO COUNTRY CODE
+
+    API.getCountryName(this.props.countryName).then(res=> {
+      console.log()
+
+      API.getCountry(res.data.data[0].country_code).then(res=> {
+        console.log(res)
+  
+        this.setState(
+          {
+            country: res
+          },
+          
+          this.createCosts
+        )
+      })
+    })
 
     API.getCategories().then(res => {
         let categories = [];
@@ -97,14 +106,24 @@ class FullWidthTabs extends React.Component {
 
   createCosts() {
     let costs = [];
-    this.state.country.data.costs.forEach(cost => {
+    if(this.state.country) {
+    this.state.country.data.data.costs.forEach(cost => {
       costs.push(parseInt(cost.value_midrange));
     });
     this.setState({ costs });
+
+
+    }
   }
 
   handleAddClick = (item, cost) => {
       this.props.addClick(item, cost);
+  }
+
+  onClick = () => {
+    console.log(this.state)
+    
+    
   }
 
   render() {
@@ -112,6 +131,7 @@ class FullWidthTabs extends React.Component {
 
     return (
       <div className={classes.root}>
+      <button onClick={this.onClick}></button>
         <AppBar position="static" color="default">
           <Tabs
             value={this.state.value}
@@ -162,7 +182,7 @@ class FullWidthTabs extends React.Component {
                     <Cost
                     costs={this.state.costs}
                     className={classes.fixedConfirm}
-                    countryName={this.state.country.data.info.name}
+                    countryName={this.props.countryName}
                     categories={this.state.categories}
                   />
 
@@ -174,19 +194,28 @@ class FullWidthTabs extends React.Component {
             <Grid container spacing={0 }>
             <Grid item xs={6}>
                     <Cards
-                        cost={"20000"} 
+                        cost={this.props.totalCost} 
                         name={"Wallet"}
                         description={"Remaining budget"}
                     />
             </Grid>
 
-            <Grid item xs={6}>
-                <Cards 
-                    cost={"200"}
-                    name={"Today"}
-                    description={"Remaining budget"}
-                />
+            
+
+          {this.state.costs &&
+
+                  <Grid item xs={6}>
+                  <Cards 
+
+                  //AVERAGE DAILY COST FROM API
+                      cost={this.state.costs[12]}
+                      name={"Today"}
+                      description={"Average Daily Cost"}
+                  /> 
+                
             </Grid>
+          }
+                
 
             </Grid>
                 <Paper>

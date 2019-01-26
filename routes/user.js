@@ -63,8 +63,8 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
   });
 
   //get current trip
-  router.get('/viewCurrent',checkJwt,checkScopeViewTrip, (req,res)=>{
-    db.Trips.find({current:true})
+  router.get('/viewCurrent/:id',checkJwt,checkScopeViewTrip, (req,res)=>{
+    db.UserCurrent.find({current:true})
         .sort({date: -1})
         .then(trip=>res.json(trip))
         .catch(err => res.status(422).json(err));
@@ -115,9 +115,13 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
   })
 
   router.patch('/updateTrip/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
-    db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.body)
-    .then(UserCurrent=> res.json(UserCurrent))
-    .catch(err=>res.status(422).json(err));
+    db.Trips.findOneAndUpdate({_id: req.params.id},req.body, (err, doc) => {
+      if (err) {
+        console.log("Something wrong when updating data!");
+    }
+
+    console.log(doc);
+    })
   })
 
   //edit Trips
