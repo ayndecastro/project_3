@@ -48,12 +48,12 @@ const styles = theme => ({
 });
 
 let data = {
-  wallet: 10000,
-  totalCost: 10000,
-  countryName: "United States",
-  dailyIncrement: 100,
-  startDate:  "01/20/2019",
-  endDate:  "01/26/2019",
+  budgetToUpdate: 10000,
+  budget: 10000,
+  country: "United States",
+  user_id: "108926452875239055842",
+  date_leave:  "01/20/2019",
+  date_back:  "01/26/2019",
   spending: [
       {
         Details: "Ice Cream",
@@ -81,15 +81,6 @@ let avatar = {
 
 class User extends Component {
 
-  getCurrent(){
-    // event.preventDefault();
-    const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`, user: this.state.profile.sub}
-    axios.get(`${API_URL}/currentTrip`, { headers })
-      .then(response => this.setState(/* DATA WE WANT HERE */) )
-      .catch(error => this.setState({ data: error.data }));
-  }
-
   componentWillMount() {
     this.setState({ profile: {},
       data: data,
@@ -106,6 +97,38 @@ class User extends Component {
         profile: userProfile});
     }
   }
+
+  // spending(){
+  //   let spending = {
+  //     spending: 1,
+  //     spendingName: 'cake',
+  //   }
+
+  //   const { getAccessToken } = this.props.auth;
+  //   console.log(getAccessToken)
+  //   const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+  //   axios.post(`${API_URL}/createSpending`,spending,{headers})
+  //   .then(res=>console.log(res))
+  //   .catch(err=>console.log(err));
+  // }
+
+  // viewCurrent(){
+  //    // event.preventDefault();
+  //   const { getAccessToken } = this.props.auth;
+  //   const {userProfile} = this.props.auth;
+  //   const getId = userProfile.sub.split('|')[1];
+  //   const user_id = getId.toString();
+  //   const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+  //   if(user_id.length > 0){
+  //   axios.get(`${API_URL}/viewCurrent/${user_id}`, { headers })
+  //     .then(response => 
+  //       // console.log(response)
+  //       this.setState({ data: response.data})
+  //       )
+  //       .catch(error => this.setState({ data: error.message }));
+  //     // console.log(headers)
+  //   }
+  // }
 
   handleAddClick = (details, cost) => {
       console.log("user.js")
