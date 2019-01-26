@@ -31,7 +31,7 @@ class Home extends Component {
         {
           !isAuthenticated() && (
               <h4>
-                Login page here
+                <img src="./client/public/loginPage.jpg" alt="Login Image"></img>
               </h4>
             )
         }
