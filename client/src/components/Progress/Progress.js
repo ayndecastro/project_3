@@ -4,6 +4,7 @@ import { Progress } from 'react-sweet-progress';
 import Typography from "@material-ui/core/Typography";
 import "react-sweet-progress/lib/style.css";
 import Divider from '@material-ui/core/Divider'
+import * as moment from 'moment';
 
 const styles = theme => ({
     root: {
@@ -47,13 +48,7 @@ const styles = theme => ({
               <Divider variant="middle" />
          
               <Typography variant="h6" className={this.props.classes.info}>
-              Departure: {this.props.endDate}
-              </Typography>
-        
-              <Divider variant="middle" />
-         
-              <Typography variant="h6" className={this.props.classes.info}>
-              Daily contribution: ${this.props.dailyIncrement}
+              Departure: {moment(this.props.endDate).format("MM/DD/YYYY")}
               </Typography>
         
               <Divider variant="middle" />

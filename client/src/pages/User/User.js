@@ -10,11 +10,11 @@ import {API_URL} from '../../constants'
 const styles = theme => ({
   root: {
     backgroundColor: "#1b1b1b",
-    marginBottom: "100px",
-    minHeight: '100vh'
+    paddingBottom: "100px",
+    minHeight: '100vh',
+    
   },
   container: {
-    marginTop: "25px",
     backgroundColor: "#1b1b1b",
     color: "#39CCCC"
   },

@@ -18,11 +18,11 @@ import {API_URL} from '../../constants'
 const styles = theme => ({
   root: {
     backgroundColor: "#1b1b1b",
-    marginBottom: "100px",
+    paddingBottom: "100px",
     minHeight: '100vh'
   },
   container: {
-    marginTop: "25px",
+    paddingTop: "25px",
     backgroundColor: "#1b1b1b",
     color: "#39CCCC"
   },
@@ -281,7 +281,7 @@ class Bank extends Component {
                               />
 
                               <BankButtons
-                                // budget = {country.budget}
+                                budget = {country.budget}
                                 totalCost = {country.totalCost}
                                 handleGo = {this.handleGoButton}
                                 handleUpdate = {this.handleUpdate}

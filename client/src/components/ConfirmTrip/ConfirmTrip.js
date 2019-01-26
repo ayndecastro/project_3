@@ -108,12 +108,6 @@ class Confirm extends Component {
       <Divider variant="middle" />
  
       <Typography variant="h6" className={this.props.classes.info}>
-      Daily contribution: ${this.props.dailyIncrement}
-      </Typography>
-
-      <Divider variant="middle" />
- 
-      <Typography variant="h6" className={this.props.classes.info}>
       Country: {this.props.countryName}
       </Typography>
 

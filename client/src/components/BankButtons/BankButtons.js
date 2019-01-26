@@ -25,7 +25,7 @@ class BankButtons extends React.Component {
     state = {
         amount: '',
         updateClicked: false,
-        countryName: ''
+        countryName: '',
     }
 
 
@@ -37,29 +37,43 @@ class BankButtons extends React.Component {
         
     }
 
+    componentDidMount = () => {
+      this.setState({
+        budget: this.props.budget
+      })
+    }
+
     handleAdd = () => {
         if(this.state.updateClicked) {
 
+            this.setState({
+              budget: this.state.budget + this.state.amount
+            })
+            
+            console.log("eto ", this.state.budget)
           
             this.props.handleUpdate(this.state.amount, this.state.countryName, this.props.index, "add");
             this.setState({
               updateClicked: false,
               amount: ''
             })
+            
             }
+
     }
 
     handleMinus = () => {
 
         this.setState({
             amount: 0 - this.state.amount,
-            amount: ''
+            budget: this.state.budget = this.state.amount
         });
 
         if(this.state.updateClicked) {
             
             this.props.handleUpdate(this.state.amount, this.state.countryName, this.props.index, "minus");
-            this.setState({updateClicked: false})
+            this.setState({updateClicked: false,
+              amount: ''})
             }
     }
 
@@ -121,12 +135,14 @@ class BankButtons extends React.Component {
       </Button>
 
        }
-       {(this.props.budget == this.props.totalCost) &&
+
+
+       {(this.state.budget >= this.props.totalCost) &&
+        
       <Button 
       variant="outlined" 
       color="secondary" 
       align= "right"
-      disabled={!(this.props.budget == this.props.totalCost)} 
       className={this.props.classes.go}
       onClick={this.handleGo}
       >

@@ -11,6 +11,8 @@ import Sticky from "react-sticky-el";
 import API from "../../components/utils/API";
 import axios from "axios";
 import {API_URL} from '../../constants'
+import * as Scroll from 'react-scroll';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 const theme = createMuiTheme({
   
@@ -60,12 +62,15 @@ const theme = createMuiTheme({
 
 class MapApp extends Component {
 
+
   state = {
     mapClicked: false,
     goClicked: false,
     costGrid: 12,
     dateChosen: false,
     country: '',
+    costChosen: false,
+
   };
 
   
@@ -104,7 +109,9 @@ class MapApp extends Component {
         this.createCosts
       )
     );
+
   };
+
 
   createCosts() {
     console.log(this.state.country)
@@ -112,7 +119,18 @@ class MapApp extends Component {
     this.state.country.data.costs.forEach(cost => {
       costs.push(parseInt(cost.value_midrange));
     });
-    this.setState({ costs: costs });
+    this.setState({ costs: costs,
+    costChosen: true });
+
+    if(this.state.costChosen) {
+    scroller.scrollTo('myScrollToElement', {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+      // containerId: 'ContainerElementID',
+      offset: 50
+    })
+  }
   }
 
   handleGo = () => {
@@ -159,10 +177,11 @@ class MapApp extends Component {
         startDate,
         endDate
     })
+    this.saveTrip()
     
   };
 
- async saveTrip(){
+  saveTrip = () => {
     let data={
       country: this.state.country.data.info.name,
       date_leave: this.state.startDate,
@@ -175,8 +194,17 @@ class MapApp extends Component {
     console.log(getAccessToken)
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
     axios.post(`${API_URL}/createTrips`,data,{headers})
-    .then(res=>console.log(res))
+    .then(res => this.redirect(res))
     .catch(err=>console.log(err))
+  }
+
+  redirect = (res) => {
+    if(res.status === 200) {
+    this.props.history.push(`/bank`)
+    }
+    else {
+      console.log(res)
+    }
   }
   
 
@@ -197,7 +225,8 @@ class MapApp extends Component {
             <Grid item xs={.5}></Grid>
             <Grid item xs={11} md={6} lg={6} >
               {this.state.costs && (
-                <Paper square={false} className={theme.costContainer}>
+                <Paper square={false} className={theme.costContainer} >
+                <Element name="myScrollToElement"></Element>
                   <Cost
                     costs={this.state.costs}
                     className={theme.fixedConfirm}
@@ -229,7 +258,6 @@ class MapApp extends Component {
                       totalCost={this.state.totalCost}
                       dailyIncrement={this.state.dailyIncrement}
                       countryName={this.state.country.data.info.name}
-                      onClick={this.saveTrip()}
                     />
                     <br />
                   </div>
