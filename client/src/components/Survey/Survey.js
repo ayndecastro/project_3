@@ -66,12 +66,11 @@ function Survey(props) {
       <Grid container justify="center" className={classes.DateRange}  >
         <Grid item xs={11} >
         <Typography variant="h5" className={classes.text} >
-        What are your travel dates?
+        Travel Dates
         </Typography>
 
         <div align="center" className={classes.dateRange}>
         <DateRange
-                    // onInit={handleDateChange}
                     onChange={handleDateChange}
                     direction="horizontal"
                     showSelectionPreview={true}
@@ -79,6 +78,7 @@ function Survey(props) {
                     linkedCalendars={true}
                     months={1}
                     minDate={addDays(new Date(), -300)}
+                    rangeColors="#FFDC00"
                 />
         </div>
         

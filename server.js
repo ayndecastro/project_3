@@ -1,16 +1,16 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const app = express();
-const jwt = require('express-jwt');
-const jwtAuthz = require('express-jwt-authz');
-const jwksRsa = require('jwks-rsa');
 const cors = require('cors');
+const user =require('./routes/user');
+const byt = require('./routes/BYTrip');
+const defaultApi = require('./routes/default');
+const bodyParser = require('body-parser');
+
+
+
+  
 require('dotenv').config();
-
-
-require("./routes/BYTrip")(app);
-require("./routes/default")(app);
-
 
 
 if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
@@ -18,22 +18,30 @@ if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
   }
   
   app.use(cors());
-  
-  const checkJwt = jwt({
-    // Dynamically provide a signing key based on the kid in the header and the singing keys provided by the JWKS endpoint.
-    secret: jwksRsa.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 5,
-      jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
-    }),
-  
-    // Validate the audience and the issuer.
-    audience: process.env.AUTH0_AUDIENCE,
-    issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-    algorithms: ['RS256']
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
   });
-  
+
+
+
+//connect to the database
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+  .then(() => console.log(`Database connected successfully to ${process.env.MONGODB_URI}`))
+  .catch(err => console.log(err));
+
+mongoose.Promise = global.Promise;
+app.use(bodyParser.json());
+app.use((err, req, res, next) => {
+  console.log(err);
+  next();
+});
+
+require("./routes/BYTrip")(app);
+require("./routes/default")(app);
+app.use('/api', user)
+
 
 const PORT = 3001;
 
