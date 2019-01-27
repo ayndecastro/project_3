@@ -13,7 +13,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
     clientID: AUTH_CONFIG.clientId,
-    redirectUri: AUTH_CONFIG.callbackUrl,
+    redirectUri: "https://project3trip.herokuapp.com/callback" || AUTH_CONFIG.callbackUrl,
     audience: AUTH_CONFIG.apiUrl,
     responseType: 'token id_token',
     scope: this.requestedScopes
