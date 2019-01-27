@@ -8,6 +8,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #232F34;
   overflow-x: hidden;
+  background: url('./loginPage.jpg');
+  background-size: cover;
 }
 
 code {
