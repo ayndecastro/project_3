@@ -6,6 +6,8 @@ const user =require('./routes/user');
 const byt = require('./routes/BYTrip');
 const defaultApi = require('./routes/default');
 const bodyParser = require('body-parser');
+const express = require ('express');
+const router = express.Router();
 
 
 
@@ -47,6 +49,11 @@ app.use((err, req, res, next) => {
 require("./routes/BYTrip")(app);
 require("./routes/default")(app);
 app.use('/api', user)
+
+// If no API routes are hit, send the React app
+router.use(function(req, res) {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 
 
 const PORT = process.env.PORT || 3001;
