@@ -47,7 +47,7 @@ require("./routes/default")(app);
 app.use('/api', user)
 
 // If no API routes are hit, send the React app
-app.get('*', (request, response) => {
+app.get('/', (request, response) => {
 	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
