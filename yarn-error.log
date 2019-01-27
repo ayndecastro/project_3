@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Arguments: 
   C:\Program Files\nodejs\node.exe C:\Users\vande\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js dev
 
@@ -11807,3 +11808,5 @@ Lockfile:
       string-width "^1.0.1"
       window-size "^0.1.4"
       y18n "^3.2.0"
+=======
+>>>>>>> 4293ced600015092fbdd40cc133104fe4003cbd3

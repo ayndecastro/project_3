@@ -146,7 +146,6 @@ class Bank extends Component {
     this.getdata()
     // this.saveCurrent();
 
-
   }
 
   handleGoButton = (countryName, totalCost, date_leave, date_back) => {
