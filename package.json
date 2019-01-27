@@ -11,8 +11,8 @@
     "server": "nodemon server",
     "client": "cd client && yarn start",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
-    "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "build": "cd client && yarn run build",
+    "heroku-postbuild": "yarn run build"
   },
   "author": "",
   "license": "MIT",
@@ -40,6 +40,7 @@
     "mongoose": "^5.4.6",
     "morgan": "^1.8.2",
     "nconf": "^0.10.0",
+    "node": "^11.8.0",
     "nodemon": "^1.18.9",
     "npm-run-all": "^4.0.2",
     "react": "^16.7.0",
