@@ -137,7 +137,7 @@ class Bank extends Component {
         profile: userProfile});
     }
     this.getdata()
-    this.saveCurrent();
+    // this.saveCurrent();
 
   }
 
