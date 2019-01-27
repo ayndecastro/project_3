@@ -6,7 +6,6 @@ const user =require('./routes/user');
 const byt = require('./routes/BYTrip');
 const defaultApi = require('./routes/default');
 const bodyParser = require('body-parser');
-const express = require ('express');
 const router = express.Router();
 
 
