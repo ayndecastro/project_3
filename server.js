@@ -3,10 +3,7 @@ const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
 const user =require('./routes/user');
-const byt = require('./routes/BYTrip');
-const defaultApi = require('./routes/default');
 const bodyParser = require('body-parser');
-const router = express.Router();
 
 
 
@@ -50,8 +47,8 @@ require("./routes/default")(app);
 app.use('/api', user)
 
 // If no API routes are hit, send the React app
-router.use(function(req, res) {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 
