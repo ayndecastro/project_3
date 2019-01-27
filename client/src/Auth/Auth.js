@@ -10,6 +10,8 @@ export default class Auth {
   scopes;
   requestedScopes = 'openid profile read:messages write:messages create:trip delete:trip update:trip update:budget view:trip add:photo ';
 
+  AUTH0_CALLBACK_URL = "https://project3trip.herokuapp.com/callback";
+
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
     clientID: AUTH_CONFIG.clientId,
