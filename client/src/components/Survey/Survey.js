@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
+import { Divider } from "@material-ui/core";
 
 const styles = theme => ({
   root: {
@@ -39,7 +40,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit,
   }, 
   text: {
-    color: "#ffffff",
+    color: "#000000",
     marginTop: theme.spacing.unit * 2
   },
   dialog: {
@@ -68,6 +69,7 @@ function Survey(props) {
         <Typography variant="h5" className={classes.text} >
         Travel Dates
         </Typography>
+        
 
         <div align="center" className={classes.dateRange}>
         <DateRange

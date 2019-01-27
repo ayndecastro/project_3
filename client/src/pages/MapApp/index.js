@@ -8,56 +8,83 @@ import Survey from "../../components/Survey/Survey";
 import ConfirmTrip from "../../components/ConfirmTrip/ConfirmTrip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Sticky from "react-sticky-el";
-import Hidden from "@material-ui/core/Hidden";
 import API from "../../components/utils/API";
+import axios from "axios";
+import {API_URL} from '../../constants'
+import * as Scroll from 'react-scroll';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 const theme = createMuiTheme({
+  
+  Paper: {backgroundColor: "#009a9b",},
   root: {
-    backgroundColor: "#424242",
+    backgroundColor: "#009a9b",
     backgroundImage: `url(${Image})`,
   },
   palette: {
     primary: {
       light: "#373737",
-      main: "#1b1b1b",
+      main: "#39CCCC",
       dark: "#000000",
-      contrastText: "#ffffff"
+      contrastText: "#000000"
     },
     secondary: {
       light: "#c3fdff",
-      main: "#7FDBFF",
+      main: "#39CCCC",
       dark: "#001f3f",
       contrastText: "#000000"
     },
     type: "dark",
     root: {
       flexGrow: 1,
-      backgroundColor: "#62727b"
+      backgroundColor: "#009a9b"
     },
     paper: {},
     background: {
-      default: "#373737",
-      paper: "#1b1b1b"
+      default: "#009a9b",
+      paper: "#39CCCC"
     },
-    textPrimary: "#1b1b1b"
+    textPrimary: "#39CCCC"
   },
   pageTwo: {
     marginTop: "50px"
   },
   divider: {
     color: "#bcbcbc "
+  },
+  firstContainer: {
+    marginLeft: "20px",
+  },
+  costContainer: {
+    marginLeft: "20px",
   }
 });
 
 class MapApp extends Component {
+
+
   state = {
     mapClicked: false,
     goClicked: false,
     costGrid: 12,
-    dateChosen: false
+    dateChosen: false,
+    country: '',
+    costChosen: false,
+
   };
 
-  componentDidMount() {
+  
+  componentWillMount() {
+    this.setState({ profile: {} });
+    const { userProfile, getProfile } = this.props.auth;
+    if (!userProfile) {
+      getProfile((err, profile) => {
+        this.setState({ profile });
+      });
+    } else {
+      this.setState({ profile: userProfile });
+    }
+
     API.getCategories().then(res => {
       let categories = [];
       res.data.data.forEach(data => {
@@ -70,7 +97,9 @@ class MapApp extends Component {
     });
   }
 
+
   handleClick = e => {
+    console.log(e)
     API.getCountry(e).then(res =>
       this.setState(
         {
@@ -80,14 +109,28 @@ class MapApp extends Component {
         this.createCosts
       )
     );
+
   };
 
+
   createCosts() {
+    console.log(this.state.country)
     let costs = [];
     this.state.country.data.costs.forEach(cost => {
       costs.push(parseInt(cost.value_midrange));
     });
-    this.setState({ costs });
+    this.setState({ costs: costs,
+    costChosen: true });
+
+    if(this.state.costChosen) {
+    scroller.scrollTo('myScrollToElement', {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+      // containerId: 'ContainerElementID',
+      offset: 50
+    })
+  }
   }
 
   handleGo = () => {
@@ -118,33 +161,79 @@ class MapApp extends Component {
     }
   };
 
-  handleConfirm = (totalCost, countryName) => {
+  handleConfirm = (totalCost, countryName, dailyIncrement, startDate, endDate) => {
     
     // ADD THESE TO BACK END 
     console.log("totalCost: ", totalCost)
     console.log("countryName: ", countryName)
+    console.log("dailyIncrement: ", dailyIncrement)
+    console.log("startDate: ", startDate)
+    console.log("endDate: ", endDate)
+
+    this.setState({
+      dateChosen: false,
+        totalCost,
+        countryName,
+        startDate,
+        endDate
+    })
+    this.saveTrip()
+    
   };
 
+  saveTrip = () => {
+    let data={
+      country: this.state.country.data.info.name,
+      date_leave: this.state.startDate,
+      date_back: this.state.endDate,
+      totalCost: this.state.totalCost,
+      user_id: this.state.profile.sub.split('|')[1]
+    }
+
+    const { getAccessToken } = this.props.auth;
+    console.log(getAccessToken)
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    axios.post(`${API_URL}/createTrips`,data,{headers})
+    .then(res => this.redirect(res))
+    .catch(err=>console.log(err))
+  }
+
+  redirect = (res) => {
+    if(res.status === 200) {
+    this.props.history.push(`/bank`)
+    }
+    else {
+      console.log(res)
+    }
+  }
+  
+
   render() {
+    console.log(this.props.auth)
+    console.log(this.state)
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <div className={theme.root}>
-          <Map justify="center" mapClicked={this.handleClick} />
 
-          <Grid container spacing={24} justify="flex-start">
-            <Grid item xs={1} />
-            <Grid item xs={11} md={6} lg={6}>
+        <Paper mx={2}>
+          <Map justify="center" mapClicked={this.handleClick}/>
+        </Paper>
+
+        <div className={theme.Paper}>
+          <Grid container spacing={24} justify="flex-start" className={theme.firstContainer}>
+            <Grid item xs={.5}></Grid>
+            <Grid item xs={11} md={6} lg={6} >
               {this.state.costs && (
-                <Paper square={false}>
+                <Paper square={false} className={theme.costContainer} >
+                <Element name="myScrollToElement"></Element>
                   <Cost
                     costs={this.state.costs}
                     className={theme.fixedConfirm}
                     countryName={this.state.country.data.info.name}
                     categories={this.state.categories}
+                    dailyIncrement={this.state.dailyIncrement}
                   />
-
-                  <hr />
 
                   <Survey
                     className={theme.survey}
@@ -154,10 +243,7 @@ class MapApp extends Component {
                 </Paper>
               )}
             </Grid>
-
-            <Hidden only={["md", "lg"]}>
-              <Grid item xs={1} sm={1} />
-            </Hidden>
+            
             {this.state.dateChosen && (
               <Grid item xs={11} md={5} lg={5}>
                 <Sticky>
@@ -179,6 +265,7 @@ class MapApp extends Component {
               </Grid>
             )}
           </Grid>
+        </div>
         </div>
         <br />
         <br />

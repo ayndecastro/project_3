@@ -20,14 +20,13 @@ class Map extends Component {
     zoomOnScroll={false}
     containerStyle={{
       width: "100%",
-      height: "100vh",
-      marginBottom: "20px"
+      height: "100vh"
     }}
     onRegionClick={this.handleClick}
     containerClassName="map"
       regionStyle={{
         initial: {
-          fill: "#7FDBFF",
+          fill: "#009a9b",
           "fill-opacity": 1,
           stroke: "none",
           "stroke-width": 1,

@@ -5,12 +5,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import NavigationIcon from '@material-ui/icons/Navigation';
 import Fab from '@material-ui/core/Fab';
 
 const styles = theme => ({
   root: {
-    backgroundColor: "#62727b"
+    backgroundColor: "#1b1b1b",
+    marginRight: theme.spacing.unit * 1,
   },
   appBar: {
     position: 'relative',
@@ -41,19 +41,19 @@ const styles = theme => ({
   paper: {
     width: 'auto',
     padding: theme.spacing.unit * 2,
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: "#1b1b1b"
   },
   info: {
       padding: theme.spacing.unit * 2,
       marginTop: theme.spacing.unit,
       transition: '.02s',
-      color: "#7FDBFF"
+      color: "#ffffff"
   },
   infoHead: {
     paddingRight: theme.spacing.unit,
     marginTop: theme.spacing.unit,
-    backgroundColor: theme.palette.primary.main,
-    color: "#7FDBFF"
+    backgroundColor: "#1b1b1b",
+    color: "#ffffff"
   },
   fab: {
     margin: theme.spacing.unit,
@@ -68,7 +68,7 @@ class Confirm extends Component {
   }
   
   handleConfirm = () => {
-    this.props.handleDateConfirm(this.props.totalCost, this.props.countryName);
+    this.props.handleDateConfirm(this.props.totalCost, this.props.countryName, this.props.dailyIncrement, this.props.startDate, this.props.endDate);
   }
 
   handleChange = () => {
@@ -103,12 +103,6 @@ class Confirm extends Component {
  
       <Typography variant="h6" className={this.props.classes.info}>
       Departure: {this.props.endDate}
-      </Typography>
-
-      <Divider variant="middle" />
- 
-      <Typography variant="h6" className={this.props.classes.info}>
-      Daily contribution: ${this.props.dailyIncrement}
       </Typography>
 
       <Divider variant="middle" />

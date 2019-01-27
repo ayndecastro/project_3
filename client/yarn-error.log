@@ -1,74 +1,68 @@
-<<<<<<< HEAD
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\vande\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js dev
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add axios-react
 
 PATH: 
-  C:\Users\vande\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\vande\bin;C:\Python27;C:\Python27\Scripts;C:\ProgramData\Boxstarter;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0;C:\windows\System32\OpenSSH;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Users\vande\AppData\Local\Microsoft\WindowsApps;C:\Users\vande\AppData\Roaming\npm;C:\Users\vande\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\heroku\bin;C:\Program Files\MongoDB\Server\4.0\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\aynde\bin;C:\Users\aynde\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\aynde\bin;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin;C:\Users\aynde\AppData\Local\Microsoft\WindowsApps;C:\Users\aynde\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\aynde\AppData\Roaming\npm;C:\Users\aynde\AppData\Local\Yarn\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
-  1.12.3
+  1.13.0
 
 Node version: 
-  10.12.0
+  10.15.0
 
 Platform: 
   win32 x64
 
 Trace: 
-  SyntaxError: C:\Users\vande\project_3\package.json: Unexpected token < in JSON at position 975
-      at JSON.parse (<anonymous>)
-      at C:\Users\vande\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1631:59
-      at Generator.next (<anonymous>)
-      at step (C:\Users\vande\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:304:30)
-      at C:\Users\vande\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:315:13
+  Error: https://registry.yarnpkg.com/axios-react: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65364:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:129397:22)
+      at Request.emit (events.js:182:13)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130369:10)
+      at Request.emit (events.js:182:13)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130291:12)
+      at Object.onceWrapper (events.js:273:13)
+      at IncomingMessage.emit (events.js:187:15)
+      at endReadableNT (_stream_readable.js:1094:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
 
 npm manifest: 
   {
     "name": "mern",
-    "version": "1.0.0",
-    "description": "SaveTravels",
-    "main": "server.js",
-    "scripts": {
-      "client-install": "cd client && yarn install",
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node server.js",
-      "server": "nodemon server",
-      "client": "cd client && yarn start",
-      "dev": "concurrently \"yarn server\" \"yarn client\""
-    },
-    "author": "",
-    "license": "MIT",
+    "version": "0.1.0",
+    "private": true,
+    "proxy": "http://localhost:3001/",
     "dependencies": {
       "@date-io/core": "^1.0.1",
       "@date-io/date-fns": "^1.0.1",
       "@material-ui/core": "^3.8.3",
       "@material-ui/icons": "^3.0.2",
-      "auth0-js": "^9.9.0",
+      "auth0-js": "^9.0.0",
       "axios": "^0.16.2",
       "bootstrap": "^3.3.7",
       "brcast": "^3.0.1",
       "concurrently": "^4.1.0",
-      "cors": "^2.8.5",
+      "cors": "^2.8.3",
       "crypto": "^1.0.1",
       "date-fns": "^1.30.1",
       "dotenv": "^4.0.0",
       "express": "^4.15.3",
-      "express-jwt": "^5.3.1",
+      "express-jwt": "^5.3.0",
       "express-jwt-authz": "^1.0.0",
       "history": "^4.6.1",
       "if-env": "^1.0.4",
-      "jwks-rsa": "^1.3.0",
+      "jwks-rsa": "^1.1.1",
       "moment": "^2.23.0",
-      "mongoose": "^5.4.6",
+      "mongoose": "^5.4.3",
       "morgan": "^1.8.2",
       "nconf": "^0.10.0",
       "nodemon": "^1.18.9",
       "npm-run-all": "^4.0.2",
       "react": "^16.7.0",
-      "react-bootstrap": "^0.31.5",
+      "react-bootstrap": "^0.31.2",
       "react-date-range": "^0.9.4",
       "react-dom": "^16.7.0",
-      "react-jvectormap": "0.0.5",
+      "react-jvectormap": "^0.0.4",
       "react-parallax": "^2.0.1",
       "react-router": "^4.1.2",
       "react-router-dom": "^4.1.2",
@@ -81,7 +75,18 @@ npm manifest:
       "save": "^2.3.3",
       "typeface-roboto": "0.0.54"
     },
-    "repository": "https://github.com/ayndecastro/project_3.git"
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test --env=jsdom",
+      "eject": "react-scripts eject"
+    },
+    "browserslist": [
+      ">0.2%",
+      "not dead",
+      "not ie <= 11",
+      "not op_mini all"
+    ]
   }
 
 yarn manifest: 
@@ -1698,7 +1703,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
     integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
   
-  auth0-js@^9.9.0:
+  auth0-js@^9.0.0:
     version "9.9.0"
     resolved "https://registry.yarnpkg.com/auth0-js/-/auth0-js-9.9.0.tgz#47879de9f8e315cce127ca32333c7ef9b369e7eb"
     integrity sha512-WVGWXWoxkz3xwA/zJJucHwziIxAFSC7SGwSjejzl5Q8WgGf5qAbyRRkOyhYp73ZZRMrS0pCXqXt+28yF3nSJXw==
@@ -2918,7 +2923,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
     integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
   
-  cors@^2.8.5:
+  cors@^2.8.3:
     version "2.8.5"
     resolved "https://registry.yarnpkg.com/cors/-/cors-2.8.5.tgz#eac11da51592dd86b9f06f6e7ac293b3df875d29"
     integrity sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==
@@ -4141,7 +4146,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/express-jwt-authz/-/express-jwt-authz-1.0.0.tgz#26155700fa2485bd3e9ace3e6bb14573d45be5a4"
     integrity sha1-JhVXAPokhb0+ms4+a7FFc9Rb5aQ=
   
-  express-jwt@^5.3.1:
+  express-jwt@^5.3.0:
     version "5.3.1"
     resolved "https://registry.yarnpkg.com/express-jwt/-/express-jwt-5.3.1.tgz#66f05c7dddb5409c037346a98b88965bb10ea4ae"
     integrity sha512-1C9RNq0wMp/JvsH/qZMlg3SIPvKu14YkZ4YYv7gJQ1Vq+Dv8LH9tLKenS5vMNth45gTlEUGx+ycp9IHIlaHP/g==
@@ -6523,7 +6528,7 @@ Lockfile:
       ecdsa-sig-formatter "1.0.10"
       safe-buffer "^5.0.1"
   
-  jwks-rsa@^1.3.0:
+  jwks-rsa@^1.1.1:
     version "1.3.0"
     resolved "https://registry.yarnpkg.com/jwks-rsa/-/jwks-rsa-1.3.0.tgz#f37d2a6815af17a3b2e5898ab2a41ad8c168b295"
     integrity sha512-9q+d5VffK/FvFAjuXoddrq7zQybFSINV4mcwJJExGKXGyjWWpTt3vsn/aX33aB0heY02LK0qSyicdtRK0gVTig==
@@ -7259,10 +7264,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
     integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
   
-  mongoose@^5.4.6:
-    version "5.4.6"
-    resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.4.6.tgz#5b2830a4a0cd1caf1ed91501b25e6874389c4ba5"
-    integrity sha512-b5LgAWUsT04LbFfwuwUa5hWyuPKQI8m3V+idAMriqU26P7d32Wu5RmtEBJyy2A5VlHIDtPseAqhLmJ1fGWHBGA==
+  mongoose@^5.4.3:
+    version "5.4.3"
+    resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.4.3.tgz#9cbc689ca0c529c2d7dd5a84dcfbc9b041084367"
+    integrity sha512-zhfypQm63CPYHi43O/3lTcEPVucY3h6CqONbzreMKZIEXtwgkB9HCm4wn441Z9/CpM94G6/NA3wcaRb0N2kPYQ==
     dependencies:
       async "2.6.1"
       bson "~1.1.0"
@@ -9092,7 +9097,7 @@ Lockfile:
       raf "3.4.0"
       whatwg-fetch "3.0.0"
   
-  react-bootstrap@^0.31.5:
+  react-bootstrap@^0.31.2:
     version "0.31.5"
     resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.31.5.tgz#57040fa8b1274e1e074803c21a1b895fdabea05a"
     integrity sha512-xgDihgX4QvYHmHzL87faDBMDnGfYyqcrqV0TEbWY+JizePOG1vfb8M3xJN+6MJ3kUYqDtQSZ7v/Q6Y5YDrkMdA==
@@ -9176,10 +9181,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.7.0.tgz#c1bd21c64f1f1364c6f70695ec02d69392f41bfa"
     integrity sha512-Z0VRQdF4NPDoI0tsXVMLkJLiwEBa+RP66g0xDHxgxysxSoCUccSten4RTF/UFvZF1dZvZ9Zu1sx+MDXwcOR34g==
   
-  react-jvectormap@0.0.5:
-    version "0.0.5"
-    resolved "https://registry.yarnpkg.com/react-jvectormap/-/react-jvectormap-0.0.5.tgz#81e5e3d0bcffebe23a0fa62b22a33ff5a51777fb"
-    integrity sha512-0u4HGOfCTM59hl9dwWfm9MXUJxOzvF4T7uOXIUXSCkfxQMp+oEmUhSJW5FyHM75pN4oQcF6TfZFXZvRj4hEEIw==
+  react-jvectormap@^0.0.4:
+    version "0.0.4"
+    resolved "https://registry.yarnpkg.com/react-jvectormap/-/react-jvectormap-0.0.4.tgz#9baa3e8cca1dd5ca2df087a2509137fae2e73ef7"
+    integrity sha512-Q9XfOEc/HM9NtCtQx/cCaq3YTcpoLPwfZMlXYUJ4gQ+zHjCOAnoH1PmbORxvCABpoU3nBVowwKKILRyitQJDHg==
     dependencies:
       jquery "^3.2.1"
       jquery-mousewheel "^3.1.13"
@@ -9309,36 +9314,36 @@ Lockfile:
     dependencies:
       classnames "^2.2.5"
   
-  react-swipeable-views-core@^0.13.1:
-    version "0.13.1"
-    resolved "https://registry.yarnpkg.com/react-swipeable-views-core/-/react-swipeable-views-core-0.13.1.tgz#8829a922462a8bdd701709cd1b385393d38f1527"
-    integrity sha512-EP8sCvvD7VDiZLglPt9icMuMNu8qLRLk0ab/fB1HXv7lX8ClnwF3UMCM0ZrN3sguSY7CsX3LevducGGsT1VcDg==
+  react-swipeable-views-core@^0.13.0:
+    version "0.13.0"
+    resolved "https://registry.yarnpkg.com/react-swipeable-views-core/-/react-swipeable-views-core-0.13.0.tgz#6bf8a8132a756355444537672a14e84b1e3b53c2"
+    integrity sha512-MAe119eSN4obiqsIp+qoUWtLbyjz+dWEfz+qPurPvyIFoXxuxpBnsDy36+C7cBaCi5z4dRmfoMlm1dBAdIzvig==
     dependencies:
       "@babel/runtime" "7.0.0"
       warning "^4.0.1"
   
-  react-swipeable-views-utils@^0.13.1:
-    version "0.13.1"
-    resolved "https://registry.yarnpkg.com/react-swipeable-views-utils/-/react-swipeable-views-utils-0.13.1.tgz#8e604af7316d409f22d8c47f841859dc150df30b"
-    integrity sha512-r5eyPIIHnlvILvFHXGnASDXa3RwC6X2YevegA2II5fhzYqwQRpJ81+lnzknNg5hiIN6ucXc5vrkqRRjabAhMpA==
+  react-swipeable-views-utils@^0.13.0:
+    version "0.13.0"
+    resolved "https://registry.yarnpkg.com/react-swipeable-views-utils/-/react-swipeable-views-utils-0.13.0.tgz#0ea17aa67f88a69d534c79d591f8d82ef98346a4"
+    integrity sha512-1I4BhDqA6qkRdW0nexnudh/QdvVAVy0a7M5OyU2TrjaTovg6ufBouzqfqjZfUZUxVdOftTkPtisHmcqqZ+b1TA==
     dependencies:
       "@babel/runtime" "7.0.0"
       fbjs "^0.8.4"
       keycode "^2.1.7"
       prop-types "^15.6.0"
       react-event-listener "^0.6.0"
-      react-swipeable-views-core "^0.13.1"
+      react-swipeable-views-core "^0.13.0"
   
   react-swipeable-views@^0.13.0:
-    version "0.13.1"
-    resolved "https://registry.yarnpkg.com/react-swipeable-views/-/react-swipeable-views-0.13.1.tgz#4f074280b09d2247d284a6e3831fd3763ee0ed39"
-    integrity sha512-zZIRBD+HFO0P5z3TCkDMsSG/Sc3LXGGtojO+dEAGxsPvZjc3ji4Z/oOcLjZ4ozl0xIlLQJZ89o1rR82H/MDBHw==
+    version "0.13.0"
+    resolved "https://registry.yarnpkg.com/react-swipeable-views/-/react-swipeable-views-0.13.0.tgz#a200cef1005d55af6a27b97048afe9a4056e0ab8"
+    integrity sha512-r6H8lbtcI99oKykpLxYrI6O9im1lJ4D5/hf8bkNeQLdHZ9ftxS03qgEtguy3GpT5VB9yS4gErYWeaTrhCrysEg==
     dependencies:
       "@babel/runtime" "7.0.0"
       dom-helpers "^3.2.1"
       prop-types "^15.5.4"
-      react-swipeable-views-core "^0.13.1"
-      react-swipeable-views-utils "^0.13.1"
+      react-swipeable-views-core "^0.13.0"
+      react-swipeable-views-utils "^0.13.0"
       warning "^4.0.1"
   
   react-transition-group@^2.2.1:
@@ -11808,5 +11813,3 @@ Lockfile:
       string-width "^1.0.1"
       window-size "^0.1.4"
       y18n "^3.2.0"
-=======
->>>>>>> 4293ced600015092fbdd40cc133104fe4003cbd3
