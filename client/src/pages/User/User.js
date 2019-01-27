@@ -98,22 +98,44 @@ class User extends Component {
     }
 
     this.viewCurrent()
+    this.spendingGet();
 
   }
 
-  // spending(){
-  //   let spending = {
-  //     spending: 1,
-  //     spendingName: 'cake',
-  //   }
+  spendingPost(){
+    let spending = {
+      spending: 13,
+      spendingName: 'taxi',
+      user_id: '108926452875239055842'
+    }
 
-  //   const { getAccessToken } = this.props.auth;
-  //   console.log(getAccessToken)
-  //   const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-  //   axios.post(`${API_URL}/createSpending`,spending,{headers})
-  //   .then(res=>console.log(res))
-  //   .catch(err=>console.log(err));
-  // }
+    const { getAccessToken } = this.props.auth;
+    console.log(getAccessToken)
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    axios.post(`${API_URL}/createSpending`,spending,{headers})
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err));
+  }
+
+  spendingGet(){
+     // event.preventDefault();
+     const { getAccessToken } = this.props.auth;
+     const {userProfile} = this.props.auth;
+     const getId = userProfile.sub.split('|')[1];
+     const user_id = getId.toString();
+     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+     if(user_id.length > 0){
+     axios.get(`${API_URL}/spending/${user_id}`, { headers })
+       .then(response => 
+         console.log(response)
+        //  this.setState({ data: response.data})/
+         )
+       .catch(error =>
+         this.setState({ data: error.message })
+         );
+       // console.log(headers)
+     }
+  }
 
   viewCurrent = () => {
      // event.preventDefault();
@@ -154,6 +176,7 @@ class User extends Component {
   render() {
     
     const {profile} = this.state;
+    console.log(this.state);
 
     return (
         

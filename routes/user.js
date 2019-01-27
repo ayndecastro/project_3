@@ -70,6 +70,15 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
         .catch(err => res.status(422).json(err));
   });
 
+//get spending
+router.get('/spending/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
+  // const user_id = req.params.user_id;
+  // console.log(userId)
+  db.Spending.find({user_Id:req.query.user_id})
+      .sort({date: -1})
+      .then(trip=>res.json(trip))
+      .catch(err => res.status(422).json(err));
+});
 
 //create a trip
   router.post('/createTrips', checkJwt, checkScopeCreateTrip, (req,res)=>{
