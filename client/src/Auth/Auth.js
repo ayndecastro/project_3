@@ -11,8 +11,8 @@ export default class Auth {
   requestedScopes = 'openid profile read:messages write:messages create:trip delete:trip update:trip update:budget view:trip add:photo ';
 
   auth0 = new auth0.WebAuth({
-    domain: AUTH_CONFIG.domain,
-    clientID: AUTH_CONFIG.clientId,
+    domain: process.env.AUTH0_DOMAIN,
+    clientID: process.env.AUTH0_CLIENT_ID,
     redirectUri: process.env.AUTH_CONFIG || AUTH_CONFIG.callbackUrl,
     audience: AUTH_CONFIG.apiUrl,
     responseType: 'token id_token',
