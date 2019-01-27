@@ -15,7 +15,7 @@ const handleAuthentication = ({location}) => {
   }
 }
 
-export const makeMainRoutes = () => {
+export const makeMainRoutes = (props) => {
   return (
       <Router history={history}>
         <div>
