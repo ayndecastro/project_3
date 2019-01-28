@@ -53,61 +53,61 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
    
 
 //get all trips user saved
-router.get('/viewTrip/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
-  db.Trips.find(req.params)
-      .sort({date: -1})
-      .then(trip=>res.json(trip))
-      .catch(err => res.status(422).json(err));
-});
+  router.get('/viewTrip/:user_id', (req,res)=>{
+    db.Trips.find(req.params)
+        .sort({date: -1})
+        .then(trip=>res.json(trip))
+        .catch(err => res.status(422).json(err));
+  });
 
   //get current trip
-  router.get('/viewCurrent/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
-    db.UserCurrent.find(req.params.user_id)
+  router.get('/viewCurrent/:user_id', (req,res)=>{
+    db.UserCurrent.find(req.params)
         .sort({date: -1})
         .then(trip=>res.json(trip))
         .catch(err => res.status(422).json(err));
   });
 
 //get spending
-router.get('/spending/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
+router.get('/spending/:user_id', (req,res)=>{
   // const user_id = req.params.user_id;
   // console.log(userId)
-  db.Spending.find({user_Id:req.query.user_id})
+  db.Spending.find(req.params)
       .sort({date: -1})
       .then(trip=>res.json(trip))
       .catch(err => res.status(422).json(err));
 });
 
 //create a trip
-  router.post('/createTrips', checkJwt, checkScopeCreateTrip, (req,res)=>{
+  router.post('/createTrips', (req,res)=>{
     db.Trips.create(req.body)
     .then(trips => console.log(res.json(trips)))
     .catch(err => res.status(422).json(err));
   });
 
   //create a current trip
-  router.post('/createTrip/current', checkJwt, checkScopeCreateTrip, (req,res) => {
+  router.post('/createTrip/current', (req,res) => {
     db.UserCurrent.create(req.body)
     .then(trips => console.log(res.json(trips)))
     .catch(err => res.status(422).json(err));
   })
 
   //save spending
-  router.post('/createSpending', checkJwt, checkScopeUpdateBudget, (req,res)=>{
+  router.post('/createSpending', (req,res)=>{
     db.Spending.create(req.body)
     .then(trips => console.log(res.json(trips)))
     .catch(err => res.status(422).json(err));
   })
 
   //add photos and spendings budget of current
-  router.put('/updateCurrent/:id', checkJwt, checkScopeAddPhoto, checkScopeUpdateTrip, (req,res)=>{
+  router.put('/updateCurrent/:id', (req,res)=>{
     db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })
 
   //update progress
-  router.put('/tripProgress/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+  router.put('/tripProgress/:id',(req,res)=>{
     db.Trips.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
@@ -115,13 +115,13 @@ router.get('/spending/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
 
 
   //edit current
-  router.patch('/updateCurrent/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+  router.patch('/updateCurrent/:id',(req,res)=>{
     db.UserCurrent.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })
 
-  router.patch('/updateTrip/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+  router.patch('/updateTrip/:id',(req,res)=>{
     db.Trips.findOneAndUpdate({_id: req.params.id},req.body, (err, doc) => {
       if (err) {
         console.log("Something wrong when updating data!");
@@ -132,14 +132,14 @@ router.get('/spending/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
   })
 
   //edit Trips
-  router.patch('/editTrip/:id', checkJwt, checkScopeUpdateTrip, (req,res)=>{
+  router.patch('/editTrip/:id',(req,res)=>{
     db.Trip.findOneAndUpdate({_id: req.params.id},req.body)
     .then(UserCurrent=> res.json(UserCurrent))
     .catch(err=>res.status(422).json(err));
   })
 
   //delete a trip
-  router.delete('/deleteTrip/:id', checkJwt, checkScopeDeleteTrip, (req,res)=> {
+  router.delete('/deleteTrip/:id',(req,res)=> {
     db.Trips.findbyId(req.params.id)
         .then(trip => trip.remove().then(()=> res.json({success:true})))
         .catch(err=> res.status(404).json({success: false}))

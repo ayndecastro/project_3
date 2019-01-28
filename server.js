@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV === "production") {
 if (!process.env.REACT_APP_AUTH_DOMAIN_ADDRESS|| !process.env.REACT_APP_AUTH_AUDIENCE) {
     throw 'Make sure you have AUTH0_DOMAIN, and AUTH0_AUDIENCE in your .env file'
   }
+  
   
   app.use(cors());
   app.use((req, res, next) => {
@@ -36,7 +38,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
   .catch(err => console.log(err));
 
 mongoose.Promise = global.Promise;
-app.use(bodyParser.json());
+app.use(bodyParser.json({ extended: true }));
 app.use((err, req, res, next) => {
   console.log(err);
   next();
@@ -46,16 +48,17 @@ require("./routes/BYTrip")(app);
 require("./routes/default")(app);
 app.use('/api', user)
 
-// If no API routes are hit, send the React app
-app.get('/', (request, response) => {
-	response.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
-app.get('/callback', (request, response) => {
-	response.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
+// //get all trips user saved
+// app.get('/api/viewTrip', (req,res)=>{
+//   db.Trips.find({})
+//       .sort({date: -1})
+//       .then(trip=>res.json(trip))
+//       .catch(err => res.status(422).json(err));
+// });
 
 
-const PORT = process.env.PORT || 3001;
+
+const PORT = process.env.PORT;
 
 app.listen(PORT, ()=>  console.log(
     "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",

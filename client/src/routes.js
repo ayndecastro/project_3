@@ -22,7 +22,7 @@ export const makeMainRoutes = () => {
   return (
       <Router history={history}>
         <div>
-        <Route exact path="/callback" render={(props) => {
+        <Route path="/callback" render={(props) => {
             handleAuthentication(props);
             return <Callback {...props} /> 
           }}/>
