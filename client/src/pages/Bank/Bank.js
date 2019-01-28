@@ -119,7 +119,7 @@ class Bank extends Component {
         // console.log(response)
         this.setState({ data: response.data})
         )
-      .catch(error => this.setState({ data: error.message }));
+      .catch(error => console.log(error));
       // console.log(headers)
     }
   }
@@ -277,7 +277,7 @@ class Bank extends Component {
               <Grid item xs={12} lg={10} className={this.props.paper}>
                 <Paper className={this.props.classes.mainContainer}>
                 {console.log(this.state.data)}
-                  {this.state.data && 
+                  {this.state.data && this.state.data != "Request failed with status code 500" &&
                     this.state.data.map((country, index)=>{
                       
                       return(

@@ -53,14 +53,12 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
    
 
 //get all trips user saved
-  router.get('/viewTrip/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
-    // const user_id = req.params.user_id;
-    // console.log(userId)
-    db.Trips.find({user_Id:req.query.user_id})
-        .sort({date: -1})
-        .then(trip=>res.json(trip))
-        .catch(err => res.status(422).json(err));
-  });
+router.get('/viewTrip/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
+  db.Trips.find(req.params)
+      .sort({date: -1})
+      .then(trip=>res.json(trip))
+      .catch(err => res.status(422).json(err));
+});
 
   //get current trip
   router.get('/viewCurrent/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
