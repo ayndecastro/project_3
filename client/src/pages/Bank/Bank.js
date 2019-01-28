@@ -117,7 +117,7 @@ class Bank extends Component {
     axios.get(`${API_URL}/viewTrip/${user_id}`, { headers })
       .then(response => 
         // console.log(response)
-        this.setState({ data: response.data})
+        this.setState({ data: response.data[0]})
         )
       .catch(error => this.setState({ data: error.message }));
       // console.log(headers)
@@ -246,7 +246,7 @@ class Bank extends Component {
     // console.log(profile.sub);
     console.log(this.state);
     // console.log(this.props.auth);
-    // console.log(data)
+    console.log(data)
 
 
     return (
@@ -278,7 +278,7 @@ class Bank extends Component {
                 <Paper className={this.props.classes.mainContainer}>
                 {console.log(this.state.data)}
                   {this.state.data && 
-                    this.state.data.map((country, index)=>{
+                    this.state.data.trips.map((country, index)=>{
                       
                       return(
 

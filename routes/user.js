@@ -36,34 +36,10 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
 
     
  // testing post route
-//  router.post('/admin', (req, res)=> {
-//   const user = new db.Users({
-    
-//     user_id: 108926452875239055842,
-//     trips: [{
-//       country: "canada",
-//     date_leave: "01/20/2019",
-//     date_back: "01/26/2019",
-//     totalCost: 3000,
-//     }],
-//     current: [
-//       {
-//         country: "canada",
-//         date_leave: "01/20/2019",
-//         date_back: "01/26/2019",
-//         budget: 3000,
-//         budgetToUpdate: 3000,
-//         totalCost: 3000,
-//       }
-//     ],
-//       spending: [{
-//             spending: 3,
-//             spendingName:'iceCream',
-//           }],
-//   });
-//   console.log(req, res)
-//   user.save().then(trip => res.json(trip));
-// });
+ router.post('/admin', (req, res)=> {
+   db.Users.create(req.body).then(trips => console.log(res.json(trips)))
+    .catch(err => res.status(422).json(err));
+});
 
   // pushing to trips
   // router.post('/admin', (req, res)=> {
@@ -106,17 +82,17 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
   // });
 
   // updating spending
-  router.post('/admin', (req, res)=> {
-      db.Users.findOneAndUpdate({user_id: 108926452875239060000},
-        {"$push":{
-          spending: [{
-            spending: 1,
-            spendingName: 'candy'
-          }]
-        }},{"upsert": true }
-      ) .then(trips => console.log(res.json(trips)))
-      .catch(err => res.status(422).json(err));
-    }); 
+  // router.post('/admin', (req, res)=> {
+  //     db.Users.findOneAndUpdate({user_id: 108926452875239060000},
+  //       {"$push":{
+  //         spending: [{
+  //           spending: 1,
+  //           spendingName: 'candy'
+  //         }]
+  //       }},{"upsert": true }
+  //     ) .then(trips => console.log(res.json(trips)))
+  //     .catch(err => res.status(422).json(err));
+  //   }); 
 
 
 
@@ -135,7 +111,7 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
   router.get('/viewTrip/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
     // const user_id = req.params.user_id;
     // console.log(userId)
-    db.Trips.find({user_Id:req.query.user_id})
+    db.Users.find({user_Id:req.query.user_id})
         .sort({date: -1})
         .then(trip=>res.json(trip))
         .catch(err => res.status(422).json(err));
@@ -153,7 +129,7 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
 
 //create a trip
   router.post('/createTrips', checkJwt, checkScopeCreateTrip, (req,res)=>{
-    db.Trips.create(req.body)
+    db.Users.create(req.body)
     .then(trips => console.log(res.json(trips)))
     .catch(err => res.status(422).json(err));
   });
