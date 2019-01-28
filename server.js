@@ -50,9 +50,9 @@ app.use('/api', user)
 app.get('/', (request, response) => {
 	response.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
-app.get('/callback', (request, response) => {
-	response.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
+// app.get('/callback', (request, response) => {
+// 	response.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
 
 
 const PORT = process.env.PORT || 3001;
