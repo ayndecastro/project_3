@@ -48,7 +48,10 @@ app.use('/api', user)
 
 // If no API routes are hit, send the React app
 app.get('/', (request, response) => {
-	response.sendFile(path.join(__dirname, '../client/build/idex.html'));
+	response.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+app.get('/callback', (request, response) => {
+	response.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
 
