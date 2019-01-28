@@ -1,7 +1,6 @@
 export const AUTH_CONFIG = {
-  domain: 'safe-travels.auth0.com',
-  clientId: '2yNvl22zVWg6ldtqW03u8FcLSzPoX4TT',
-  callbackUrlHeroku: 'https://project3trip.herokuapp.com/callback',
-  callbackUrl: 'http://localhost:3000/callback',
-  apiUrl: 'https://safetravels2.com/api/dev'
+  domain: process.env.REACT_APP_AUTH_DOMAIN_ADDRESS,
+  clientId: process.env.REACT_APP_AUTH_CLIENT_ID,
+  callbackUrl: process.env.REACT_APP_AUTH_CALLBACK_URL,
+  apiUrl: process.env.REACT_APP_AUTH_API_URI
 }
