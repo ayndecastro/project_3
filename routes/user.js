@@ -135,8 +135,8 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
   });
 
   //create a current trip
-  router.post('/createTrip/current', checkJwt, checkScopeCreateTrip, (req,res) => {
-    db.UserCurrent.create(req.body)
+  router.put('/createTrip/current/:user_id', checkJwt, checkScopeCreateTrip, (req,res) => {
+    db.Users.findOneAndUpdate({user_id: req.param.user_id}, req.body)
     .then(trips => console.log(res.json(trips)))
     .catch(err => res.status(422).json(err));
   })

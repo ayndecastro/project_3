@@ -96,6 +96,8 @@ class MapApp extends Component {
         categories: categories
       });
     });
+
+
       
   }
 
@@ -185,6 +187,8 @@ class MapApp extends Component {
  
 
   saveTrip = () => {
+
+   
     let data={
       user_id: this.state.profile.sub.split('|')[1],
       trips:[{
@@ -193,20 +197,20 @@ class MapApp extends Component {
       date_back: this.state.endDate,
       totalCost: this.state.totalCost,
       }],
-      current: [
-        {
-          country: "na",
-          date_leave: "01/20/2019",
-          date_back: "01/26/2019",
-          budget: 0,
-          budgetToUpdate: 0,
-          totalCost: 0,
-        }
-      ],
-        spending: [{
-              spending: 0,
-              spendingName:'na',
-            }],
+      // current: [
+      //   {
+      //     country: "na",
+      //     date_leave: "01/20/2019",
+      //     date_back: "01/26/2019",
+      //     budget: 0,
+      //     budgetToUpdate: 0,
+      //     totalCost: 0,
+      //   }
+      // ],
+      //   spending: [{
+      //         spending: 0,
+      //         spendingName:'na',
+      //       }],
     }
 
     const { getAccessToken } = this.props.auth;
