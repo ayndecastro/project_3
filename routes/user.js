@@ -56,10 +56,10 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
 //         totalCost: 3000,
 //       }
 //     ],
-      // spending: [{
-  //           spending: 3,
-  //           spendingName:'iceCream',
-  //         }],
+//       spending: [{
+//             spending: 3,
+//             spendingName:'iceCream',
+//           }],
 //   });
 //   console.log(req, res)
 //   user.save().then(trip => res.json(trip));
@@ -108,8 +108,8 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
   // updating spending
   router.post('/admin', (req, res)=> {
       db.Users.findOneAndUpdate({user_id: 108926452875239060000},
-        {$push:{
-          "current.spending": [{
+        {"$push":{
+          spending: [{
             spending: 1,
             spendingName: 'candy'
           }]
