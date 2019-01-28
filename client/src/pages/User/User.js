@@ -128,7 +128,7 @@ class User extends Component {
      axios.get(`${API_URL}/spending/${user_id}`, { headers })
        .then(response => 
          console.log(response)
-        //  this.setState({ data: response.data})/
+        //  this.setState({ data: response.data})
          )
        .catch(error =>
          this.setState({ data: error.message })
@@ -176,7 +176,7 @@ class User extends Component {
   render() {
     
     const {profile} = this.state;
-    console.log(this.state);
+    console.log("spending: ", this.state.data);
 
     return (
         
