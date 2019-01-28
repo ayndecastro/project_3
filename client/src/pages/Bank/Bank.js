@@ -119,7 +119,7 @@ class Bank extends Component {
         // console.log(response)
         this.setState({ data: response.data})
         )
-      .catch(error => this.setState({ data: error.message }));
+      .catch(error => console.log(error));
       // console.log(headers)
     }
   }
