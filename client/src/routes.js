@@ -5,7 +5,6 @@ import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
 import history from './history';
 import User from './pages/User/User';
-import Navbar from './components/NavBar/NavBar';
 import Bank from './pages/Bank/Bank';
 import MapApp from './pages/MapApp/index';
 import FloatingActionButtons from './components/Button/Button';

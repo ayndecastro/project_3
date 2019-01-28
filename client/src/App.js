@@ -9,12 +9,12 @@ class App extends Component {
     const { isAuthenticated } = this.props.auth;
     console.log(this.props.auth)
     return (
-      <div className="login container">
+      <div className='login'>
 
 {
           !isAuthenticated() && (
               <div>
-                <img src={logo} className="safeTravelsLogo" />
+                <img src={logo} className="safeTravelsLogo" width="1000px" />
               </div>
             )
         }

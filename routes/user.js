@@ -35,20 +35,99 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
 
 
     
+ // testing post route
+//  router.post('/admin', (req, res)=> {
+//   const user = new db.Users({
+    
+//     user_id: 108926452875239055842,
+//     trips: [{
+//       country: "canada",
+//     date_leave: "01/20/2019",
+//     date_back: "01/26/2019",
+//     totalCost: 3000,
+//     }],
+//     current: [
+//       {
+//         country: "canada",
+//         date_leave: "01/20/2019",
+//         date_back: "01/26/2019",
+//         budget: 3000,
+//         budgetToUpdate: 3000,
+//         totalCost: 3000,
+//       }
+//     ],
+      // spending: [{
+  //           spending: 3,
+  //           spendingName:'iceCream',
+  //         }],
+//   });
+//   console.log(req, res)
+//   user.save().then(trip => res.json(trip));
+// });
+
+  // pushing to trips
+  // router.post('/admin', (req, res)=> {
+  //   db.Users.findOneAndUpdate({user_id: 108926452875239060000},
+  //    {"$push" :{
+  //     trips:[{
+  //       country: "Philipples",
+  //     date_leave: "01/27/2019",
+  //     date_back: "01/30/2019",
+  //     totalCost: 5000,
+  //     }]
+  //    }},{"upsert": true }
+  //   ) .then(trips => console.log(res.json(trips)))
+  //   .catch(err => res.status(422).json(err));
+  // });
+
+  //updating current trips
+  // router.post('/admin', (req, res)=> {
+  //   db.Users.findOneAndUpdate({user_id: 108926452875239060000},
+  //    {
+  //     current: [
+  //       {
+  //         country: "philippnes",
+  //         date_leave: "01/20/2019",
+  //         date_back: "01/26/2019",
+  //         budget: 3000,
+  //         budgetToUpdate: 3000,
+  //         user_id: 108926452875239055842,
+  //         totalCost: 3000,
+  //         spending: [{
+  //           spending: 3,
+  //           spendingName:'iceCream',
+  //         user_id: 108926452875239055842,
+  //         }],
+  //       }
+  //     ]
+  //    }
+  //   ) .then(trips => console.log(res.json(trips)))
+  //   .catch(err => res.status(422).json(err));
+  // });
+
+  // updating spending
+  router.post('/admin', (req, res)=> {
+      db.Users.findOneAndUpdate({user_id: 108926452875239060000},
+        {$push:{
+          "current.spending": [{
+            spending: 1,
+            spendingName: 'candy'
+          }]
+        }},{"upsert": true }
+      ) .then(trips => console.log(res.json(trips)))
+      .catch(err => res.status(422).json(err));
+    }); 
 
 
-  //testing post route
-  router.post('/api/admin', checkJwt, checkScopesAdmin, (req, res)=> {
-    const newTrip = new db.Trips({
-      country: "canada",
-      date_leave: "01/20/2019",
-      date_back: "01/26/2019",
-      budget: 3000,
-      user_id: 108926452875239055842,
-      totalCost: 3000
-    });
-    console.log(req, res)
-    newTrip.save().then(trip => res.json(trip));
+
+  //get all trips user saved
+  router.get('/viewTrip/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
+    // const user_id = req.params.user_id;
+    // console.log(userId)
+    db.Users.find({user_Id:req.query.user_id})
+        .sort({date: -1})
+        .then(user=>res.json(user))
+        .catch(err => res.status(422).json(err));
   });
    
 
@@ -70,15 +149,7 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
         .catch(err => res.status(422).json(err));
   });
 
-//get spending
-router.get('/spending/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
-  // const user_id = req.params.user_id;
-  // console.log(userId)
-  db.Spending.find({user_Id:req.query.user_id})
-      .sort({date: -1})
-      .then(trip=>res.json(trip))
-      .catch(err => res.status(422).json(err));
-});
+
 
 //create a trip
   router.post('/createTrips', checkJwt, checkScopeCreateTrip, (req,res)=>{
@@ -94,12 +165,7 @@ router.get('/spending/:user_id',checkJwt,checkScopeViewTrip, (req,res)=>{
     .catch(err => res.status(422).json(err));
   })
 
-  //save spending
-  router.post('/createSpending', checkJwt, checkScopeUpdateBudget, (req,res)=>{
-    db.Spending.create(req.body)
-    .then(trips => console.log(res.json(trips)))
-    .catch(err => res.status(422).json(err));
-  })
+ 
 
   //add photos and spendings budget of current
   router.put('/updateCurrent/:id', checkJwt, checkScopeAddPhoto, checkScopeUpdateTrip, (req,res)=>{

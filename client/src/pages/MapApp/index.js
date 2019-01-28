@@ -95,6 +95,12 @@ class MapApp extends Component {
         categories: categories
       });
     });
+
+    // const { getAccessToken } = this.props.auth;
+    // const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    // axios.post(`${API_URL}/admin`,{},{headers})
+    // .then(res => this.redirect(res))
+    // .catch(err=>console.log(err))
   }
 
 
