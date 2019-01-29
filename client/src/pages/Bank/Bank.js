@@ -109,7 +109,7 @@ class Bank extends Component {
     getdata(){
     // event.preventDefault();
     // const { getAccessToken } = localStorage.getItem('access_token');;
-    const {userProfile} = this.props.auth;
+    // const {userProfile} = this.props.auth;
     let oldToken = localStorage.getItem('access_token');
 			
     // console.log(this.state.profile.sub.split('|')[1])
