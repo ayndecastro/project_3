@@ -168,9 +168,11 @@ class Bank extends Component {
       budgetToUpdate: totalCost
     }
 
-    const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-    axios.post(`${API_URL}/createTrip/Current`,data
+    let oldToken = localStorage.getItem('access_token');
+			
+    console.log(oldToken)
+    const headers = { 'Authorization': `Bearer ${oldToken}`}
+     axios.post(`${API_URL}/createTrip/Current`,data
     ,{headers})
     .then(res => this.redirect(res))
     .catch(err=>console.log(err))
@@ -193,9 +195,11 @@ class Bank extends Component {
     console.log("index: ", index);
     console.log("method: ", method)
 
-    const { getAccessToken } = this.props.auth;
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-
+    let oldToken = localStorage.getItem('access_token');
+			
+    console.log(oldToken)
+    const headers = { 'Authorization': `Bearer ${oldToken}`}
+    
 
     //UPDATE COUNTRY WALLET TO + OR - AMOUNT
     if(method == 'add') {
