@@ -48,7 +48,7 @@ require("./routes/BYTrip")(app);
 require("./routes/default")(app);
 app.use('/api', user)
 
-app.get('/', (req,res)=>{
+app.get('/callback', (req,res)=>{
   res.sendFile(path.join(__dirname, "../client/build/callback-cross-auth.html"));
 })
 
