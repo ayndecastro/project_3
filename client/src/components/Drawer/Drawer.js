@@ -13,7 +13,9 @@ import API from "../utils/API"
 import Cost from "../../components/Cost/Cost";
 import TextField from "../../components/TextField/TextField"
 import Cards from "../Cards/Cards"
-import Snackbar from "../SnackBar/SnackBar"
+import Snackbar from "../SnackBar/SnackBar";
+import axios from "axios";
+import {API_URL} from '../../constants'
 
 function TabContainer({ children, dir }) {
   return (
@@ -62,8 +64,16 @@ const styles = theme => ({
 
 class FullWidthTabs extends React.Component {
   state = {
+    wallet: this.props.wallet,
+    totalCost: this.props.totalCost,
     value: 0,
+    data: this.props.data
   };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ wallet: nextProps.wallet,
+    totalCost: nextProps.totalCost });  
+  }
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -73,8 +83,14 @@ class FullWidthTabs extends React.Component {
     this.setState({ value: index });
   };
 
+  // When the form is submitted, prevent the default event and alert the username and password
+  handleFormSubmit = event => {
+    event.preventDefault();
+    alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
+    this.setState({ username: "", password: "" });
+  };
+
   componentDidMount = () => {
-    //NEED API METHOD TO CONVERT COUNTRY NAME TO COUNTRY CODE
 
     API.getCountryName(this.props.countryName).then(res=> {
       console.log()
@@ -131,7 +147,6 @@ class FullWidthTabs extends React.Component {
 
     return (
       <div className={classes.root}>
-      <button onClick={this.onClick}></button>
         <AppBar position="static" color="default">
           <Tabs
             value={this.state.value}
@@ -165,12 +180,12 @@ class FullWidthTabs extends React.Component {
                         </Grid>
 
                         <Grid item xs={3}>
-                            <Typography variant="h5" align="left" className={classes.paperText}> 
+                            <Typography variant="h6" align="left" className={classes.paperText}> 
                                 Wallet
                             </Typography>
                         <Divider className={classes.Divider}/>
-                        <Typography variant="h3" className={classes.paperText}> 
-                            {this.props.wallet}/{this.props.totalCost}
+                        <Typography variant="h6" className={classes.paperText}> 
+                            {this.state.wallet}/{this.state.totalCost}
                         </Typography>
                         </Grid>
                     </Grid>
@@ -194,7 +209,7 @@ class FullWidthTabs extends React.Component {
             <Grid container spacing={0 }>
             <Grid item xs={6}>
                     <Cards
-                        cost={this.props.totalCost} 
+                        cost={this.props.wallet} 
                         name={"Wallet"}
                         description={"Remaining budget"}
                     />
@@ -228,13 +243,14 @@ class FullWidthTabs extends React.Component {
             
                     {this.props.spending && 
                         
-                        this.props.spending.map(item => {
+                        this.props.spending.slice(0).reverse().map(item => {
                             return(
                                     <Grid item xs={12} className={classes.snackBar}>
                                     <Snackbar 
+                                        key = {item._id}
                                         className={classes.snackBar}
-                                        details={item.Details}
-                                        cost={item.Cost}
+                                        details={item.spendingName}
+                                        cost={item.spending }
                                     />
                                     </Grid>
                                 )

@@ -143,9 +143,11 @@ router.get('/spending/:user_id', (req,res)=>{
   })
 
   //delete a trip
-  router.delete('/deleteTrip/:id',(req,res)=> {
-    db.Trips.findbyId(req.params.id)
-        .then(trip => trip.remove().then(()=> res.json({success:true})))
+  router.delete('/Trips/:id',(req,res)=> {
+    db.Trip.findbyId(req.params.id)
+        .then(trip => trip.remove({
+          _id: req.paras.id
+        }).then(()=> res.json({success:true})))
         .catch(err=> res.status(404).json({success: false}))
   });
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
+import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
   snackbar: {
@@ -14,10 +15,17 @@ const styles = theme => ({
 
 function LongTextSnackbar(props) {
   const { classes } = props;
+  const message = {
+    
+
+  }
 
   return (
     <div>
-      <SnackbarContent className={classes.snackbar} message={props.details} action={"$" + props.cost} />
+      <SnackbarContent className={classes.snackbar}
+      message={props.details} 
+      action={"$" + props.cost}
+       />
       
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import logo from './safetravels.svg';
+import Login from './pages/Login/Login'
 
 
 class App extends Component {
@@ -9,18 +9,14 @@ class App extends Component {
     const { isAuthenticated } = this.props.auth;
     console.log(this.props.auth)
     return (
-      <div className="login container">
 
-{
+
           !isAuthenticated() && (
-              <div>
-                <img src={logo} className="safeTravelsLogo" />
-              </div>
+              <Login />
             )
-        }
+        
     
        
-      </div>
     );
   }
 }
