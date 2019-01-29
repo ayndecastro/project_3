@@ -4,6 +4,9 @@ const app = express();
 const cors = require('cors');
 const user =require('./routes/user');
 const bodyParser = require('body-parser');
+var path = require("path");
+console.log(". = %s", path.resolve("."));
+console.log("__dirname = %s", path.resolve(__dirname));
 
 
 
@@ -48,10 +51,10 @@ require("./routes/BYTrip")(app);
 require("./routes/default")(app);
 app.use('/api', user)
 
-// If no API routes are hit, send the React app
-app.use(function(req, res) {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
+// // If no API routes are hit, send the React app
+// app.use(function(req, res) {
+//   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+// });
 
 
 
