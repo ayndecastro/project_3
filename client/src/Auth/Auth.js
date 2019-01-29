@@ -7,6 +7,7 @@ export default class Auth {
   lock = new Auth0Lock(AUTH_CONFIG.clientId, AUTH_CONFIG.domain, {
     autoclose: true,
     auth: {
+      redirectUrl: AUTH_CONFIG.callbackUrl,
       responseType: "token id_token",
       params: {
         scope: "openid profile"
