@@ -1,13 +1,13 @@
-const request = require('request')
+const request = require('request');
+const express = require ('express');
+const router = express.Router();
 
 
-
-module.exports = function(app) {
 
  
 
   // Get detailed cost of specific stuff example - taxi cost
-  app.get("/costs/countryhighlights/:country_code", function(req,res){
+  router.get("/costs/countryhighlights/:country_code", function(req,res){
     console.log("/costs/countryhighlights/" +req.params.country_code)
     request.get({
       url: "https://www.budgetyourtrip.com/api/v3/costs/countryhighlights/" + req.params.country_code,
@@ -19,7 +19,7 @@ module.exports = function(app) {
   })
 
   //gives a suggested budget for specific category. reference /categories
-  app.get("/costs/countryinfo/:country_code", function(req,res){
+  router.get("/costs/countryinfo/:country_code", function(req,res){
     console.log("/costs/countryinfo/country_code/" +req.params.country_code)
     request.get({
       url: "https://www.budgetyourtrip.com/api/v3/costs/countryinfo/" + req.params.country_code,
@@ -31,7 +31,7 @@ module.exports = function(app) {
   })
 
   //search data about locations even with partial search
-  app.get("/search/location/:name", function(req,res){
+  router.get("/search/location/:name", function(req,res){
     console.log("/search/location/" +req.params.name)
     request.get({
       url: "https://www.budgetyourtrip.com/api/v3/search/location/" + req.params.name,
@@ -43,7 +43,7 @@ module.exports = function(app) {
   })
 
     //search specific location data
-    app.get("/search/locationdata/:name", function(req,res){
+    router.get("/search/locationdata/:name", function(req,res){
       console.log("/search/locationdata/" +req.params.name)
       request.get({
         url: "https://www.budgetyourtrip.com/api/v3/search/locationdata/" + req.params.name,
@@ -64,7 +64,7 @@ module.exports = function(app) {
     })
 
     // Retrieves a list of accommodation options near the specified coordinates using lat and long
-    app.get("/search/locationdata/:latitude/:longitue", function(req,res){
+    router.get("/search/locationdata/:latitude/:longitue", function(req,res){
       console.log("/search/locationdata/" + req.params.latitude + "/" + req.params.longitude)
       request.get({
           url: "https://www.budgetyourtrip.com/api/v3/search/locationdata/" + req.params.latitude + "/" + req.params.longitude,
@@ -75,7 +75,7 @@ module.exports = function(app) {
     })
 
     // Retrieves a list of accommodation options near the specified searched location
-    app.get("/accommodation/search/:name", function(req,res){
+    router.get("/accommodation/search/:name", function(req,res){
       console.log("/search/locationdata/" + req.params.name)
       request.get({
           url: "https://www.budgetyourtrip.com/api/v3/accommodation/search/" + req.params.name,
@@ -89,7 +89,7 @@ module.exports = function(app) {
   
   
   //get travel cost categories
-  app.get("/categories", function(req,res){
+  router.get("/categories", function(req,res){
     console.log("/categories")
     request.get({
       url: "https://www.budgetyourtrip.com/api/v3/categories",
@@ -103,7 +103,7 @@ module.exports = function(app) {
   
   
   //get travel cost categories
-  app.get("/search/country/:name", function(req,res){
+  router.get("/search/country/:name", function(req,res){
     console.log("/search/country/" + req.params.name)
     request.get({
       url: "https://www.budgetyourtrip.com/api/v3/search/country/" + req.params.name,
@@ -115,7 +115,7 @@ module.exports = function(app) {
   })
 
   //currency converter
-  app.get("/currencies/convert/:from/:to/:amount", function(req,res){
+  router.get("/currencies/convert/:from/:to/:amount", function(req,res){
     console.log("/currencies/convert/" + req.params.from + "/" + req.params.to + "/" + req.params.amount)
     request.get({
         url: "https://www.budgetyourtrip.com/api/v3/currencies/convert/" + req.params.from + "/" + req.params.to + "/" + req.params.amount,
@@ -126,4 +126,4 @@ module.exports = function(app) {
   })
 
 
-};
+  module.exports = router;

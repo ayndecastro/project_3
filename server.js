@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
 const user =require('./routes/user');
+const BYTrip = require('./routes/BYTrip');
 const bodyParser = require('body-parser');
 var path = require("path");
 console.log(". = %s", path.resolve("."));
@@ -47,7 +48,7 @@ app.use((err, req, res, next) => {
   next();
 });
 
-require("./routes/BYTrip")(app);
+app.use('/api', BYTrip)
 require("./routes/default")(app);
 app.use('/api', user)
 
