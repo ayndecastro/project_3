@@ -177,6 +177,8 @@ class User extends Component {
       let data = Object.assign([], this.state.countryData[0]);
       data.budgetToUpdate = data.budget - spendingTotal;
 
+      
+    let oldToken = localStorage.getItem('access_token');
       const getId = this.state.profile.sub.split('|')[1];
       const user_id = getId.toString();
       console.log(user_id)
