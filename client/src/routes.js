@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route, Router, Redirect, Switch } from 'react-router-dom';
 import App from './App';
-import Callback from './Callback/Callback';
-import Auth from './Auth/Auth';
-import history from './history';
-import User from './pages/User/User';
+import Callback from './Callback/Callback.js';
+import Auth from './Auth/Auth.js';
+import history from './history.js';
+import User from './pages/User/User.js';
 import Navbar from './components/NavBar/NavBar';
-import Bank from './pages/Bank/Bank';
-import MapApp from './pages/MapApp/index';
-import FloatingActionButtons from './components/Button/Button';
+import Bank from './pages/Bank/Bank.js';
+import MapApp from './pages/MapApp/index.js';
+import FloatingActionButtons from './components/Button/Button.js';
 
 const auth = new Auth();
 
@@ -22,7 +22,7 @@ export const makeMainRoutes = () => {
   return (
       <Router history={history}>
         <div>
-        <Route exact path="/callback" render={(props) => {
+        <Route path="/callback" render={(props) => {
             handleAuthentication(props);
             return <Callback {...props} /> 
           }}/>

@@ -1,6 +1,6 @@
 export const AUTH_CONFIG = {
-  domain: 'nameless-credit-5551.auth0.com',
-  clientId: 'ip1TxG1EA889A-P4Vdmr2kFAco8rVRPi',
-  callbackUrl: 'https://project3trip.herokuapp.com/callback',
-  apiUrl: 'https://nameless-credit-5551.auth0.com/api/v2/'
+  domain: process.env.AUTH0_DOMAIN,
+  clientId: process.env.AUTH0_CLIENT_ID,
+  callbackUrl: process.env.AUTH0_CALLBACK_URL,
+  apiUrl: process.env.REACT_APP_AUTH_API_URI
 }
