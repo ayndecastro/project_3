@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 
-if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
+if (!process.env.REACT_APP_AUTH_DOMAIN_ADDRESS|| !process.env.REACT_APP_AUTH_AUDIENCE) {
     throw 'Make sure you have AUTH0_DOMAIN, and AUTH0_AUDIENCE in your .env file'
   }
   
