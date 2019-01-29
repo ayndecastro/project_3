@@ -12,7 +12,7 @@ export default {
       return axios.get(`${API_URL}/categories`);
     },
     getCountryName: function(name) {
-      return axios.get(`${API_URL}/search/country/ `+ name);
+      return axios.get(`${API_URL}/search/country/`+ name);
     }
   };
   
