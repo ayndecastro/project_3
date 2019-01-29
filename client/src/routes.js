@@ -46,10 +46,14 @@ export const makeMainRoutes = () => {
             )
           )} /> 
           <Route path='/' render={(props)=> <FloatingActionButtons auth={auth}{...props} /> }/>
-          <Route path="/callback" render={(props) => {
-            handleAuthentication(props);
-            return <Callback {...props} /> 
-          }}/>
+          <Route
+            exact
+            path="/callback"
+            render={props => {
+              handleAuthentication(props);
+              return <Callback {...props} />;
+            }}
+          />
           
         </div>
       </Router>

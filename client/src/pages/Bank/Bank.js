@@ -106,13 +106,18 @@ class Bank extends Component {
    };
 
    //get all trips in progress
-   async getdata(){
+    getdata(){
     // event.preventDefault();
-    const { getAccessToken } = this.props.auth;
+    // const { getAccessToken } = localStorage.getItem('access_token');;
     const {userProfile} = this.props.auth;
-    const getId = userProfile.sub.split('|')[1];
+    let oldToken = localStorage.getItem('access_token');
+			
+    // console.log(this.state.profile.sub.split('|')[1])
+    const getId = this.state.profile.sub.split('|')[1];
     const user_id = getId.toString();
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    console.log(user_id)
+    console.log(oldToken)
+    const headers = { 'Authorization': `Bearer ${oldToken}`}
     if(user_id.length > 0){
     axios.get(`${API_URL}/viewTrip/${user_id}`, { headers })
       .then(response => 
@@ -129,21 +134,24 @@ class Bank extends Component {
   }
   
   componentDidMount() {
-    const { userProfile, getProfile } = this.props.auth;
-    if (!userProfile) {
-      getProfile((err, profile) => {
-        this.setState({
-          profile });
-
-          this.getdata(profile.sub)
-          this.saveCurrent();
-      });
-      
-    } else {
+    const { userProfile, getUserInfo, userInfo } = this.props.auth;
+		if (this.props.auth.isAuthenticated()) {
+			let oldToken = localStorage.getItem('access_token');
+			let newProfile;
+			this.props.auth.lock.getUserInfo(oldToken, (err, profile) => {
+				console.log(oldToken);
+				newProfile = profile;
+				this.setState({ profile: newProfile, sub: newProfile.sub.split('|').pop() });
+				// API.saveUser({
+				// 	sub: this.state.sub,
+				// }).then(this.fetchUser);
+				// this.fetchUser();
+    this.getdata()
+			});
+		} else {
       this.setState({ 
         profile: userProfile});
     }
-    this.getdata()
     // this.saveCurrent();
 
   }

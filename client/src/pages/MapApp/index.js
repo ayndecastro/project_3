@@ -75,15 +75,20 @@ class MapApp extends Component {
 
   
   componentWillMount() {
-    // this.setState({ profile: {} });
-    // const { userProfile, getProfile } = this.props.auth;
-    // if (!userProfile) {
-    //   getProfile((err, profile) => {
-    //     this.setState({ profile });
-    //   });
-    // } else {
-    //   this.setState({ profile: userProfile });
-    // }
+    const { userProfile, getUserInfo, userInfo } = this.props.auth;
+		if (this.props.auth.isAuthenticated()) {
+			let oldToken = localStorage.getItem('access_token');
+			let newProfile;
+			this.props.auth.lock.getUserInfo(oldToken, (err, profile) => {
+				console.log(profile);
+				newProfile = profile;
+				this.setState({ profile: newProfile, sub: newProfile.sub.split('|').pop() });
+				// API.saveUser({
+				// 	sub: this.state.sub,
+				// }).then(this.fetchUser);
+				// this.fetchUser();
+			});
+		}
 
     API.getCategories().then(res => {
       let categories = [];
@@ -190,9 +195,14 @@ class MapApp extends Component {
       user_id: this.state.profile.sub.split('|')[1]
     }
 
-    const { getAccessToken } = this.props.auth;
-    console.log(getAccessToken)
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    let oldToken = localStorage.getItem('access_token');
+			
+    // console.log(this.state.profile.sub.split('|')[1])
+    const getId = this.state.profile.sub.split('|')[1];
+    const user_id = getId.toString();
+    console.log(user_id)
+    console.log(oldToken)
+    const headers = { 'Authorization': `Bearer ${oldToken}`}
     axios.post(`${API_URL}/createTrips`,data,{headers})
     .then(res => this.redirect(res))
     .catch(err=>console.log(err))

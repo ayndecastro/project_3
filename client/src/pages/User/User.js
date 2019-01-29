@@ -82,23 +82,31 @@ let avatar = {
 class User extends Component {
 
   componentWillMount() {
-    this.setState({ profile: {},
-      title: "Saved Trips"
-     });
-
-    const { userProfile, getProfile } = this.props.auth;
-    if (!userProfile) {
-      getProfile((err, profile) => {
-        this.setState({
-          profile });
-      });
-    } else {
+    const { userProfile, getUserInfo, userInfo } = this.props.auth;
+		if (this.props.auth.isAuthenticated()) {
+			let oldToken = localStorage.getItem('access_token');
+			let newProfile;
+			this.props.auth.lock.getUserInfo(oldToken, (err, profile) => {
+				console.log(profile);
+				newProfile = profile;
+				this.setState({ profile: newProfile, sub: newProfile.sub.split('|').pop() });
+				// API.saveUser({
+				// 	sub: this.state.sub,
+				// }).then(this.fetchUser);
+        // this.fetchUser();
+        
+        
+    this.viewCurrent()
+    this.spendingGet();
+			});
+		} else {
       this.setState({ 
         profile: userProfile});
     }
 
-    this.viewCurrent()
-    this.spendingGet();
+
+  }
+  state= {
 
   }
 
@@ -109,9 +117,8 @@ class User extends Component {
       user_id: '108926452875239055842'
     }
 
-    const { getAccessToken } = this.props.auth;
-    console.log(getAccessToken)
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    let oldToken = localStorage.getItem('access_token');
+    const headers = { 'Authorization': `Bearer ${oldToken}`}
     axios.post(`${API_URL}/createSpending`,spending,{headers})
     .then(res=>console.log(res))
     .catch(err=>console.log(err));
@@ -119,12 +126,17 @@ class User extends Component {
 
   spendingGet(){
      // event.preventDefault();
-     const { getAccessToken } = this.props.auth;
-     const {userProfile} = this.props.auth;
-     const getId = userProfile.sub.split('|')[1];
-     const user_id = getId.toString();
-     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-     if(user_id.length > 0){
+    // const { getAccessToken } = localStorage.getItem('access_token');;
+    // const {userProfile} = this.props.auth;
+    let oldToken = localStorage.getItem('access_token');
+			
+    // console.log(this.state.profile.sub.split('|')[1])
+    const getId = this.state.profile.sub.split('|')[1];
+    const user_id = getId.toString();
+    console.log(user_id)
+    console.log(oldToken)
+    const headers = { 'Authorization': `Bearer ${oldToken}`}
+    if(user_id.length > 0){
      axios.get(`${API_URL}/spending/${user_id}`, { headers })
        .then(response => 
          console.log(response)
@@ -138,12 +150,17 @@ class User extends Component {
   }
 
   viewCurrent = () => {
-     // event.preventDefault();
-    const { getAccessToken } = this.props.auth;
-    const {userProfile} = this.props.auth;
-    const getId = userProfile.sub.split('|')[1];
+    // event.preventDefault();
+    // const { getAccessToken } = localStorage.getItem('access_token');;
+    // const {userProfile} = this.props.auth;
+    let oldToken = localStorage.getItem('access_token');
+			
+    // console.log(this.state.profile.sub.split('|')[1])
+    const getId = this.state.profile.sub.split('|')[1];
     const user_id = getId.toString();
-    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    console.log(user_id)
+    console.log(oldToken)
+    const headers = { 'Authorization': `Bearer ${oldToken}`}
     if(user_id.length > 0){
     axios.get(`${API_URL}/viewCurrent/${user_id}`, { headers })
       .then(response => 
@@ -174,7 +191,7 @@ class User extends Component {
   }
 
   render() {
-    
+    console.log(this.state)
     const {profile} = this.state;
     console.log("spending: ", this.state.data);
 

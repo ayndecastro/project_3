@@ -48,9 +48,10 @@ require("./routes/BYTrip")(app);
 require("./routes/default")(app);
 app.use('/api', user)
 
-// app.get('/callback', (req,res)=>{
-//   res.sendFile(path.join(__dirname, "../client/build/callback-cross-auth.html"));
-// })
+// If no API routes are hit, send the React app
+app.use(function(req, res) {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 
 
 
