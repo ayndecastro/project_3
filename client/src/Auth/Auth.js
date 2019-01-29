@@ -7,7 +7,6 @@ export default class Auth {
   lock = new Auth0Lock(AUTH_CONFIG.clientId, AUTH_CONFIG.domain, {
     autoclose: true,
     auth: {
-      redirectUrl: 'https://project3trip.herokuapp.com/callback',
       responseType: "token id_token",
       params: {
         scope: "openid profile"
