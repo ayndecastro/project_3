@@ -48,13 +48,9 @@ require("./routes/BYTrip")(app);
 require("./routes/default")(app);
 app.use('/api', user)
 
-// //get all trips user saved
-// app.get('/api/viewTrip', (req,res)=>{
-//   db.Trips.find({})
-//       .sort({date: -1})
-//       .then(trip=>res.json(trip))
-//       .catch(err => res.status(422).json(err));
-// });
+app.get('/callback', (req,res)=>{
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+})
 
 
 
