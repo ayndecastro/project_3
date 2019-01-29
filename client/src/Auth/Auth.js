@@ -1,129 +1,81 @@
-import auth0 from 'auth0-js';
-import { AUTH_CONFIG } from './auth0-variables';
-import history from '../history';
+import Auth0Lock from "auth0-lock";
+import { AUTH_CONFIG } from "./auth0-variables";
+import history from "../history";
+
 
 export default class Auth {
-  accessToken;
-  idToken;
-  expiresAt;
-  userProfile;
-  scopes;
-  requestedScopes = 'openid profile read:messages write:messages create:trip delete:trip update:trip update:budget view:trip add:photo ';
-
-  auth0 = new auth0.WebAuth({
-    domain: AUTH_CONFIG.domain,
-    clientID: AUTH_CONFIG.clientId,
-    redirectUri: AUTH_CONFIG.callbackUrl,
-    audience: AUTH_CONFIG.apiUrl,
-    responseType: 'token id_token',
-    scope: this.requestedScopes
+  lock = new Auth0Lock(AUTH_CONFIG.clientId, AUTH_CONFIG.domain, {
+    autoclose: true,
+    auth: {
+      redirectUrl: AUTH_CONFIG.callbackUrl,
+      responseType: "token id_token",
+      params: {
+        scope: "openid profile"
+      }
+    }
   });
 
   constructor() {
+    this.handleAuthentication();
+    // binds functions to keep this context
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-    this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
-    this.userHasScopes = this.userHasScopes.bind(this);
-    this.getAccessToken = this.getAccessToken.bind(this);
-    this.getIdToken = this.getIdToken.bind(this);
-    this.renewSession = this.renewSession.bind(this);
-    this.getProfile = this.getProfile.bind(this);
   }
 
   login() {
-    this.auth0.authorize();
-    localStorage.setItem(this.accessToken)
+    // Call the show method to display the widget.
+    this.lock.show();
   }
 
   handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-        localStorage.setItem("access_token", authResult.accessToken)
-      } else if (err) {
-        history.replace('/home');
-        console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
-      }
+    // Add a callback for Lock's `authenticated` event
+    this.lock.on("authenticated", this.setSession.bind(this));
+
+    // Add a callback for Lock's `authorization_error` event
+    this.lock.on("authorization_error", err => {
+      console.log(err);
+      alert(`Error: ${err.error}. Check the console for further details.`);
+      history.replace("/home");
     });
-  }
-
-  getAccessToken() {
-    return this.accessToken;
-  }
-
-  getIdToken() {
-    return this.idToken;
   }
 
   setSession(authResult) {
-    // Set isLoggedIn flag in localStorage
-    localStorage.setItem('isLoggedIn', 'true');
+    if (authResult && authResult.accessToken && authResult.idToken) {
+      // Set the time that the access token will expire at
+      let expiresAt = JSON.stringify(
+        authResult.expiresIn * 1000 + new Date().getTime()
+      );
 
-    // Set the time that the access token will expire at
-    let expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
-    this.accessToken = authResult.accessToken;
-    this.idToken = authResult.idToken;
-    this.expiresAt = expiresAt;
+      this.lock.getUserInfo(authResult.accessToken, function(error, profile) {
+        if (error) {
+          return;
+        }
+        console.log(profile);
+        localStorage.setItem("profile", JSON.parse(profile));
+      });
 
-    // Set the users scopes
-    this.scopes = authResult.scope || this.requestedScopes || '';
-
-    // navigate to the home route
-    history.replace('/home');
-  }
-
-  renewSession() {
-    this.auth0.checkSession({}, (err, authResult) => {
-       if (authResult && authResult.accessToken && authResult.idToken) {
-         this.setSession(authResult);
-       } else if (err) {
-         this.logout();
-         console.log(err);
-         alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
-       }
-    });
-  }
-
-  getProfile(cb) {
-    this.auth0.client.userInfo(this.accessToken, (err, profile) => {
-      if (profile) {
-        this.userProfile = profile;
-      }
-      cb(err, profile);
-    });
+      localStorage.setItem("access_token", authResult.accessToken);
+      localStorage.setItem("id_token", authResult.idToken);
+      localStorage.setItem("expires_at", expiresAt);
+      // navigate to the home route
+      history.replace("/home");
+    }
   }
 
   logout() {
-    // Remove tokens and expiry time
-    this.accessToken = null;
-    this.idToken = null;
-    this.expiresAt = 0;
-
-    // Remove user scopes
-    this.scopes = null;
-
-    // Remove user profile
-    this.userProfile = null;
-
-    // Remove isLoggedIn flag from localStorage
-    localStorage.removeItem('isLoggedIn');
-
+    // Clear access token and ID token from local storage
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("expires_at");
     // navigate to the home route
-    history.replace('/home');
+    history.replace("/home");
   }
 
   isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = this.expiresAt;
+    let expiresAt = JSON.parse(localStorage.getItem("expires_at"));
     return new Date().getTime() < expiresAt;
-    
-  }
-
-  userHasScopes(scopes) {
-    const grantedScopes = this.scopes.split(' ');
-    return scopes.every(scope => grantedScopes.includes(scope));
   }
 }

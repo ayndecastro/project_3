@@ -69,11 +69,11 @@ class FloatingActionButtons extends React.Component {
 
   async componentWillMount() {
 
-    const { renewSession } = this.props.auth;
+    // const { renewSession } = this.props.auth;
 
-    if (localStorage.getItem('isLoggedIn') === 'true') {
-      renewSession();
-    }
+  //   if (localStorage.getItem('isLoggedIn') === 'true') {
+  //     // renewSession();
+  //   }
   }
 
   render() {
