@@ -119,7 +119,7 @@ class User extends Component {
 
     let oldToken = localStorage.getItem('access_token');
     const headers = { 'Authorization': `Bearer ${oldToken}`}
-    axios.post(`${API_URL}/createSpending`,spending,{headers})
+    axios.post(`/createSpending`,spending,{headers})
     .then(res=>console.log(res))
     .catch(err=>console.log(err));
   }
@@ -137,7 +137,7 @@ class User extends Component {
     console.log(oldToken)
     const headers = { 'Authorization': `Bearer ${oldToken}`}
     if(user_id.length > 0){
-     axios.get(`${API_URL}/spending/${user_id}`, { headers })
+     axios.get(`/spending/${user_id}`, { headers })
        .then(response => 
          console.log(response)
         //  this.setState({ data: response.data})
@@ -162,7 +162,7 @@ class User extends Component {
     console.log(oldToken)
     const headers = { 'Authorization': `Bearer ${oldToken}`}
     if(user_id.length > 0){
-    axios.get(`${API_URL}/viewCurrent/${user_id}`, { headers })
+    axios.get(`/viewCurrent/${user_id}`, { headers })
       .then(response => 
         this.setState({ data: response.data})
         )
