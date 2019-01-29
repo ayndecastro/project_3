@@ -48,9 +48,9 @@ require("./routes/BYTrip")(app);
 require("./routes/default")(app);
 app.use('/api', user)
 
-app.get('/:callback', (req,res)=>{
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-})
+// app.get('/', (req,res)=>{
+//   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+// })
 
 
 
