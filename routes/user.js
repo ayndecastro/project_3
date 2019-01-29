@@ -50,7 +50,11 @@ const checkScopeAddPhoto = jwtAuthz([ 'add:photo' ]);
   //   console.log(req, res)
   //   newTrip.save().then(trip => res.json(trip));
   // });
-   
+
+  // If no API routes are hit, send the React app
+   router.use(function(req, res) {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  });
 
 //get all trips user saved
   router.get('/viewTrip/:user_id', (req,res)=>{
