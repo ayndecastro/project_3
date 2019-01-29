@@ -10,7 +10,8 @@ const styles = {
   backgroundColor: "#000000",
   marginTop: "10px",
   marginBottom: "-10px",
-  borderColor: "#ffffff"
+  borderColor: "#ffffff",
+  margin: '5px'
   },
   avatar: {
   },

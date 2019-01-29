@@ -18,7 +18,7 @@ import {API_URL} from '../../constants'
 const styles = theme => ({
   root: {
     backgroundColor: "#1b1b1b",
-    paddingBottom: "100px",
+    paddingBottom: "80px",
     minHeight: '100vh'
   },
   container: {
@@ -148,8 +148,8 @@ class Bank extends Component {
 
   }
 
-  handleGoButton = (countryName, totalCost, date_leave, date_back) => {
-    console.log(countryName, totalCost, date_leave, date_back)
+  handleGoButton = (countryName, totalCost, date_leave, date_back, id) => {
+    console.log(countryName, totalCost, date_leave, date_back, id)
 
     let data = {
       country: countryName,
@@ -167,6 +167,15 @@ class Bank extends Component {
     .then(res => this.redirect(res))
     .catch(err=>console.log(err))
 
+    
+  }
+
+  deleteTrip = (id) => {
+    const { getAccessToken } = this.props.auth;
+    const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+    axios.delete(`${API_URL}/Trips/${id}`,{headers})
+    .then(res => this.redirect(res))
+    .catch(err=>console.log(err))
   }
 
   redirect = (res) => {

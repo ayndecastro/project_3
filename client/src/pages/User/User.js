@@ -10,9 +10,8 @@ import {API_URL} from '../../constants'
 const styles = theme => ({
   root: {
     backgroundColor: "#1b1b1b",
-    paddingBottom: "100px",
+    paddingBottom: "80px",
     minHeight: '100vh',
-    
   },
   container: {
     backgroundColor: "#1b1b1b",
@@ -22,6 +21,10 @@ const styles = theme => ({
     minHeight: "70vh",
     backgroundColor: "#424242",
     color: "#39CCCC"
+  },
+  background: {
+    default: "#009a9b",
+    paper: "#39CCCC"
   },
   progress: {
     width: "100%",
@@ -83,7 +86,9 @@ class User extends Component {
 
   componentWillMount() {
     this.setState({ profile: {},
-      title: "Saved Trips"
+      title: "Saved Trips",
+      post: false,
+      get: false
      });
 
     const { userProfile, getProfile } = this.props.auth;
@@ -99,25 +104,38 @@ class User extends Component {
 
     this.viewCurrent()
     this.spendingGet();
-
+    
   }
 
-  spendingPost(){
-    let spending = {
-      spending: 13,
-      spendingName: 'taxi',
-      user_id: '108926452875239055842'
+  componentDidUpdate() {
+    if(this.state.post === true) {
+      this.spendingGet();
+      this.setState({
+        post: false
+      })
     }
+
+    if(this.state.get === true) {
+      this.currentWallet()
+      this.setState({
+        get: false
+      })
+    }
+  }
+
+  
+
+  spendingPost(spending){
 
     const { getAccessToken } = this.props.auth;
     console.log(getAccessToken)
     const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
     axios.post(`${API_URL}/createSpending`,spending,{headers})
-    .then(res=>console.log(res))
+    .then(res => this.setState({ post: true}))
     .catch(err=>console.log(err));
   }
 
-  spendingGet(){
+  spendingGet () {
      // event.preventDefault();
      const { getAccessToken } = this.props.auth;
      const {userProfile} = this.props.auth;
@@ -127,14 +145,44 @@ class User extends Component {
      if(user_id.length > 0){
      axios.get(`${API_URL}/spending/${user_id}`, { headers })
        .then(response => 
-         console.log(response)
-        //  this.setState({ data: response.data})
+          this.setState({ data: response.data,
+          get: true})
          )
        .catch(error =>
          this.setState({ data: error.message })
          );
        // console.log(headers)
+
+       
      }
+  }
+
+  currentWallet = () => {
+    if(this.state.countryData[0]){
+      let spendingTotal = 0;
+
+      this.state.data.forEach(element => {
+        spendingTotal = spendingTotal + element.spending
+      });
+
+      let data = Object.assign([], this.state.countryData[0]);
+      data.budgetToUpdate = data.budget - spendingTotal;
+
+      const { getAccessToken } = this.props.auth;
+      const {userProfile} = this.props.auth;
+      const getId = userProfile.sub.split('|')[1];
+      const user_id = getId.toString();
+      const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+
+      axios.patch(`${API_URL}/updateCurrent/${this.state.countryData[0]._id}`,
+          {$set: {budgetToUpdate: data.budgetToUpdate}},{headers})
+          .then(res => console.log(res))
+          .catch(err=>console.log(err))
+
+          
+      this.setState(data);
+    }
+    
   }
 
   viewCurrent = () => {
@@ -147,7 +195,7 @@ class User extends Component {
     if(user_id.length > 0){
     axios.get(`${API_URL}/viewCurrent/${user_id}`, { headers })
       .then(response => 
-        this.setState({ data: response.data})
+        this.setState({ countryData: response.data})
         )
         .catch(error => this.setState({ data: error.message }));
       // console.log(headers)
@@ -155,18 +203,24 @@ class User extends Component {
   }
 
   handleAddClick = (details, cost) => {
+
+      const { getAccessToken } = this.props.auth;
+      const {userProfile} = this.props.auth;
+
       // console.log("user.js")
-        let data = Object.assign({}, this.state.data);
+        let data = Object.assign([], this.state.data);
         data.wallet = data.wallet - parseInt(cost);
         // console.log(data)
         let obj = {
-            Details: details,
-            Cost: cost
+            spendingName: details,
+            spending: cost,
+            user_id: userProfile.sub.split('|')[1]
         }
-        data.spending.push(obj)
+        data.push(obj)
 
       //if deducted more than current budget
           this.setState(data);
+          this.spendingPost(obj)
   }
 
   onClick = () => {
@@ -176,12 +230,11 @@ class User extends Component {
   render() {
     
     const {profile} = this.state;
-    console.log("spending: ", this.state.data);
+    console.log("spending: ", this.state);
 
     return (
         
         <div className={this.props.classes.root}>
-        <button onClick={this.onClick}></button>
           <CssBaseline />
           <div>
 
@@ -212,22 +265,20 @@ class User extends Component {
 
             }
 
-              <Grid item xs={0} lg={1}>
+              <Grid item lg={1}>
               </Grid>
                   
               <Grid item xs={12} lg={10} className={this.props.paper}>
                 
-                    {this.state.data &&
+                    {this.state.data && this.state.countryData[0] &&
 
                         <Drawer 
-                        date_leave={this.state.data[0].date_leave}
-                        date_back={this.state.data[0].date_back}
                         className={this.props.classes.mainContainer}
-                        countryName={this.state.data[0].country}
-                        wallet= {this.state.data[0].budgetToUpdate}
-                        totalCost= {this.state.data[0].budget}
+                        countryName={this.state.countryData[0].country}
+                        wallet= {this.state.countryData[0].budgetToUpdate}
+                        totalCost= {this.state.countryData[0].budget}
                         addClick = {this.handleAddClick}
-                        spending = {this.state.data[0].spending}
+                        spending = {this.state.data}
                         />
                         
                     }
