@@ -4,14 +4,14 @@ import { func } from "prop-types";
 export default {
     // Gets all books
     getCountry: function(id) {
-      return axios.get("http://localhost:3001/costs/countryinfo/" + id);
+      return axios.get(`${API_URL}/costs/countryinfo/` + id);
     },
     // Gets the book with the given id
     getCategories: function() {
-      return axios.get("http://localhost:3001/categories");
+      return axios.get(`${API_URL}/categories`);
     },
     getCountryName: function(name) {
-      return axios.get("http://localhost:3001/search/country/" + name);
+      return axios.get(`${API_URL}/search/country/ `+ name);
     }
   };
   
