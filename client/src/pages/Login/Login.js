@@ -22,7 +22,7 @@ const styles = theme => ({
   title: {
     backgroundColor: "#1b1b1b",
     height: '100vh',
-    width: '100wh',
+    width: '100%',
     zIndex: '0',
   },
   background: {
@@ -63,6 +63,10 @@ const styles = theme => ({
   },
   divider: {
     backgroundColor:"#39cccc",
+  },
+  titlecontainer: {
+      maxHeight: '100vh',
+      overflow: 'hidden'
   }
 
 });
@@ -79,18 +83,12 @@ class User extends Component {
         
         <div className={this.props.classes.root}>
             <Grid container spacing={8}>
-                <Grid item xs={12}>
+                <Grid item xs={12} className={this.props.classes.titlecontainer}>
                 <Paper>
                     <img 
                         src={backGround}
                         className={this.props.classes.title}
                     />
-                <Paper>
-                    <img
-                        src={logo}
-                        className={this.props.classes.logo}
-                    />
-                    </Paper>    
                     
                 </Paper>
                 </Grid>

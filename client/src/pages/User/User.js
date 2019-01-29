@@ -220,8 +220,9 @@ class User extends Component {
 
   handleAddClick = (details, cost) => {
 
-      const { getAccessToken } = this.props.auth;
-      const {userProfile} = this.props.auth;
+    const getId = this.state.profile.sub.split('|')[1];
+    const user_id = getId.toString();
+    console.log(user_id)
 
       // console.log("user.js")
         let data = Object.assign([], this.state.data);
@@ -230,7 +231,7 @@ class User extends Component {
         let obj = {
             spendingName: details,
             spending: cost,
-            user_id: userProfile.sub.split('|')[1]
+            user_id: user_id
         }
         data.push(obj)
 
