@@ -177,11 +177,11 @@ class User extends Component {
       let data = Object.assign([], this.state.countryData[0]);
       data.budgetToUpdate = data.budget - spendingTotal;
 
-      const { getAccessToken } = this.props.auth;
-      const {userProfile} = this.props.auth;
-      const getId = userProfile.sub.split('|')[1];
+      const getId = this.state.profile.sub.split('|')[1];
       const user_id = getId.toString();
-      const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
+      console.log(user_id)
+      console.log(oldToken)
+      const headers = { 'Authorization': `Bearer ${oldToken}`}
 
       axios.patch(`${API_URL}/updateCurrent/${this.state.countryData[0]._id}`,
           {$set: {budgetToUpdate: data.budgetToUpdate}},{headers})
@@ -279,7 +279,7 @@ class User extends Component {
 
             }
 
-              <Grid item lg={1}>
+              <Grid item xs={1}>
               </Grid>
                   
               <Grid item xs={12} lg={10} className={this.props.paper}>
