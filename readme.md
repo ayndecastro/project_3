@@ -11,7 +11,7 @@ Cost of living is going up and it makes it harder to travel. Most of the time, p
 
 ## Technologies 
 1. Material.io
-2. Passport auth
+2. Auth-Lock
 3. Express.js
 4. React.js
 5. MongoDB
