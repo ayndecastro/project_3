@@ -71,7 +71,9 @@ class FullWidthTabs extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ wallet: nextProps.wallet,
+    console.log("props received")
+    this.setState({ 
+    wallet: nextProps.wallet,
     totalCost: nextProps.totalCost });  
   }
 
@@ -209,7 +211,7 @@ class FullWidthTabs extends React.Component {
             <Grid container spacing={0 }>
             <Grid item xs={6}>
                     <Cards
-                        cost={this.props.wallet} 
+                        cost={this.state.wallet} 
                         name={"Wallet"}
                         description={"Remaining budget"}
                     />
@@ -221,8 +223,6 @@ class FullWidthTabs extends React.Component {
 
                   <Grid item xs={6}>
                   <Cards 
-
-                  //AVERAGE DAILY COST FROM API
                       cost={this.state.costs[12]}
                       name={"Today"}
                       description={"Average Daily Cost"}
