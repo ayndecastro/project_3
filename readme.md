@@ -35,6 +35,14 @@ Cost of living is going up and it makes it harder to travel. Most of the time, p
 ![WIREFRAME](./client/public/wire_frame.png)
 ![WIREFRAME2](./client/public/wire_frame2.png)
 
+## App screenshots
+
+![Home](./client/public/app.home.png)
+![confirm trip page](./client/public/confirm.trip.png)
+![Trip list page](./client/public/trip.list.png)
+![current trip page](./client/public/current.trip.png)
+![spending tracker page](./client/public/spending.tracker.png)
+
 ## Future Developments
 
 1. Implenment the upsplash API to show others vacation pitures
