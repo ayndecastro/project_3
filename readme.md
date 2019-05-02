@@ -37,15 +37,15 @@ Cost of living is going up and it makes it harder to travel. Most of the time, p
 
 ## App screenshots
 
-HOMEPAGE
+###HOMEPAGE
 ![Home](./client/public/app.home.png)
-CONFIRM TRIP PAGE
+###CONFIRM TRIP PAGE
 ![confirm trip page](./client/public/confirm.trip.png)
-LIST OF CONFIRMED TRIPS
+###LIST OF CONFIRMED TRIPS
 ![Trip list page](./client/public/trip.list.png)
-CURRENT TRIP
+###CURRENT TRIP
 ![current trip page](./client/public/current.trip.png)
-SPENDING TRACKER
+###SPENDING TRACKER
 ![spending tracker page](./client/public/spending.tracker.png)
 
 ## Future Developments
